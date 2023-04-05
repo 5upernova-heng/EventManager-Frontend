@@ -1,10 +1,14 @@
 import EventCell from "./EventCell";
 
-const EventContainer = ({ events }) => {
+const EventContainer = ({ events, handleEventClick }) => {
     return (
         <>
             {events.map((event, index) => (
-                <EventCell key={index} event={event} />
+                <EventCell
+                    key={index}
+                    event={event}
+                    handleClick={handleEventClick}
+                />
             ))}
         </>
     );

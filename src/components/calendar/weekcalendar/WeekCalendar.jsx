@@ -15,7 +15,13 @@ class WeekCalendar extends Component {
         return (
             <>
                 <CalendarHead date={date} />
-                <CalendarBody date={date} events={events} />
+                <CalendarBody
+                    date={date}
+                    events={events}
+                    setEvents={(events) => {
+                        this.setState(events);
+                    }}
+                />
             </>
         );
     }
