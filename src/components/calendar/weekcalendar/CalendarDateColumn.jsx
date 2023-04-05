@@ -3,11 +3,12 @@
 // then it follows 24 cells, represents 24 hours
 // Finally, we render the event of the day, using
 import EventContainer from "./EventContainer";
+import EmptyCell from "./EmptyCell";
 
 function createCells() {
     const cells = [];
     for (let i = 0; i < 24; i++) {
-        cells.push(<div key={i} className="p-4 border opacity-50"></div>);
+        cells.push(<EmptyCell key={i} />);
     }
     return cells;
 }
