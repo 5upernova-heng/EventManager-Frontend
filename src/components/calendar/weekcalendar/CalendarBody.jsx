@@ -16,13 +16,12 @@ class CalendarBody extends Component {
         });
         this.state = {
             distributedEvents: newDistrube,
-            choosedCell: { col: 0, row: 0 },
             choosedEvent: newDistrube[0][0],
         };
     }
     render() {
         const { date, events } = this.props;
-        const { distributedEvents, choosedCell, choosedEvent } = this.state;
+        const { distributedEvents, choosedEvent } = this.state;
         const distribute = () => {
             // distribute events at this week to an array
             // this will be called when events changed
@@ -32,15 +31,30 @@ class CalendarBody extends Component {
             });
             this.setState({ distributedEvents: newDistrube });
         };
-        const cellClickHandler = () => {};
+        const eventChangeHandler = (e) => {
+            const newEvent = { ...choosedEvent };
+            const { name, value } = e.currentTarget;
+            newEvent[name] = value;
+            this.setState({ choosedEvent: newEvent });
+        };
+        const dates = getWeekDates(date);
         const createColumn = () => {
-            const dates = getWeekDates(date);
             return dates.map((d, index) => (
                 <div className="col p-0" key={index}>
                     <CalendarDateColumn
                         events={distributedEvents[index]}
                         cellClickHandler={(row) => {
-                            this.setState({ choosedCell: { row, col: index } });
+                            this.setState({
+                                choosedEvent: {
+                                    title: "",
+                                    startTime: row,
+                                    endTime: row + 1,
+                                    date: dates[index].getDate(),
+                                    month: dates[index].getMonth(),
+                                    day: index,
+                                    description: "",
+                                },
+                            });
                         }}
                         eventClickHandler={(event) => {
                             this.setState({ choosedEvent: event });
@@ -60,8 +74,14 @@ class CalendarBody extends Component {
                     </div>
                     {createColumn()}
                 </div>
-                <AddEvent choosedCell={choosedCell} />
-                <ModifyEvent choosedEvent={choosedEvent} />
+                <AddEvent
+                    choosedEvent={choosedEvent}
+                    eventChangeHandler={eventChangeHandler}
+                />
+                <ModifyEvent
+                    choosedEvent={choosedEvent}
+                    eventChangeHandler={eventChangeHandler}
+                />
             </>
         );
     }

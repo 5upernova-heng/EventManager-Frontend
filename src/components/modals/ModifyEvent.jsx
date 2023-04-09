@@ -1,7 +1,9 @@
-const ModifyEvent = ({ choosedEvent }) => {
+import Input from "../Input";
+
+const ModifyEvent = ({ choosedEvent, eventChangeHandler }) => {
     return (
         <>
-            <div className="modal" tabindex="-1" id="modifyEvent">
+            <div className="modal" tabIndex="-1" id="modifyEvent">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
@@ -14,12 +16,62 @@ const ModifyEvent = ({ choosedEvent }) => {
                             ></button>
                         </div>
                         <div className="modal-body">
-                            <p>
-                                Default Input Event:{" "}
-                                {choosedEvent
-                                    ? `Start Time: ${choosedEvent.startTime}`
-                                    : "None"}
-                            </p>
+                            <div className="row mb-2">
+                                <div className="col">
+                                    <Input
+                                        name="title"
+                                        label="事件标题"
+                                        value={choosedEvent.title}
+                                        onChange={eventChangeHandler}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col">
+                                    <Input
+                                        name="month"
+                                        label="月"
+                                        value={choosedEvent.month}
+                                        onChange={eventChangeHandler}
+                                    />
+                                </div>
+                                <div className="col">
+                                    <Input
+                                        name="date"
+                                        label="日"
+                                        value={choosedEvent.date}
+                                        onChange={eventChangeHandler}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col">
+                                    <Input
+                                        name="startTime"
+                                        label="开始时间"
+                                        value={choosedEvent.startTime}
+                                        onChange={eventChangeHandler}
+                                    />
+                                </div>
+                                <div className="col">
+                                    <Input
+                                        name="endTime"
+                                        label="结束时间"
+                                        value={choosedEvent.endTime}
+                                        onChange={eventChangeHandler}
+                                    />
+                                </div>
+                            </div>
+                            <div className="row mb-2">
+                                <div className="col">
+                                    <Input
+                                        name="description"
+                                        label="事件描述"
+                                        value={choosedEvent.description}
+                                        onChange={eventChangeHandler}
+                                    />
+                                </div>
+                            </div>
                         </div>
                         <div className="modal-footer">
                             <button
