@@ -1,13 +1,20 @@
-import Input from "../Input";
+import Input from "./Input";
 
-const ModifyEvent = ({ choosedEvent, eventChangeHandler }) => {
+const EventModal = ({
+    id,
+    titleLabel,
+    choosedEvent,
+    eventChangeHandler,
+    submitHandler,
+    submitButtonLabel,
+}) => {
     return (
         <>
-            <div className="modal" tabIndex="-1" id="modifyEvent">
+            <div className="modal" tabIndex="-1" id={id}>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title">添加事件</h5>
+                            <h5 className="modal-title">{titleLabel}</h5>
                             <button
                                 type="button"
                                 className="btn-close"
@@ -85,8 +92,9 @@ const ModifyEvent = ({ choosedEvent, eventChangeHandler }) => {
                                 type="button"
                                 className="btn btn-primary"
                                 data-bs-dismiss="modal"
+                                onClick={submitHandler}
                             >
-                                添加
+                                {submitButtonLabel}
                             </button>
                         </div>
                     </div>
@@ -96,4 +104,4 @@ const ModifyEvent = ({ choosedEvent, eventChangeHandler }) => {
     );
 };
 
-export default ModifyEvent;
+export default EventModal;

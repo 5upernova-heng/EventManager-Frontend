@@ -3,8 +3,7 @@ import { getWeekDates } from "../../../utils/calDate";
 
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
-import AddEvent from "../../modals/AddEvent";
-import ModifyEvent from "../../modals/ModifyEvent";
+import EventModal from "../../EventModal";
 
 class CalendarBody extends Component {
     constructor(props) {
@@ -74,13 +73,19 @@ class CalendarBody extends Component {
                     </div>
                     {createColumn()}
                 </div>
-                <AddEvent
+                <EventModal
+                    id="addEvent"
+                    titleLabel="添加事件"
                     choosedEvent={choosedEvent}
                     eventChangeHandler={eventChangeHandler}
+                    submitButtonLabel="提交添加"
                 />
-                <ModifyEvent
+                <EventModal
+                    id="modifyEvent"
+                    titleLabel="修改事件"
                     choosedEvent={choosedEvent}
                     eventChangeHandler={eventChangeHandler}
+                    submitButtonLabel="提交修改"
                 />
             </>
         );
