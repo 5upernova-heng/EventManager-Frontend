@@ -3,12 +3,9 @@ import WeekCalendar from "../components/calendar/weekcalendar/WeekCalendar";
 import { useState, useEffect } from "react";
 
 function Calendar() {
+    const [tick, setTick] = useState(true);
     const [date, setDate] = useState(new Date());
     const [distEvents, setDistEvents] = useState([[], [], [], [], [], [], []]);
-    const getTime = () => {
-        setDate(new Date());
-    };
-
     useEffect(() => {
         // mount:
         // 1. distribute events
@@ -53,13 +50,21 @@ function Calendar() {
     }, []);
 
     useEffect(() => {
-        const interval = setInterval(() => getTime(), 1000);
-        return () => clearInterval(interval);
-    }, []);
+        if (tick) {
+            const interval = setInterval(() => {
+                setDate((prevDate) => {
+                    const newDate = new Date(prevDate);
+                    newDate.setSeconds(newDate.getSeconds() + 1);
+                    return newDate;
+                });
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [tick]);
 
     return (
         <>
-            <CalendarBar date={date} />
+            <CalendarBar date={date} tick={tick} setTick={setTick} />
             <div className="row container-fluid">
                 <div className="col-2"></div>
                 <div className="col">

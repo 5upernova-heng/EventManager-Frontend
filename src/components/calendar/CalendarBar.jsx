@@ -1,60 +1,45 @@
+import { useEffect, useState } from "react";
+
 function getDateString(date) {
     return `
-    ${date.getFullYear()}/${date.getMonth()}/${date.getDate()}
+    ${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}
     ${String(date.getHours()).padStart(2, "0")}:${String(
         date.getMinutes()
     ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`;
 }
 
-function CalendarBar({ date }) {
+function CalendarBar({ date, tick, setTick }) {
     return (
         <>
             <div className="container-fluid py-3 border-bottom">
                 <div className="row">
-                    <div className="col-3 d-flex flex-column align-items-center justify-content-center">
-                        <p className="fs-3 text-center">
+                    <div className="col-3 d-flex align-items-center justify-content-center">
+                        <p className="fs-3 mb-0 mx-2 text-center">
                             {getDateString(date)}
                         </p>
                         <div
-                            className="btn-group btn-group-sm"
+                            className="btn-group btn-group-sm mx-2"
                             role="group"
                             aria-label="Basic outlined example"
                         >
                             <button
                                 type="button"
+                                onClick={() => {
+                                    setTick(!tick);
+                                }}
                                 className="btn btn-outline-dark"
                             >
-                                <i
-                                    className="fa fa-backward"
-                                    aria-hidden="true"
-                                ></i>
-                            </button>
-                            <button
-                                type="button"
-                                className="btn btn-outline-dark"
-                            >
-                                <i
-                                    className="fa fa-play"
-                                    aria-hidden="true"
-                                ></i>
-                            </button>
-                            <button
-                                type="button"
-                                className="btn btn-outline-dark"
-                            >
-                                <i
-                                    className="fa fa-pause"
-                                    aria-hidden="true"
-                                ></i>
-                            </button>
-                            <button
-                                type="button"
-                                className="btn btn-outline-dark"
-                            >
-                                <i
-                                    className="fa fa-forward"
-                                    aria-hidden="true"
-                                ></i>
+                                {tick ? (
+                                    <i
+                                        className="fa fa-pause"
+                                        aria-hidden="true"
+                                    ></i>
+                                ) : (
+                                    <i
+                                        className="fa fa-play"
+                                        aria-hidden="true"
+                                    ></i>
+                                )}
                             </button>
                         </div>
                     </div>
