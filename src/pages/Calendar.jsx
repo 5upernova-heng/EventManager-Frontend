@@ -1,5 +1,6 @@
 import CalendarBar from "../components/calendar/CalendarBar";
 import WeekCalendar from "../components/calendar/weekcalendar/WeekCalendar";
+import CalendarSideBar from "../components/calendar/CalendarSideBar";
 import { useState, useEffect } from "react";
 
 function Calendar() {
@@ -65,9 +66,11 @@ function Calendar() {
     return (
         <>
             <CalendarBar date={date} tick={tick} setTick={setTick} />
-            <div className="row container-fluid">
-                <div className="col-2"></div>
-                <div className="col">
+            <div className="row container-fluid mx-0 px-0">
+                <div className="col-2">
+                    <CalendarSideBar />
+                </div>
+                <div className="col ms-0 me-4">
                     <WeekCalendar date={date} events={distEvents} />
                 </div>
             </div>
