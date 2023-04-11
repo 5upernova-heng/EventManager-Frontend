@@ -1,10 +1,10 @@
 import MonthCalendar from "./monthcalendar/MonthCalendar";
 
-const CalendarSideBar = ({ sync, toggleSync, setTimeInterval }) => {
+const CalendarSideBar = ({ date, sync, toggleSync, setTimeInterval }) => {
     const intervalList = [1, 60, 60 * 60, 60 * 60 * 24];
     return (
         <>
-            <MonthCalendar date={new Date()} />
+            <MonthCalendar date={date} />
             <hr className="my-2"></hr>
             <div className="d-flex flex-column justify-content-center">
                 <h4 className="m-0 p-1 text-center fw-bold">时间设置</h4>

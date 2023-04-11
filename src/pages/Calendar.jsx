@@ -85,6 +85,7 @@ function Calendar() {
             <div className="row container-fluid mx-0 px-0">
                 <div className="col-2">
                     <CalendarSideBar
+                        date={date}
                         sync={sync}
                         toggleSync={toggleSync}
                         setTimeInterval={setTimeInterval}
