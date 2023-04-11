@@ -7,6 +7,7 @@ function Calendar() {
     const [tick, setTick] = useState(true);
     const [date, setDate] = useState(new Date());
     const [distEvents, setDistEvents] = useState([[], [], [], [], [], [], []]);
+    const [sync, setSync] = useState(true);
     useEffect(() => {
         // mount:
         // 1. distribute events
@@ -51,24 +52,41 @@ function Calendar() {
     }, []);
 
     useEffect(() => {
-        if (tick) {
+        if (tick || sync) {
             const interval = setInterval(() => {
-                setDate((prevDate) => {
-                    const newDate = new Date(prevDate);
-                    newDate.setSeconds(newDate.getSeconds() + 1);
-                    return newDate;
-                });
+                setDate(
+                    sync
+                        ? new Date()
+                        : (prevDate) => {
+                              const newDate = new Date(prevDate);
+                              newDate.setSeconds(newDate.getSeconds() + 1);
+                              return newDate;
+                          }
+                );
             }, 1000);
             return () => clearInterval(interval);
         }
-    }, [tick]);
-
+    }, [sync, tick]);
+    const clickHandler = () => {
+        if (tick) {
+            setSync(false);
+        }
+        setTick(!tick);
+    };
+    const toggleSync = () => {
+        setSync(!sync);
+    };
     return (
         <>
-            <CalendarBar date={date} tick={tick} setTick={setTick} />
+            <CalendarBar
+                date={date}
+                tick={tick}
+                sync={sync}
+                clickHandler={clickHandler}
+            />
             <div className="row container-fluid mx-0 px-0">
                 <div className="col-2">
-                    <CalendarSideBar />
+                    <CalendarSideBar sync={sync} toggleSync={toggleSync} />
                 </div>
                 <div className="col ms-0 me-4">
                     <WeekCalendar date={date} events={distEvents} />

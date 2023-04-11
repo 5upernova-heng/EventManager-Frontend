@@ -1,6 +1,6 @@
 import MonthCalendar from "./monthcalendar/MonthCalendar";
 
-const CalendarSideBar = () => {
+const CalendarSideBar = ({ sync, toggleSync }) => {
     return (
         <>
             <MonthCalendar date={new Date()} />
@@ -12,7 +12,12 @@ const CalendarSideBar = () => {
                 <div className="row d-flex flex-column justify-content-between align-items-center">
                     <div className="col d-flex justify-content-between align-items-center my-2">
                         <label for="syncRealTime">与自然时间同步</label>
-                        <input type="checkbox" id="syncRealTime" />
+                        <input
+                            type="checkbox"
+                            id="syncRealTime"
+                            checked={sync}
+                            onChange={toggleSync}
+                        />
                     </div>
                     <div className="col d-flex justify-content-between align-item-center my-3">
                         <label className="text-center mb-0">时间跨度</label>
