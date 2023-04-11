@@ -12,8 +12,8 @@ const EventCell = ({ event, handleClick }) => {
 
     const renderStyle = () => {
         const baseStyle = hover
-            ? "position-absolute p-2 start-0 end-0 ms-0 me-0 border rounded overflow-auto "
-            : "position-absolute p-2 start-0 end-0 ms-1 me-2 my-1 border rounded overflow-auto ";
+            ? "position-absolute p-2 start-0 end-0 ms-0 me-0 border rounded rounded-4 overflow-auto "
+            : "position-absolute p-2 start-0 end-0 ms-1 me-1 my-1 border rounded rounded-4 overflow-auto ";
         const backgroundColorSet = ["bg-primary", "bg-success", "bg-info"];
         return baseStyle + backgroundColorSet[event.category];
     };
