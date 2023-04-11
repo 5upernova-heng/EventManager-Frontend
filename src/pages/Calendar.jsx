@@ -81,7 +81,12 @@ function Calendar() {
     };
     return (
         <>
-            <CalendarBar date={date} tick={tick} clickHandler={clickHandler} />
+            <CalendarBar
+                date={date}
+                tick={tick}
+                sync={sync}
+                clickHandler={clickHandler}
+            />
             <div className="row container-fluid mx-0 px-0">
                 <div className="col-2">
                     <CalendarSideBar
