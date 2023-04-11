@@ -1,7 +1,7 @@
 import MonthCalendar from "./monthcalendar/MonthCalendar";
 
 const CalendarSideBar = ({ date, sync, toggleSync, setTimeInterval }) => {
-    const intervalList = [1, 60, 60 * 60, 60 * 60 * 24];
+    const intervalList = [1, 60, 60 * 60, 60 * 60 * 24, 60 * 60 * 24 * 7];
     return (
         <>
             <MonthCalendar date={date} />
@@ -38,6 +38,7 @@ const CalendarSideBar = ({ date, sync, toggleSync, setTimeInterval }) => {
                             <option value="1">1 分钟/秒</option>
                             <option value="2">1 小时/秒</option>
                             <option value="3">1 天/秒</option>
+                            <option value="4">1 周/秒</option>
                         </select>
                     </div>
                 </div>
