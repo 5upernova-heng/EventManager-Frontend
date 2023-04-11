@@ -63,8 +63,6 @@ function Calendar() {
                               newDate.setSeconds(
                                   newDate.getSeconds() + timeInterval
                               );
-                              console.log(timeInterval);
-                              console.log(newDate);
                               return newDate;
                           }
                 );
