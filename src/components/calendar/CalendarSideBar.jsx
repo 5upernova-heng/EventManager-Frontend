@@ -7,9 +7,7 @@ const CalendarSideBar = ({ sync, toggleSync, setTimeInterval }) => {
             <MonthCalendar date={new Date()} />
             <hr className="my-2"></hr>
             <div className="d-flex flex-column justify-content-center">
-                <span className="badge text-bg-secondary my-2">
-                    <h4 className="m-0 p-1">时间设置</h4>
-                </span>
+                <h4 className="m-0 p-1 text-center fw-bold">时间设置</h4>
                 <div className="row d-flex flex-column justify-content-between align-items-center">
                     <div className="col d-flex justify-content-between align-items-center my-2">
                         <label for="syncRealTime">与自然时间同步</label>
