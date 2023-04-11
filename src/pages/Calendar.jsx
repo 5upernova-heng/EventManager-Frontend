@@ -8,6 +8,7 @@ function Calendar() {
     const [date, setDate] = useState(new Date());
     const [distEvents, setDistEvents] = useState([[], [], [], [], [], [], []]);
     const [sync, setSync] = useState(true);
+    const [timeInterval, setTimeInterval] = useState(1);
     useEffect(() => {
         // mount:
         // 1. distribute events
@@ -59,14 +60,18 @@ function Calendar() {
                         ? new Date()
                         : (prevDate) => {
                               const newDate = new Date(prevDate);
-                              newDate.setSeconds(newDate.getSeconds() + 1);
+                              newDate.setSeconds(
+                                  newDate.getSeconds() + timeInterval
+                              );
+                              console.log(timeInterval);
+                              console.log(newDate);
                               return newDate;
                           }
                 );
             }, 1000);
             return () => clearInterval(interval);
         }
-    }, [sync, tick]);
+    }, [sync, tick, timeInterval]);
     const clickHandler = () => {
         if (tick) {
             setSync(false);
@@ -78,15 +83,14 @@ function Calendar() {
     };
     return (
         <>
-            <CalendarBar
-                date={date}
-                tick={tick}
-                sync={sync}
-                clickHandler={clickHandler}
-            />
+            <CalendarBar date={date} tick={tick} clickHandler={clickHandler} />
             <div className="row container-fluid mx-0 px-0">
                 <div className="col-2">
-                    <CalendarSideBar sync={sync} toggleSync={toggleSync} />
+                    <CalendarSideBar
+                        sync={sync}
+                        toggleSync={toggleSync}
+                        setTimeInterval={setTimeInterval}
+                    />
                 </div>
                 <div className="col ms-0 me-4">
                     <WeekCalendar date={date} events={distEvents} />

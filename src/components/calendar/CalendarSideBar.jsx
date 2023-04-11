@@ -1,6 +1,7 @@
 import MonthCalendar from "./monthcalendar/MonthCalendar";
 
-const CalendarSideBar = ({ sync, toggleSync }) => {
+const CalendarSideBar = ({ sync, toggleSync, setTimeInterval }) => {
+    const intervalList = [1, 60, 60 * 60, 60 * 60 * 24];
     return (
         <>
             <MonthCalendar date={new Date()} />
@@ -24,8 +25,18 @@ const CalendarSideBar = ({ sync, toggleSync }) => {
                         <select
                             className="form-select-sm"
                             aria-label="Default select example"
+                            disabled={sync}
+                            onChange={(e) => {
+                                setTimeInterval(
+                                    intervalList[
+                                        parseInt(e.currentTarget.value)
+                                    ]
+                                );
+                            }}
                         >
-                            <option selected>1 秒/秒</option>
+                            <option value="0" selected>
+                                1 秒/秒
+                            </option>
                             <option value="1">1 分钟/秒</option>
                             <option value="2">1 小时/秒</option>
                             <option value="3">1 天/秒</option>

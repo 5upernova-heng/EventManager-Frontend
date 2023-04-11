@@ -8,7 +8,7 @@ function getDateString(date) {
     ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`;
 }
 
-function CalendarBar({ date, sync, tick, clickHandler }) {
+function CalendarBar({ date, tick, clickHandler }) {
     return (
         <>
             <div className="container-fluid py-3 border-bottom">
