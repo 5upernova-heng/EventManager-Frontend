@@ -7,7 +7,7 @@ function getDateString(date) {
 }
 const Time = ({ date, clickHandler, tick, sync }) => {
     return (
-        <>
+        <div className="d-flex align-items-center">
             <p className="fs-3 mb-0 mx-2 text-center">{getDateString(date)}</p>
             <div
                 className="btn-group btn-group-sm mx-2"
@@ -26,7 +26,7 @@ const Time = ({ date, clickHandler, tick, sync }) => {
                     )}
                 </button>
             </div>
-        </>
+        </div>
     );
 };
 
