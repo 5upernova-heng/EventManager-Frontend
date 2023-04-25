@@ -1,13 +1,5 @@
 import Time from "../time/Time";
 
-function getDateString(date) {
-    return `
-    ${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}
-    ${String(date.getHours()).padStart(2, "0")}:${String(
-        date.getMinutes()
-    ).padStart(2, "0")}:${String(date.getSeconds()).padStart(2, "0")}`;
-}
-
 function CalendarBar({ date, tick, sync, clickHandler }) {
     return (
         <>
