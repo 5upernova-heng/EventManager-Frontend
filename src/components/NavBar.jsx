@@ -46,7 +46,7 @@ function NavBar({ routes }) {
                     </Link>
                     {renderNavItems(routes)}
                 </ul>
-                <div className="d-flex justify-content-center align-items-center border-bottom">
+                <div className="d-flex justify-content-center align-items-center border-bottom pe-2">
                     <Time />
                 </div>
             </div>
