@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { getWeekDates } from "../../../utils/calDate";
+import { TimeContext } from "../../../App";
 
 function createHeaderCells(date) {
     const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -23,7 +25,8 @@ function createHeaderCells(date) {
     });
 }
 
-function CalendarHead({ date }) {
+function CalendarHead() {
+    const { date } = useContext(TimeContext);
     return (
         <>
             <div className="row border">

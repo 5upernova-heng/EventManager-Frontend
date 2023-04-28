@@ -1,17 +1,12 @@
-import Time from "../time/Time";
+import Time from "../Time";
 
-function CalendarBar({ date, tick, sync, clickHandler }) {
+function CalendarBar() {
     return (
         <>
             <div className="container-fluid py-3 border-bottom">
                 <div className="row">
                     <div className="col-3 d-flex align-items-center justify-content-center">
-                        <Time
-                            date={date}
-                            tick={tick}
-                            sync={sync}
-                            clickHandler={clickHandler}
-                        />
+                        <Time />
                     </div>
                     <div className="col d-flex align-items-center justify-content-end gap-3">
                         <div className="flex-grow-1 mr-3">

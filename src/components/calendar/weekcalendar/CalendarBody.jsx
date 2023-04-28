@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TimeContext } from "../../../App";
 import { getWeekDates } from "../../../utils/calDate";
 
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
 import EventModal from "../../EventModal";
 
-const CalendarBody = ({ date, events }) => {
+const CalendarBody = ({ events }) => {
+    const { date } = useContext(TimeContext);
     const emptyEvent = {
         title: "",
         startTime: 0,

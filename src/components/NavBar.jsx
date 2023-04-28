@@ -1,3 +1,4 @@
+import Time from "./Time";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -17,7 +18,7 @@ function renderNavItems(routes) {
                 }}
                 to={route.path}
             >
-                {route.label}
+                <p className="mb-0 fs-5">{route.label}</p>
             </Link>
         </li>
     ));
@@ -26,8 +27,8 @@ function renderNavItems(routes) {
 function NavBar({ routes }) {
     return (
         <>
-            <div className="container-fluid px-2">
-                <ul className="nav nav-tabs">
+            <div className="d-flex px-2">
+                <ul className="nav nav-tabs flex-grow-1">
                     <Link
                         className="navbar-brand d-flex align-items-center p-2"
                         to="/"
@@ -45,6 +46,9 @@ function NavBar({ routes }) {
                     </Link>
                     {renderNavItems(routes)}
                 </ul>
+                <div className="d-flex justify-content-center align-items-center border-bottom">
+                    <Time />
+                </div>
             </div>
         </>
     );

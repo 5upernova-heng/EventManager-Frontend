@@ -1,7 +1,10 @@
-import { getWeekDates } from "../../../utils/calDate";
-import DateCell from "./DateCell";
+import DateCell from "./monthcalendar/DateCell";
+import { TimeContext } from "../../App";
+import { getWeekDates } from "../../utils/calDate";
+import { useContext } from "react";
 
-const MonthCalendar = ({ date }) => {
+const MonthCalendar = () => {
+    const { date } = useContext(TimeContext);
     const monthList = [
         "一月",
         "二月",
