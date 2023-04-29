@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 function renderNavItems(routes) {
-    const [currentPath, setCurrentPath] = useState("/");
+    const [currentPath, setCurrentPath] = useState(location.pathname);
     return routes.map((route) => (
         <li className="nav-item px-1 align-self-end" key={route.path}>
             <Link
