@@ -1,5 +1,5 @@
 import { getDayString, getTimeString } from "../utils/calDate";
-import "../styles/switch.css";
+import Switch from "./Switch";
 
 const Alarm = ({ time, description, interval, isOn, toggleHandler, id }) => {
     const intervalLabel = ["单次", "每天", "每周"];
@@ -23,14 +23,12 @@ const Alarm = ({ time, description, interval, isOn, toggleHandler, id }) => {
                 <p className="fs-5 mb-0 mx-2 text-secondary">{description}</p>
             </div>
             <div className="d-flex justify-content-end align-items-center">
-                <div className="mb-1 me-3 form-check form-switch form-switch-lg">
-                    <input
-                        className="form-check-input"
-                        type="checkbox"
-                        role="switch"
+                <div className="me-3 mb-1">
+                    <Switch
                         id={`Alarm${id}`}
-                        checked={isOn}
-                        onChange={toggleHandler}
+                        isOn={isOn}
+                        toggleHandler={toggleHandler}
+                        size={"lg"}
                     />
                 </div>
             </div>
