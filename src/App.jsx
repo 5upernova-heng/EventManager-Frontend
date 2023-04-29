@@ -4,7 +4,7 @@ import Alarms from "./pages/Alarms";
 import Map from "./pages/Map";
 import Logs from "./pages/Logs";
 import { Navigate, Routes, Route } from "react-router-dom";
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState, useEffect, createContext } from "react";
 
 export const TimeContext = createContext();
 function App() {

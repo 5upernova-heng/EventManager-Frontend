@@ -24,7 +24,9 @@ export const getTimeString = (hour, minute, second) => {
     const hourStr = String(hour).padStart(2, "0");
     const minuteStr = String(minute).padStart(2, "0");
     const secondStr = String(second).padStart(2, "0");
-    return `${hourStr}:${minuteStr}:${secondStr}`;
+    return second
+        ? `${hourStr}:${minuteStr}:${secondStr}`
+        : `${hourStr}:${minuteStr}`;
 };
 export const getDayString = (dayNum) => {
     const dayString = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
