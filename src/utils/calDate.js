@@ -16,3 +16,17 @@ export function dateDiff(date1, date2) {
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
     return diffDays;
 }
+
+export const getDateString = (fullYear, month, date) => {
+    return `${fullYear}/${month + 1}/${date}`;
+};
+export const getTimeString = (hour, minute, second) => {
+    const hourStr = String(hour).padStart(2, "0");
+    const minuteStr = String(minute).padStart(2, "0");
+    const secondStr = String(second).padStart(2, "0");
+    return `${hourStr}:${minuteStr}:${secondStr}`;
+};
+export const getDayString = (dayNum) => {
+    const dayString = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    return dayString[dayNum];
+};
