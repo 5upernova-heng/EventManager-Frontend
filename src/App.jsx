@@ -21,6 +21,7 @@ function App() {
 
     useEffect(() => {
         if (tick || sync) {
+            if (sync) setTick(true);
             const interval = setInterval(() => {
                 setDate(
                     sync

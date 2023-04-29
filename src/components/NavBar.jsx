@@ -1,18 +1,20 @@
 import Time from "./Time";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import RefreshTime from "./RefreshTime";
 
 function renderNavItems(routes) {
     const [currentPath, setCurrentPath] = useState(location.pathname);
+    const renderLinkClass = (route) => {
+        return route.path === currentPath ||
+            (route.path === "/calendar" && currentPath === "/")
+            ? "nav-link active"
+            : "nav-link";
+    };
     return routes.map((route) => (
         <li className="nav-item px-1 align-self-end" key={route.path}>
             <Link
-                className={
-                    route.path === currentPath ||
-                    (route.path === "/calendar" && currentPath === "/")
-                        ? "nav-link active"
-                        : "nav-link"
-                }
+                className={renderLinkClass(route)}
                 onClick={() => {
                     setCurrentPath(route.path);
                 }}
@@ -48,6 +50,8 @@ function NavBar({ routes }) {
                 </ul>
                 <div className="d-flex justify-content-center align-items-center border-bottom pe-2">
                     <Time />
+                    <div className="px-1"></div>
+                    <RefreshTime />
                 </div>
             </div>
         </>
