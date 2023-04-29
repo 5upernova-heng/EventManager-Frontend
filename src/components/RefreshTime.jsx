@@ -6,8 +6,9 @@ const RefreshTime = () => {
     return (
         <button
             className="btn btn-outline-dark"
-            disabled={sync}
-            onClick={() => toggleSync()}
+            onClick={() => {
+                sync ? {} : toggleSync();
+            }}
             role="button"
         >
             <i class="fa fa-refresh" aria-hidden="true"></i>
