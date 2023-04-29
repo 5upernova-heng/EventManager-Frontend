@@ -24,7 +24,7 @@ export const getTimeString = (hour, minute, second) => {
     const hourStr = String(hour).padStart(2, "0");
     const minuteStr = String(minute).padStart(2, "0");
     const secondStr = String(second).padStart(2, "0");
-    return second
+    return second !== undefined
         ? `${hourStr}:${minuteStr}:${secondStr}`
         : `${hourStr}:${minuteStr}`;
 };
