@@ -29,6 +29,6 @@ export const getTimeString = (hour, minute, second) => {
         : `${hourStr}:${minuteStr}`;
 };
 export const getDayString = (dayNum) => {
-    const dayString = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const dayString = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     return dayString[dayNum];
 };
