@@ -14,11 +14,11 @@ const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
     };
     const changeInterval = (interval) => {
         alarm.interval = interval;
-        changeAlarm(alarm);
+        saveChanges();
     };
     const changeDescription = (event) => {
         alarm.description = event.target.value;
-        changeAlarm(alarm);
+        saveChanges();
     };
     const saveChanges = () => {
         alarm.time.hour = hour;
