@@ -92,7 +92,6 @@ function App() {
         const isRinged = !ringed.find(
             (ringedAlarm) => ringedAlarm.id === alarm.id
         );
-        console.log(isDay, isHour, isMinute, isRinged);
         return isDay && isHour && isMinute && isRinged;
     };
     const triggerAlarm = (alarm) => {
@@ -106,12 +105,6 @@ function App() {
         );
         toast(message, {
             position: "bottom-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: false,
-            progress: undefined,
             theme: "dark",
         });
     };
