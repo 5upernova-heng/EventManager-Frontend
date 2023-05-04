@@ -3,13 +3,13 @@ import { getDaysString, getTimeString } from "../utils/calDate";
 import Switch from "./Switch";
 import AlarmFormGroup from "./AlarmFormGroup";
 
-const Alarm = ({ alarm, changeAlarm }) => {
+const Alarm = ({ alarm, changeAlarm, deleteAlarm }) => {
     const { time, description, interval, isOn, id } = alarm;
     const timeStr = getTimeString(time.hour, time.minute);
     const [collapse, setCollapse] = useState(true);
     return (
         <div
-            className={`d-flex flex-column border rounded-5 p-2 my-3 ${
+            className={`d-flex flex-column border rounded-5 p-2 my-2 ${
                 isOn ? "" : "opacity-50"
             }`}
             style={{ minWidth: "600px" }}
@@ -48,7 +48,11 @@ const Alarm = ({ alarm, changeAlarm }) => {
                 </div>
             </div>
             <div className="px-3" hidden={collapse}>
-                <AlarmFormGroup alarm={alarm} changeAlarm={changeAlarm} />
+                <AlarmFormGroup
+                    alarm={alarm}
+                    changeAlarm={changeAlarm}
+                    deleteAlarm={deleteAlarm}
+                />
             </div>
         </div>
     );
