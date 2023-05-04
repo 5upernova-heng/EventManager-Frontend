@@ -69,6 +69,11 @@ function App() {
     }, []);
 
     useEffect(() => {
+        // Clear alarmed array
+        setRinged([]);
+    }, [date.getMinutes()]);
+
+    useEffect(() => {
         // alarm checker
         alarms.map((alarm) => {
             if (isAlarmTime(date, alarm)) {
@@ -79,10 +84,6 @@ function App() {
         });
     }, [date]);
 
-    useEffect(() => {
-        // Clear alarmed array
-        setRinged([]);
-    }, [date.getMinutes()]);
     const isAlarmTime = (date, alarm) => {
         const { time, interval } = alarm;
         const isDay = interval.days[date.getDay()];
