@@ -1,6 +1,6 @@
 import { TimeContext } from "../../App";
 import { useContext } from "react";
-import Switch from "../Switch";
+import Switch from "../forms/Switch";
 
 const SyncRealTime = () => {
     const { sync, toggleSync } = useContext(TimeContext);

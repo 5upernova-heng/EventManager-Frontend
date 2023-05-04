@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Alarm from "../components/Alarm";
-import { getAlarms, updateAlarms, deleteAlarms } from "../api/alarm";
+import { getAlarms, updateAlarms, deleteAlarms } from "../api/alarmApi";
 
 const Alarms = () => {
     const [alarms, setAlarms] = useState([]);

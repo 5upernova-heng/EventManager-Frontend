@@ -1,4 +1,4 @@
-import "../styles/switch.css";
+import "../../styles/switch.css";
 const Switch = ({ id, isOn, toggleHandler, size }) => {
     return (
         <div className={`mb-1 form-check form-switch form-switch-${size}`}>

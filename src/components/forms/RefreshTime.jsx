@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TimeContext } from "../App";
+import { TimeContext } from "../../App";
 
 const RefreshTime = () => {
     const { sync, toggleSync } = useContext(TimeContext);

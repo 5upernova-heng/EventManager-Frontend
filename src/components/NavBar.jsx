@@ -1,7 +1,7 @@
 import Time from "./Time";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import RefreshTime from "./RefreshTime";
+import RefreshTime from "./forms/RefreshTime";
 
 function renderNavItems(routes) {
     const [currentPath, setCurrentPath] = useState(location.pathname);

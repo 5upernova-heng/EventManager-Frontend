@@ -4,7 +4,7 @@ import { getWeekDates } from "../../../utils/calDate";
 
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
-import EventModal from "../../EventModal";
+import EventModal from "../../EventFormModal";
 
 const CalendarBody = ({ events }) => {
     const { date } = useContext(TimeContext);

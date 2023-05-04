@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { getDaysString, getTimeString } from "../utils/calDate";
-import Switch from "./Switch";
-import AlarmFormGroup from "./AlarmFormGroup";
+import Switch from "./forms/Switch";
+import AlarmFormGroup from "./forms/AlarmFormGroup";
 
 const Alarm = ({ alarm, changeAlarm, deleteAlarm }) => {
     const { time, description, interval, isOn, id } = alarm;
