@@ -34,7 +34,8 @@ yarn dev
 
 ### To Do List
 
-- API
+- Replace hard core data with API
+- Complete add method, and form validation
 
 ### 进度一览
 
