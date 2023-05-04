@@ -32,3 +32,14 @@ export const getDayString = (dayNum) => {
     const dayString = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     return dayString[dayNum];
 };
+
+export const getDaysString = (days) => {
+    const dayString = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+    return days.every((day) => day)
+        ? "每天"
+        : days.reduce(
+              (string, day, index) =>
+                  day ? `${string} ${dayString[index]}` : string,
+              ""
+          );
+};
