@@ -3,6 +3,7 @@ import { getDaysString, getTimeString } from "../utils/calDate";
 import Switch from "./Switch";
 import Range from "./Range";
 import CheckButtonGroup from "./CheckButtonGroup";
+import Input from "./Input";
 
 const Alarm = ({ alarm, changeAlarm }) => {
     const { time, description, interval, isOn, id } = alarm;
@@ -18,6 +19,10 @@ const Alarm = ({ alarm, changeAlarm }) => {
     };
     const changeInterval = (interval) => {
         alarm.interval = interval;
+        changeAlarm(alarm);
+    };
+    const changeDescription = (event) => {
+        alarm.description = event.target.value;
         changeAlarm(alarm);
     };
     return (
@@ -62,7 +67,7 @@ const Alarm = ({ alarm, changeAlarm }) => {
             </div>
             <div className="px-3" hidden={collapse}>
                 <div className="d-flex justify-content-between">
-                    <div className="d-flex flex-column">
+                    <div className="d-flex flex-column justify-content-between">
                         <Range
                             id={`hour${id}`}
                             label={"小时"}
@@ -78,15 +83,25 @@ const Alarm = ({ alarm, changeAlarm }) => {
                             rangeAttrs={{ min: 0, max: 59, step: 1 }}
                         />
                     </div>
-                    <div className="d-flex flex-column align-items-center">
-                        <p className="mb-1">周期</p>
-                        <CheckButtonGroup
-                            interval={interval}
-                            changeInterval={changeInterval}
-                        />
+                    <div className="d-flex flex-column justify-content-between">
+                        <div className="d-flex flex-column mb-2">
+                            <p className="mb-0 fw-bold">周期</p>
+                            <CheckButtonGroup
+                                interval={interval}
+                                changeInterval={changeInterval}
+                            />
+                        </div>
+                        <div className="d-flex flex-column justify-content-between mb-2">
+                            <Input
+                                name={`input${id}`}
+                                label={`描述`}
+                                value={description}
+                                onChange={changeDescription}
+                            />
+                        </div>
                     </div>
                     <div className="d-flex align-items-end pb-2">
-                        <button className="btn btn-primary">保存</button>
+                        <button className="btn btn-primary">保存至云端</button>
                     </div>
                 </div>
             </div>
