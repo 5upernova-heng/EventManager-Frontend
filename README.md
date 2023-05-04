@@ -34,8 +34,7 @@ yarn dev
 
 ### To Do List
 
-- 增删查改按钮
-- 闹钟逻辑
+- API
 
 ### 进度一览
 
