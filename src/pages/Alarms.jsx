@@ -1,43 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Alarm from "../components/Alarm";
+import { getAlarms, updateAlarms, deleteAlarms } from "../api/alarm";
 
 const Alarms = () => {
-    const [alarms, setAlarms] = useState([
-        {
-            time: { hour: 7, minute: 40 },
-            description: "这是一段闹钟描述，这个闹钟是一个周期性闹钟。",
-            interval: {
-                days: [true, true, true, true, true, true, true],
-            },
-            isOn: true,
-            alarmOnce: true,
-            id: 0,
-        },
-        {
-            time: { hour: 20, minute: 15 },
-            description: "这是一段闹钟描述，这是一个单次闹钟。",
-            interval: {
-                days: [false, true, false, false, false, false, false],
-            },
-            isOn: true,
-            id: 1,
-        },
-        {
-            time: { hour: 14, minute: 10 },
-            description: "这是一段闹钟描述，这是一个每周闹钟。",
-            interval: {
-                days: [false, true, false, false, false, false, true],
-            },
-            isOn: true,
-            id: 1,
-        },
-    ]);
+    const [alarms, setAlarms] = useState([]);
+
+    useEffect(() => {
+        const fetchAlarms = async () => {
+            const { data } = await getAlarms();
+            setAlarms(data);
+        };
+        fetchAlarms();
+    }, []);
+
     const changeAlarm = (index, alarm) => {
         let newAlarms = [...alarms];
         newAlarms[index] = alarm;
+        updateAlarms(alarm.id, alarm);
         setAlarms(newAlarms);
     };
     const deleteAlarm = (index) => {
+        const id = alarms[index].id;
+        deleteAlarms(id);
         alarms.splice(index, 1);
         setAlarms(alarms);
     };
