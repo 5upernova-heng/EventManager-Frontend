@@ -1,15 +1,16 @@
 import Range from "./Range";
 import CheckButtonGroup from "./CheckButtonGroup";
 import Input from "./Input";
+import { useState } from "react";
 const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
     const { time, description, interval, id } = alarm;
+    const [hour, setHour] = useState(alarm.time.hour);
+    const [minute, setMinute] = useState(alarm.time.minute);
     const hourHandler = (event) => {
-        alarm.time.hour = event.target.value;
-        changeAlarm(alarm);
+        setHour(event.target.value);
     };
     const minuteHandler = (event) => {
-        alarm.time.minute = event.target.value;
-        changeAlarm(alarm);
+        setMinute(event.target.value);
     };
     const changeInterval = (interval) => {
         alarm.interval = interval;
@@ -19,19 +20,24 @@ const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
         alarm.description = event.target.value;
         changeAlarm(alarm);
     };
+    const saveChanges = () => {
+        alarm.time.hour = hour;
+        alarm.time.minute = minute;
+        changeAlarm(alarm);
+    };
     return (
         <div className="d-flex justify-content-between">
             <div className="d-flex flex-column justify-content-between">
                 <Range
                     id={`hour${id}`}
-                    label={"小时"}
+                    label={`小时: ${hour}`}
                     value={time.hour}
                     changeHandler={hourHandler}
                     rangeAttrs={{ min: 0, max: 23, step: 1 }}
                 />
                 <Range
                     id={`minute${id}`}
-                    label={"分钟"}
+                    label={`分钟: ${minute}`}
                     value={time.minute}
                     changeHandler={minuteHandler}
                     rangeAttrs={{ min: 0, max: 59, step: 1 }}
@@ -55,7 +61,9 @@ const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
                 </div>
             </div>
             <div className="d-flex flex-column justify-content-end pb-2">
-                <button className="btn btn-primary my-1">保存至云端</button>
+                <button className="btn btn-primary my-1" onClick={saveChanges}>
+                    保存
+                </button>
                 <button className="btn btn-danger my-1" onClick={deleteAlarm}>
                     删除闹钟
                 </button>
