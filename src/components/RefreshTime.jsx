@@ -11,7 +11,7 @@ const RefreshTime = () => {
             }}
             role="button"
         >
-            <i class="fa fa-refresh" aria-hidden="true"></i>
+            <i className="fa fa-refresh" aria-hidden="true"></i>
         </button>
     );
 };
