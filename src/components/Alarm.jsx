@@ -3,7 +3,7 @@ import { getDaysString, getTimeString } from "../utils/calDate";
 import Switch from "./forms/Switch";
 import AlarmFormGroup from "./forms/AlarmFormGroup";
 
-const Alarm = ({ alarm, changeAlarm, deleteAlarm }) => {
+const Alarm = ({ alarm, triggerAlarm, changeAlarm, deleteAlarm }) => {
     const { time, description, interval, isOn, id } = alarm;
     const timeStr = getTimeString(time.hour, time.minute);
     const [collapse, setCollapse] = useState(true);
@@ -50,6 +50,7 @@ const Alarm = ({ alarm, changeAlarm, deleteAlarm }) => {
             <div className="px-3" hidden={collapse}>
                 <AlarmFormGroup
                     alarm={alarm}
+                    triggerAlarm={triggerAlarm}
                     changeAlarm={changeAlarm}
                     deleteAlarm={deleteAlarm}
                 />

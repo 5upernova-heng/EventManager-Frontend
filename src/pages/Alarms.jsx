@@ -1,30 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Alarm from "../components/Alarm";
-import { getAlarms, updateAlarms, deleteAlarms } from "../api/alarmApi";
+import { AlarmContext } from "../App";
 
 const Alarms = () => {
-    const [alarms, setAlarms] = useState([]);
-
-    useEffect(() => {
-        const fetchAlarms = async () => {
-            const { data } = await getAlarms();
-            setAlarms(data);
-        };
-        fetchAlarms();
-    }, []);
-
-    const changeAlarm = (index, alarm) => {
-        let newAlarms = [...alarms];
-        newAlarms[index] = alarm;
-        updateAlarms(alarm.id, alarm);
-        setAlarms(newAlarms);
-    };
-    const deleteAlarm = (index) => {
-        const id = alarms[index].id;
-        deleteAlarms(id);
-        alarms.splice(index, 1);
-        setAlarms(alarms);
-    };
+    const { alarms, triggerAlarm, changeAlarm, deleteAlarm } =
+        useContext(AlarmContext);
     const renderAlarms = () => {
         return alarms.length !== 0 ? (
             alarms.map((alarm, index) => {
@@ -32,6 +12,7 @@ const Alarms = () => {
                     <Alarm
                         key={index}
                         alarm={alarm}
+                        triggerAlarm={triggerAlarm}
                         changeAlarm={(alarm) => changeAlarm(index, alarm)}
                         deleteAlarm={() => deleteAlarm(index)}
                     />

@@ -1,11 +1,13 @@
 import Range from "./Range";
 import CheckButtonGroup from "./CheckButtonGroup";
 import Input from "./Input";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AlarmContext } from "../../App";
 const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
     const { time, description, interval, id } = alarm;
     const [hour, setHour] = useState(alarm.time.hour);
     const [minute, setMinute] = useState(alarm.time.minute);
+    const { triggerAlarm } = useContext(AlarmContext);
     const hourHandler = (event) => {
         setHour(event.target.value);
     };
@@ -60,11 +62,17 @@ const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
                     />
                 </div>
             </div>
-            <div className="d-flex flex-column justify-content-end pb-2">
-                <button className="btn btn-primary my-1" onClick={saveChanges}>
+            <div className="d-flex align-items-end justify-content-end pb-2">
+                <button
+                    className="btn btn-success mx-1"
+                    onClick={() => triggerAlarm(alarm)}
+                >
+                    预览
+                </button>
+                <button className="btn btn-primary mx-1" onClick={saveChanges}>
                     保存
                 </button>
-                <button className="btn btn-danger my-1" onClick={deleteAlarm}>
+                <button className="btn btn-danger mx-1" onClick={deleteAlarm}>
                     删除闹钟
                 </button>
             </div>
