@@ -1,14 +1,21 @@
 import request from "./request";
 import { apiRoot } from "../config.json";
 
-export function getEvents() {
+export function getEventsApi() {
     return request.get(`${apiRoot}/events`);
 }
 
-export function deleteEvent(id) {
-    return request.delete(`${apiRoot}/events/${id}`);
+export async function addEventApi(event) {
+    await request.post(`${apiRoot}/events`, event);
+    return getEventsApi();
 }
 
-export function updateEvent(id, event) {
-    return request.put(`${apiRoot}/events/${id}`, event);
+export async function deleteEventApi(id) {
+    await request.delete(`${apiRoot}/events/${id}`);
+    return getEventsApi();
+}
+
+export async function updateEventApi(id, event) {
+    await request.put(`${apiRoot}/events/${id}`, event);
+    return getEventsApi();
 }

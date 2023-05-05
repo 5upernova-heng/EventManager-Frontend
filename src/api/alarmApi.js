@@ -1,21 +1,21 @@
 import request from "./request";
 import { apiRoot } from "../config.json";
 
-export function getAlarms() {
+export function getAlarmApi() {
     return request.get(`${apiRoot}/alarms`);
 }
 
-export async function addAlarms(alarm) {
+export async function addAlarmApi(alarm) {
     await request.post(`${apiRoot}/alarms`, alarm);
-    return getAlarms();
+    return getAlarmApi();
 }
 
-export async function deleteAlarms(id) {
+export async function deleteAlarmApi(id) {
     await request.delete(`${apiRoot}/alarms/${id}`);
-    return getAlarms();
+    return getAlarmApi();
 }
 
-export async function updateAlarms(id, alarm) {
+export async function updateAlarmApi(id, alarm) {
     await request.put(`${apiRoot}/alarms/${id}`, alarm);
-    return getAlarms();
+    return getAlarmApi();
 }

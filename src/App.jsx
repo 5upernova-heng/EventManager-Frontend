@@ -6,10 +6,10 @@ import Logs from "./pages/Logs";
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
 import {
-    getAlarms,
-    updateAlarms,
-    deleteAlarms,
-    addAlarms,
+    getAlarmApi,
+    updateAlarmApi,
+    deleteAlarmApi,
+    addAlarmApi,
 } from "./api/alarmApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -67,7 +67,7 @@ function App() {
     useEffect(() => {
         // mount alarm data
         const fetchAlarms = async () => {
-            const { data } = await getAlarms();
+            const { data } = await getAlarmApi();
             setAlarms(data);
         };
         fetchAlarms();
@@ -115,15 +115,15 @@ function App() {
         });
     };
     const addAlarm = async (alarm) => {
-        const { data: newAlarms } = await addAlarms(alarm);
+        const { data: newAlarms } = await addAlarmApi(alarm);
         setAlarms(newAlarms);
     };
     const changeAlarm = async (newAlarm) => {
-        const { data: newAlarms } = await updateAlarms(newAlarm.id, newAlarm);
+        const { data: newAlarms } = await updateAlarmApi(newAlarm.id, newAlarm);
         setAlarms(newAlarms);
     };
     const deleteAlarm = async (id) => {
-        const { data: newAlarms } = await deleteAlarms(id);
+        const { data: newAlarms } = await deleteAlarmApi(id);
         setAlarms(newAlarms);
     };
     return (
