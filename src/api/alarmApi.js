@@ -5,8 +5,8 @@ export function getAlarms() {
     return request.get(`${apiRoot}/alarms`);
 }
 
-export function addAlarm() {
-    //TODO:
+export function addAlarms(alarm) {
+    return request.post(`${apiRoot}/alarms`, alarm);
 }
 
 export function deleteAlarms(id) {

@@ -5,7 +5,12 @@ import Map from "./pages/Map";
 import Logs from "./pages/Logs";
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
-import { getAlarms, updateAlarms, deleteAlarms } from "./api/alarmApi";
+import {
+    getAlarms,
+    updateAlarms,
+    deleteAlarms,
+    addAlarms,
+} from "./api/alarmApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -56,9 +61,9 @@ function App() {
     };
 
     // alarms
-
     const [alarms, setAlarms] = useState([]);
     const [ringed, setRinged] = useState([]);
+
     useEffect(() => {
         // mount alarm data
         const fetchAlarms = async () => {
@@ -85,14 +90,15 @@ function App() {
     }, [date]);
 
     const isAlarmTime = (date, alarm) => {
-        const { time, interval } = alarm;
-        const isDay = interval.days[date.getDay()];
-        const isHour = time.hour == date.getHours();
-        const isMinute = time.minute == date.getMinutes();
-        const isRinged = !ringed.find(
-            (ringedAlarm) => ringedAlarm.id === alarm.id
+        const { time, interval, isOn } = alarm;
+        return (
+            isOn &&
+            interval.days[date.getDay()] &&
+            interval.days[date.getDay()] &&
+            time.hour == date.getHours() &&
+            time.minute == date.getMinutes() &&
+            !ringed.find((ringedAlarm) => ringedAlarm.id === alarm.id)
         );
-        return isDay && isHour && isMinute && isRinged;
     };
     const triggerAlarm = (alarm) => {
         const { time, description } = alarm;
@@ -108,14 +114,22 @@ function App() {
             theme: "dark",
         });
     };
-    const changeAlarm = (index, alarm) => {
+    const addAlarm = async (alarm) => {
+        addAlarms(alarm).then(() => {
+            alarms.push(alarm);
+            setAlarms(alarms);
+        });
+    };
+    const changeAlarm = (newAlarm) => {
         let newAlarms = [...alarms];
-        newAlarms[index] = alarm;
-        updateAlarms(alarm.id, alarm);
+        const index = alarms.findIndex((alarm) => alarm.id == newAlarm.id);
+        console.log(index);
+        newAlarms[index] = newAlarm;
+        updateAlarms(newAlarm.id, newAlarm);
         setAlarms(newAlarms);
     };
-    const deleteAlarm = (index) => {
-        const id = alarms[index].id;
+    const deleteAlarm = (id) => {
+        const index = alarms.findIndex((alarm) => alarm.id == id);
         deleteAlarms(id);
         alarms.splice(index, 1);
         setAlarms(alarms);
@@ -136,7 +150,13 @@ function App() {
                 }}
             >
                 <AlarmContext.Provider
-                    value={{ alarms, triggerAlarm, changeAlarm, deleteAlarm }}
+                    value={{
+                        alarms,
+                        triggerAlarm,
+                        addAlarm,
+                        changeAlarm,
+                        deleteAlarm,
+                    }}
                 >
                     <NavBar routes={routes} />
                     <Routes>

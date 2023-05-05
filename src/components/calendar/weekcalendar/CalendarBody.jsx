@@ -19,7 +19,7 @@ const CalendarBody = ({ events }) => {
     };
     const [choosedEvent, setChoosedEvent] = useState(emptyEvent);
     const handleEventChange = (e) => {
-        const newEvent = { ...choosedEvent };
+        const newEvent = structuredClone(choosedEvent);
         const { name, value } = e.currentTarget;
         newEvent[name] = value;
         setChoosedEvent(newEvent);

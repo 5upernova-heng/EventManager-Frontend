@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getDaysString, getTimeString } from "../utils/calDate";
 import Switch from "./forms/Switch";
 import AlarmFormGroup from "./forms/AlarmFormGroup";
+import { AlarmContext } from "../App";
 
-const Alarm = ({ alarm, triggerAlarm, changeAlarm, deleteAlarm }) => {
+const Alarm = ({ alarm, triggerAlarm }) => {
     const { time, description, interval, isOn, id } = alarm;
+    const { changeAlarm } = useContext(AlarmContext);
     const timeStr = getTimeString(time.hour, time.minute);
     const [collapse, setCollapse] = useState(true);
     return (
@@ -36,11 +38,12 @@ const Alarm = ({ alarm, triggerAlarm, changeAlarm, deleteAlarm }) => {
                 <div className="d-flex justify-content-end align-items-center">
                     <div className="mb-1">
                         <Switch
-                            id={`Alarm${id}`}
+                            id={`Alarm-${id}`}
                             isOn={isOn}
                             toggleHandler={(event) => {
-                                alarm.isOn = event.target.checked;
-                                changeAlarm(alarm);
+                                const newAlarm = structuredClone(alarm);
+                                newAlarm.isOn = event.target.checked;
+                                changeAlarm(newAlarm);
                             }}
                             size={"lg"}
                         />
@@ -48,12 +51,7 @@ const Alarm = ({ alarm, triggerAlarm, changeAlarm, deleteAlarm }) => {
                 </div>
             </div>
             <div className="px-3" hidden={collapse}>
-                <AlarmFormGroup
-                    alarm={alarm}
-                    triggerAlarm={triggerAlarm}
-                    changeAlarm={changeAlarm}
-                    deleteAlarm={deleteAlarm}
-                />
+                <AlarmFormGroup alarm={alarm} triggerAlarm={triggerAlarm} />
             </div>
         </div>
     );

@@ -3,11 +3,11 @@ import CheckButtonGroup from "./CheckButtonGroup";
 import Input from "./Input";
 import { useContext, useState } from "react";
 import { AlarmContext } from "../../App";
-const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
+const AlarmFormGroup = ({ alarm }) => {
     const { time, description, interval, id } = alarm;
     const [hour, setHour] = useState(alarm.time.hour);
     const [minute, setMinute] = useState(alarm.time.minute);
-    const { triggerAlarm } = useContext(AlarmContext);
+    const { triggerAlarm, changeAlarm, deleteAlarm } = useContext(AlarmContext);
     const hourHandler = (event) => {
         setHour(event.target.value);
     };
@@ -15,30 +15,33 @@ const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
         setMinute(event.target.value);
     };
     const changeInterval = (interval) => {
-        alarm.interval = interval;
-        saveChanges();
+        const newAlarm = structuredClone(alarm);
+        newAlarm.interval = interval;
+        changeAlarm(newAlarm);
     };
     const changeDescription = (event) => {
-        alarm.description = event.target.value;
-        saveChanges();
+        const newAlarm = structuredClone(alarm);
+        newAlarm.description = event.target.value;
+        changeAlarm(newAlarm);
     };
     const saveChanges = () => {
-        alarm.time.hour = hour;
-        alarm.time.minute = minute;
-        changeAlarm(alarm);
+        const newAlarm = structuredClone(alarm);
+        newAlarm.time.hour = hour;
+        newAlarm.time.minute = minute;
+        changeAlarm(newAlarm);
     };
     return (
         <div className="d-flex justify-content-between">
             <div className="d-flex flex-column justify-content-between">
                 <Range
-                    id={`hour${id}`}
+                    id={`hour-${id}`}
                     label={`小时: ${hour}`}
                     value={time.hour}
                     changeHandler={hourHandler}
                     rangeAttrs={{ min: 0, max: 23, step: 1 }}
                 />
                 <Range
-                    id={`minute${id}`}
+                    id={`minute-${id}`}
                     label={`分钟: ${minute}`}
                     value={time.minute}
                     changeHandler={minuteHandler}
@@ -55,7 +58,7 @@ const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
                 </div>
                 <div className="d-flex flex-column justify-content-between mb-2">
                     <Input
-                        name={`input${id}`}
+                        name={`input-${id}`}
                         label={`描述`}
                         value={description}
                         onChange={changeDescription}
@@ -72,7 +75,10 @@ const AlarmFormGroup = ({ alarm, changeAlarm, deleteAlarm }) => {
                 <button className="btn btn-primary mx-1" onClick={saveChanges}>
                     保存
                 </button>
-                <button className="btn btn-danger mx-1" onClick={deleteAlarm}>
+                <button
+                    className="btn btn-danger mx-1"
+                    onClick={() => deleteAlarm(alarm.id)}
+                >
                     删除闹钟
                 </button>
             </div>
