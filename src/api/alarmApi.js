@@ -5,14 +5,17 @@ export function getAlarms() {
     return request.get(`${apiRoot}/alarms`);
 }
 
-export function addAlarms(alarm) {
-    return request.post(`${apiRoot}/alarms`, alarm);
+export async function addAlarms(alarm) {
+    await request.post(`${apiRoot}/alarms`, alarm);
+    return getAlarms();
 }
 
-export function deleteAlarms(id) {
-    return request.delete(`${apiRoot}/alarms/${id}`);
+export async function deleteAlarms(id) {
+    await request.delete(`${apiRoot}/alarms/${id}`);
+    return getAlarms();
 }
 
-export function updateAlarms(id, alarm) {
-    return request.put(`${apiRoot}/alarms/${id}`, alarm);
+export async function updateAlarms(id, alarm) {
+    await request.put(`${apiRoot}/alarms/${id}`, alarm);
+    return getAlarms();
 }

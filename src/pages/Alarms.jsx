@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import Alarm from "../components/Alarm";
 import { AlarmContext } from "../App";
 

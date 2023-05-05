@@ -115,24 +115,24 @@ function App() {
         });
     };
     const addAlarm = async (alarm) => {
-        addAlarms(alarm).then(() => {
-            alarms.push(alarm);
-            setAlarms(alarms);
-        });
-    };
-    const changeAlarm = (newAlarm) => {
-        let newAlarms = [...alarms];
-        const index = alarms.findIndex((alarm) => alarm.id == newAlarm.id);
-        console.log(index);
-        newAlarms[index] = newAlarm;
-        updateAlarms(newAlarm.id, newAlarm);
+        const { data: newAlarms } = await addAlarms(alarm);
         setAlarms(newAlarms);
     };
-    const deleteAlarm = (id) => {
-        const index = alarms.findIndex((alarm) => alarm.id == id);
-        deleteAlarms(id);
-        alarms.splice(index, 1);
-        setAlarms(alarms);
+    const changeAlarm = async (newAlarm) => {
+        const { data: newAlarms } = await updateAlarms(newAlarm.id, newAlarm);
+        // let newAlarms = [...alarms];
+        // const index = alarms.findIndex((alarm) => alarm.id == newAlarm.id);
+        // console.log(index);
+        // newAlarms[index] = newAlarm;
+        // updateAlarms(newAlarm.id, newAlarm);
+        setAlarms(newAlarms);
+    };
+    const deleteAlarm = async (id) => {
+        const { data: newAlarms } = await deleteAlarms(id);
+        // const index = alarms.findIndex((alarm) => alarm.id == id);
+        // deleteAlarms(id);
+        // alarms.splice(index, 1);
+        setAlarms(newAlarms);
     };
     return (
         <>
