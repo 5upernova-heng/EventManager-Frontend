@@ -34,8 +34,8 @@ yarn dev
 
 ### To Do List
 
-- Replace hard core data with API
-- Complete add method, and form validation
+- Complete event add method
+- Re-render modal when click a new cell
 
 ### 进度一览
 
