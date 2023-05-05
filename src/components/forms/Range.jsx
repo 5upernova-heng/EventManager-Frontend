@@ -1,5 +1,5 @@
 const Range = ({ id, label, value, changeHandler, rangeAttrs }) => {
-    const rangeId = `label${id}`;
+    const rangeId = `label-${id}`;
     return (
         <div>
             <label className="form-label" htmlFor={rangeId}>

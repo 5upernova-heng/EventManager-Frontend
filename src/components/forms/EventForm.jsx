@@ -1,30 +1,111 @@
 import { useState } from "react";
+import { getDateLimit } from "../../utils/calDate";
 import Input from "./Input";
 import Range from "./Range";
 
-const EventForm = ({ id, choosedEvent }) => {
+const EventForm = ({ id, submitData, setSubmit }) => {
+    const { title, month, date, startHour, endHour, description } = submitData;
+    const [startKey, setStartKey] = useState(`startHour-${startHour}`);
+    const [endKey, setEndKey] = useState(`endHour-${endHour}`);
+    const changeData = (dataObject) => {
+        const newData = structuredClone(submitData);
+        for (const prop in dataObject) {
+            newData[prop] = dataObject[prop];
+        }
+        setSubmit(newData);
+    };
     return (
         <div className="mb-2">
             <Input
-                name="title"
+                name={`title-${id}`}
                 label="事件标题"
-                value={"Hello"}
-                onChange={() => {}}
+                value={title}
+                onChange={(event) => {
+                    changeData({ title: event.target.value });
+                }}
             />
-            <div className="d-flex">
-                <Range
-                    id={`month-${id}`}
-                    label={`月: ${0}`}
-                    value={5}
-                    changeHandler={() => {}}
-                    rangeAttrs={{ min: 1, max: 12, step: 1 }}
-                />
-                <Range
-                    id={`date-${id}`}
-                    label={`日: ${0}`}
-                    value={6}
-                    changeHandler={() => {}}
-                    rangeAttrs={{ min: 1, max: 12, step: 1 }}
+            <div className="row">
+                <div className="col">
+                    <Range
+                        id={`month-${id}`}
+                        label={`月: ${month}`}
+                        value={month}
+                        changeHandler={(event) => {
+                            changeData({ month: event.target.value });
+                        }}
+                        rangeAttrs={{ min: 1, max: 12, step: 1 }}
+                    />
+                </div>
+                <div className="col">
+                    <Range
+                        id={`date-${id}`}
+                        label={`日: ${date}`}
+                        value={date}
+                        changeHandler={(event) => {
+                            changeData({ date: event.target.value });
+                        }}
+                        rangeAttrs={{
+                            min: 1,
+                            max: getDateLimit(month),
+                            step: 1,
+                        }}
+                    />
+                </div>
+            </div>
+            <div className="row">
+                <div className="col">
+                    <Range
+                        key={startKey}
+                        id={`startTime-${id}`}
+                        label={`开始时间: ${startHour}`}
+                        value={startHour}
+                        changeHandler={(event) => {
+                            const newStartHour = Number(event.target.value);
+                            if (newStartHour >= endHour) {
+                                const newEndHour = newStartHour + 1;
+                                changeData({
+                                    startHour: newStartHour,
+                                    endHour: newEndHour,
+                                });
+                                setEndKey(`endHour-${newEndHour}`);
+                            } else {
+                                changeData({ startHour: newStartHour });
+                            }
+                        }}
+                        rangeAttrs={{ min: 0, max: 23, step: 1 }}
+                    />
+                </div>
+                <div className="col">
+                    <Range
+                        key={endKey}
+                        id={`endTime-${id}`}
+                        label={`结束时间: ${endHour}`}
+                        value={endHour}
+                        changeHandler={(event) => {
+                            const newEndHour = Number(event.target.value);
+                            if (newEndHour <= startHour) {
+                                const newStartHour = newEndHour - 1;
+                                changeData({
+                                    startHour: newEndHour - 1,
+                                    endHour: newEndHour,
+                                });
+                                setStartKey(`startHour-${newStartHour}`);
+                            } else {
+                                changeData({ endHour: newEndHour });
+                            }
+                        }}
+                        rangeAttrs={{ min: 0, max: 23, step: 1 }}
+                    />
+                </div>
+            </div>
+            <div>
+                <Input
+                    name="description"
+                    label="事件描述"
+                    value={description}
+                    onChange={(event) => {
+                        changeData({ description: event.target.value });
+                    }}
                 />
             </div>
         </div>

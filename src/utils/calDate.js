@@ -44,9 +44,9 @@ export const getDaysString = (days) => {
           );
 };
 
-export const getDateLimit = (monthIndex) => {
+export const getDateLimit = (month) => {
     // get the max date of this month (this year by default)
     const date = new Date();
-    date.setMonth(monthIndex + 1, 0);
+    date.setMonth(month, 0);
     return date.getDate();
 };

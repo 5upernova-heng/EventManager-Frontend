@@ -4,9 +4,10 @@ import { getWeekDates } from "../../../utils/calDate";
 
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
-import EventFormModal from "../../forms/EventFormModal";
+import ModelGroup from "../../ModalGroup";
 
 export const EventContext = createContext();
+
 const CalendarBody = ({ events }) => {
     const { date } = useContext(TimeContext);
     const emptyEvent = {
@@ -19,7 +20,7 @@ const CalendarBody = ({ events }) => {
     const dates = getWeekDates(date);
     const setCellEvent = (row, col) => {
         const startTime = new Date(date);
-        startTime.setDate(date.getDate() + row);
+        startTime.setDate(date.getDate() - date.getDay() + row);
         startTime.setHours(col);
         const endTime = new Date(startTime);
         endTime.setHours(col + 1);
@@ -58,16 +59,7 @@ const CalendarBody = ({ events }) => {
                     </div>
                     {createColumn()}
                 </div>
-                <EventFormModal
-                    id="addEvent"
-                    titleLabel="添加事件"
-                    choosedEvent={choosedEvent}
-                />
-                <EventFormModal
-                    id="modifyEvent"
-                    titleLabel="修改事件"
-                    choosedEvent={choosedEvent}
-                />
+                <ModelGroup />
             </EventContext.Provider>
         </>
     );
