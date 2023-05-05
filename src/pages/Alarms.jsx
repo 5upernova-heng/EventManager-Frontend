@@ -3,8 +3,25 @@ import Alarm from "../components/Alarm";
 import { AlarmContext } from "../App";
 
 const Alarms = () => {
-    const { alarms, addAlarm, triggerAlarm, deleteAlarm } =
-        useContext(AlarmContext);
+    const { alarms, addAlarm, triggerAlarm } = useContext(AlarmContext);
+    const addAlarmHandler = () => {
+        if (alarms.length !== 0) {
+            const alarm = structuredClone(alarms[alarms.length - 1]);
+            alarm.id += 1;
+            addAlarm(alarm);
+        } else {
+            const alarm = {
+                time: { hour: 0, minute: 0 },
+                description: "",
+                interval: {
+                    days: [false, false, false, false, false, false, false],
+                },
+                isOn: false,
+                id: 1,
+            };
+            addAlarm(alarm);
+        }
+    };
     const renderAlarms = () => {
         return alarms.length !== 0 ? (
             alarms.map((alarm, index) => {
@@ -27,13 +44,7 @@ const Alarms = () => {
                 <div className="d-flex justify-content-end me-2 my-2">
                     <button
                         className="btn btn-success"
-                        onClick={() => {
-                            const alarm = structuredClone(
-                                alarms[alarms.length - 1]
-                            );
-                            alarm.id += 1;
-                            addAlarm(alarm);
-                        }}
+                        onClick={addAlarmHandler}
                     >
                         添加闹钟 +
                     </button>
