@@ -1,4 +1,4 @@
-import Input from "./forms/Input";
+import Input from "./Input";
 
 const EventModal = ({
     id,
