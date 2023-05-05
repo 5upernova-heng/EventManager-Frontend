@@ -5,22 +5,11 @@
 import EventContainer from "./EventContainer";
 import EmptyCell from "./EmptyCell";
 
-const CalendarDateColumn = ({
-    events,
-    cellClickHandler,
-    eventClickHandler,
-}) => {
+const CalendarDateColumn = ({ events, row }) => {
     const createCells = () => {
         const cells = [];
         for (let i = 0; i < 24; i++) {
-            cells.push(
-                <EmptyCell
-                    key={i}
-                    clickHandler={() => {
-                        cellClickHandler(i);
-                    }}
-                />
-            );
+            cells.push(<EmptyCell key={i} row={row} col={i} />);
         }
         return cells;
     };
@@ -28,10 +17,7 @@ const CalendarDateColumn = ({
     return (
         <div className="d-flex position-relative flex-wrap flex-column align-items-stretch justify-content-center">
             {createCells()}
-            <EventContainer
-                events={events}
-                handleEventClick={eventClickHandler}
-            />
+            <EventContainer events={events} />
         </div>
     );
 };

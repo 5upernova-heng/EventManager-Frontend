@@ -1,12 +1,17 @@
 import { Modal } from "bootstrap";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { EventContext } from "./CalendarBody";
 
-const EventCell = ({ event, handleClick }) => {
+const EventCell = ({ event }) => {
     const [hover, setHover] = useState(false);
+    const { setEventEvent } = useContext(EventContext);
+    const { startTime, endTime, title, description } = event;
+    const startHour = new Date(startTime).getHours();
+    const endHour = new Date(endTime).getHours();
     const calStyle = () => {
         return {
-            top: `${(event.startTime / 24) * 100}%`,
-            bottom: `${(1 - event.endTime / 24) * 100}%`,
+            top: `${(startHour / 24) * 100}%`,
+            bottom: `${(1 - endHour / 24) * 100}%`,
         };
     };
 
@@ -24,7 +29,7 @@ const EventCell = ({ event, handleClick }) => {
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#modifyEvent"
-            onClick={() => handleClick(event)}
+            onClick={() => setEventEvent(event)}
             onMouseEnter={() => {
                 setHover(true);
             }}
@@ -32,9 +37,9 @@ const EventCell = ({ event, handleClick }) => {
                 setHover(false);
             }}
         >
-            <p className="fs-5 mb-0 text-white fw-bold">{`${event.title}`}</p>
-            <p className="fs-6 mb-0 text-white">{`${event.startTime}:00-${event.endTime}:00`}</p>
-            <p className="fs-6 mb-0 text-white">{`${event.description}`}</p>
+            <p className="fs-5 mb-0 text-white fw-bold">{`${title}`}</p>
+            <p className="fs-6 mb-0 text-white">{`${startHour}:00-${endHour}:00`}</p>
+            <p className="fs-6 mb-0 text-white">{`${description}`}</p>
         </div>
     );
 };

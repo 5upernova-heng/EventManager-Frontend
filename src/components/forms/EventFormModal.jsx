@@ -1,13 +1,12 @@
 import Input from "./Input";
 
-const EventModal = ({
-    id,
-    titleLabel,
-    choosedEvent,
-    eventChangeHandler,
-    submitHandler,
-    submitButtonLabel,
-}) => {
+const EventFormModal = ({ id, titleLabel, choosedEvent }) => {
+    const { title, startTime, endTime, description } = choosedEvent;
+    const eventStartDate = new Date(startTime);
+    const month = eventStartDate.getMonth() + 1;
+    const date = eventStartDate.getDate();
+    const startHour = eventStartDate.getHours();
+    const endHour = new Date(endTime).getHours();
     return (
         <>
             <div className="modal" tabIndex="-1" id={id}>
@@ -28,8 +27,7 @@ const EventModal = ({
                                     <Input
                                         name="title"
                                         label="事件标题"
-                                        value={choosedEvent.title}
-                                        onChange={eventChangeHandler}
+                                        value={title}
                                     />
                                 </div>
                             </div>
@@ -38,16 +36,14 @@ const EventModal = ({
                                     <Input
                                         name="month"
                                         label="月"
-                                        value={choosedEvent.month}
-                                        onChange={eventChangeHandler}
+                                        value={month}
                                     />
                                 </div>
                                 <div className="col">
                                     <Input
                                         name="date"
                                         label="日"
-                                        value={choosedEvent.date}
-                                        onChange={eventChangeHandler}
+                                        value={date}
                                     />
                                 </div>
                             </div>
@@ -56,16 +52,14 @@ const EventModal = ({
                                     <Input
                                         name="startTime"
                                         label="开始时间"
-                                        value={choosedEvent.startTime}
-                                        onChange={eventChangeHandler}
+                                        value={startHour}
                                     />
                                 </div>
                                 <div className="col">
                                     <Input
                                         name="endTime"
                                         label="结束时间"
-                                        value={choosedEvent.endTime}
-                                        onChange={eventChangeHandler}
+                                        value={endHour}
                                     />
                                 </div>
                             </div>
@@ -74,8 +68,7 @@ const EventModal = ({
                                     <Input
                                         name="description"
                                         label="事件描述"
-                                        value={choosedEvent.description}
-                                        onChange={eventChangeHandler}
+                                        value={description}
                                     />
                                 </div>
                             </div>
@@ -92,9 +85,8 @@ const EventModal = ({
                                 type="button"
                                 className="btn btn-primary"
                                 data-bs-dismiss="modal"
-                                onClick={submitHandler}
                             >
-                                {submitButtonLabel}
+                                提交
                             </button>
                         </div>
                     </div>
@@ -104,4 +96,4 @@ const EventModal = ({
     );
 };
 
-export default EventModal;
+export default EventFormModal;

@@ -14,7 +14,9 @@ function Calendar() {
             const { data: events } = await getEventsApi();
             const newDistrube = [[], [], [], [], [], [], []];
             events.map((event) => {
-                newDistrube[event.day].push(event);
+                const date = new Date(event.startTime);
+                const day = date.getDay();
+                newDistrube[day].push(event);
             });
             setDistEvents(newDistrube);
         };

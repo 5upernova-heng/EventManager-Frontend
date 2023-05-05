@@ -43,3 +43,10 @@ export const getDaysString = (days) => {
               ""
           );
 };
+
+export const getDateLimit = (monthIndex) => {
+    // get the max date of this month (this year by default)
+    const date = new Date();
+    date.setMonth(monthIndex + 1, 0);
+    return date.getDate();
+};

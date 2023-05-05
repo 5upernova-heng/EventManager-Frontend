@@ -1,82 +1,74 @@
-import { useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { TimeContext } from "../../../App";
 import { getWeekDates } from "../../../utils/calDate";
 
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
-import EventModal from "../../forms/EventFormModal";
+import EventFormModal from "../../forms/EventFormModal";
 
+export const EventContext = createContext();
 const CalendarBody = ({ events }) => {
     const { date } = useContext(TimeContext);
     const emptyEvent = {
         title: "",
         startTime: 0,
-        endTime: 1,
-        date: 0,
-        month: 0,
-        day: 0,
+        endTime: 0,
         description: "",
     };
     const [choosedEvent, setChoosedEvent] = useState(emptyEvent);
-    const handleEventChange = (e) => {
-        const newEvent = structuredClone(choosedEvent);
-        const { name, value } = e.currentTarget;
-        newEvent[name] = value;
-        setChoosedEvent(newEvent);
-    };
     const dates = getWeekDates(date);
-    const cellClickHandler = (row, index) => {
+    const setCellEvent = (row, col) => {
+        const startTime = new Date(date);
+        startTime.setDate(date.getDate() + row);
+        startTime.setHours(col);
+        const endTime = new Date(startTime);
+        endTime.setHours(col + 1);
         setChoosedEvent({
             title: "",
-            startTime: row,
-            endTime: row + 1,
-            date: dates[index].getDate(),
-            month: dates[index].getMonth(),
-            day: index,
+            startTime: startTime.getTime(),
+            endTime: endTime.getTime(),
             description: "",
         });
     };
+    const setEventEvent = (event) => {
+        setChoosedEvent(event);
+    };
     const createColumn = () => {
-        return dates.map((d, index) => (
+        return dates.map((_, index) => (
             <div className="col p-0" key={index}>
-                <CalendarDateColumn
-                    events={events[index]}
-                    cellClickHandler={(row) => {
-                        cellClickHandler(row, index);
-                    }}
-                    eventClickHandler={(event) => {
-                        setChoosedEvent(event);
-                    }}
-                />
+                <CalendarDateColumn events={events[index]} row={index} />
             </div>
         ));
     };
     return (
         <>
-            <div
-                style={{ maxHeight: "600px" }}
-                className="row overflow-auto border"
+            <EventContext.Provider
+                value={{
+                    choosedEvent,
+                    setCellEvent,
+                    setEventEvent,
+                }}
             >
-                <div className="col-1 p-0">
-                    <CalendarTimeColumn />
+                <div
+                    style={{ maxHeight: "600px" }}
+                    className="row overflow-auto border"
+                >
+                    <div className="col-1 p-0">
+                        <CalendarTimeColumn />
+                    </div>
+                    {createColumn()}
                 </div>
-                {createColumn()}
-            </div>
-            <EventModal
-                id="addEvent"
-                titleLabel="添加事件"
-                choosedEvent={choosedEvent}
-                eventChangeHandler={handleEventChange}
-                submitButtonLabel="提交添加"
-            />
-            <EventModal
-                id="modifyEvent"
-                titleLabel="修改事件"
-                choosedEvent={choosedEvent}
-                eventChangeHandler={handleEventChange}
-                submitHandler={() => {}}
-                submitButtonLabel="提交修改"
-            />
+                <EventFormModal
+                    id="addEvent"
+                    titleLabel="添加事件"
+                    choosedEvent={choosedEvent}
+                />
+                <EventFormModal
+                    id="modifyEvent"
+                    titleLabel="修改事件"
+                    choosedEvent={choosedEvent}
+                />
+            </EventContext.Provider>
         </>
     );
 };
