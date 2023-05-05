@@ -1,4 +1,3 @@
-import { Modal } from "bootstrap/js/dist/modal";
 import { useState } from "react";
 
 const EventCell = ({ event, handleClick }) => {

@@ -17,7 +17,12 @@ function CalendarBar() {
                         </div>
                         <button className="btn btn-secondary">搜索</button>
                         <div className="vr"></div>
-                        <button className="btn btn-outline-primary">
+                        <button
+                            className="btn btn-outline-primary"
+                            type="button"
+                            data-bs-toggle="modal"
+                            data-bs-target="#addEvent"
+                        >
                             添加事件
                         </button>
                     </div>
