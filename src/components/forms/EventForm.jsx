@@ -2,13 +2,37 @@ import { useState } from "react";
 import { getDateLimit } from "../../utils/calDate";
 import Input from "./Input";
 import Range from "./Range";
+import SelectButtonGroup from "./SelectButtonGroup";
 
 const EventForm = ({ id, submitData, setSubmit }) => {
-    const { title, month, date, startHour, endHour, description, startTime } =
-        submitData;
+    const {
+        title,
+        month,
+        date,
+        startHour,
+        endHour,
+        description,
+        startTime,
+        category,
+    } = submitData;
     const [startKey, setStartKey] = useState(`startHour-${startHour}`);
     const [endKey, setEndKey] = useState(`endHour-${endHour}`);
     const rangeKey = `${startTime}-${id}`;
+    const buttonStyle = [
+        { label: "课程", style: "btn-outline-primary" },
+        { label: "团体", style: "btn-outline-info" },
+        { label: "个人", style: "btn-outline-success" },
+    ];
+    const categoryLabel = buttonStyle[category].label;
+    const parseButtonInfo = () => {
+        return buttonStyle.map((button, index) => {
+            button.isActive = index == category;
+            return button;
+        });
+    };
+    const changeSelect = (category) => {
+        changeData({ category });
+    };
     const changeData = (dataObject) => {
         const newData = structuredClone(submitData);
         for (const prop in dataObject) {
@@ -17,7 +41,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
         setSubmit(newData);
     };
     return (
-        <div className="mb-2">
+        <div>
             <Input
                 name={`title-${id}`}
                 label="事件标题"
@@ -102,14 +126,19 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                     />
                 </div>
             </div>
-            <div>
-                <Input
-                    name="description"
-                    label="事件描述"
-                    value={description}
-                    onChange={(event) => {
-                        changeData({ description: event.target.value });
-                    }}
+            <Input
+                name="description"
+                label="事件描述"
+                value={description}
+                onChange={(event) => {
+                    changeData({ description: event.target.value });
+                }}
+            />
+            <div className="mt-2">{`事件类型：${categoryLabel}`}</div>
+            <div className="d-flex justify-content-center">
+                <SelectButtonGroup
+                    buttonsInfo={parseButtonInfo()}
+                    changeSelect={changeSelect}
                 />
             </div>
         </div>

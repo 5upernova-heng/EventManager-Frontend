@@ -5,7 +5,7 @@ import { EventContext } from "./calendar/weekcalendar/CalendarBody";
 
 const ModelGroup = () => {
     const { choosedEvent } = useContext(EventContext);
-    const { title, startTime, endTime, description } = choosedEvent;
+    const { title, startTime, endTime, description, category } = choosedEvent;
     const eventStartDate = new Date(startTime);
     const month = eventStartDate.getMonth() + 1;
     const date = eventStartDate.getDate();
@@ -19,9 +19,11 @@ const ModelGroup = () => {
         endHour,
         description,
         startTime,
+        category,
     });
     useEffect(() => {
-        const { title, startTime, endTime, description } = choosedEvent;
+        const { title, startTime, endTime, description, category } =
+            choosedEvent;
         const eventStartDate = new Date(startTime);
         const month = eventStartDate.getMonth() + 1;
         const date = eventStartDate.getDate();
@@ -35,6 +37,7 @@ const ModelGroup = () => {
             endHour,
             description,
             startTime,
+            category,
         });
     }, [choosedEvent]);
     return (
@@ -86,6 +89,13 @@ const ModelGroup = () => {
                             data-bs-dismiss="modal"
                         >
                             取消
+                        </button>
+                        <button
+                            type="button"
+                            className="btn btn-danger"
+                            data-bs-dismiss="modal"
+                        >
+                            删除
                         </button>
                         <button
                             type="button"

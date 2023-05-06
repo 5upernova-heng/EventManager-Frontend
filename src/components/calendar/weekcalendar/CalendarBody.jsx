@@ -15,6 +15,7 @@ const CalendarBody = ({ events }) => {
         startTime: 0,
         endTime: 0,
         description: "",
+        category: 0,
     };
     const [choosedEvent, setChoosedEvent] = useState(emptyEvent);
     const dates = getWeekDates(date);
@@ -29,6 +30,7 @@ const CalendarBody = ({ events }) => {
             startTime: startTime.getTime(),
             endTime: endTime.getTime(),
             description: "",
+            category: 0,
         });
     };
     const setEventEvent = (event) => {
