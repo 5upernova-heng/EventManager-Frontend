@@ -1,18 +1,34 @@
 import { Modal } from "bootstrap";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { EventContext } from "../../../pages/Calendar";
 
 const EventCell = ({ event }) => {
+    const eventRef = useRef(null);
     const [hover, setHover] = useState(false);
+    const [overflow, setOverflow] = useState(false);
     const { setEventEvent } = useContext(EventContext);
     const { startTime, endTime, title, description } = event;
     const startHour = new Date(startTime).getHours();
     const endHour = new Date(endTime).getHours();
+
+    useEffect(() => {
+        setOverflow(
+            eventRef.current.clientHeight < eventRef.current.scrollHeight
+        );
+    }, [event]);
+
     const calStyle = () => {
-        return {
-            top: `${(startHour / 24) * 100}%`,
-            bottom: `${(1 - endHour / 24) * 100}%`,
-        };
+        const top = `${(startHour / 24) * 100}%`;
+        const bottom = `${(1 - endHour / 24) * 100}%`;
+        return hover
+            ? {
+                  top,
+                  bottom: overflow ? "" : bottom,
+              }
+            : {
+                  top,
+                  bottom,
+              };
     };
 
     const renderStyle = () => {
@@ -24,6 +40,7 @@ const EventCell = ({ event }) => {
     };
     return (
         <div
+            ref={eventRef}
             className={renderStyle()}
             style={calStyle(event)}
             type="button"
