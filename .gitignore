@@ -106,3 +106,4 @@ dist
 db.json
 db_backup.json
 settings.json
+.vscode
