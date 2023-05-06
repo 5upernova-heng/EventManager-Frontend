@@ -41,16 +41,26 @@ const EventForm = ({ id, submitData, setSubmit }) => {
         }
         setSubmit(newData);
     };
+
     return (
         <div>
-            <Input
-                name={`title-${id}`}
-                label="事件标题"
-                value={title}
-                onChange={(event) => {
-                    changeData({ title: event.target.value });
-                }}
-            />
+            <div className="mt-2">{`事件类型：${categoryLabel}`}</div>
+            <div className="d-flex justify-content-center">
+                <SelectButtonGroup
+                    buttonsInfo={parseButtonInfo()}
+                    changeSelect={changeSelect}
+                />
+            </div>
+            <div className="mb-2">
+                <Input
+                    name={`title-${id}`}
+                    label="事件标题"
+                    value={title}
+                    onChange={(event) => {
+                        changeData({ title: event.target.value });
+                    }}
+                />
+            </div>
             <div className="row">
                 <div className="col">
                     <Range
@@ -135,13 +145,6 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                     changeData({ description: event.target.value });
                 }}
             />
-            <div className="mt-2">{`事件类型：${categoryLabel}`}</div>
-            <div className="d-flex justify-content-center">
-                <SelectButtonGroup
-                    buttonsInfo={parseButtonInfo()}
-                    changeSelect={changeSelect}
-                />
-            </div>
         </div>
     );
 };
