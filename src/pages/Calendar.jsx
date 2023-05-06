@@ -5,23 +5,28 @@ import { useState, useEffect } from "react";
 import { getEventsApi } from "../api/eventApi";
 
 function Calendar() {
-    const [distEvents, setDistEvents] = useState([[], [], [], [], [], [], []]);
+    const [events, setEvents] = useState([]);
+
     useEffect(() => {
         // mount:
         // 1. distribute events
         // 2. setTimeInterval
         const getEvents = async () => {
             const { data: events } = await getEventsApi();
-            const newDistrube = [[], [], [], [], [], [], []];
-            events.map((event) => {
-                const date = new Date(event.startTime);
-                const day = date.getDay();
-                newDistrube[day].push(event);
-            });
-            setDistEvents(newDistrube);
+            setEvents(events);
         };
         getEvents();
     }, []);
+
+    const distrube = () => {
+        const distrubed = [[], [], [], [], [], [], []];
+        events.map((event) => {
+            const date = new Date(event.startTime);
+            const day = date.getDay();
+            distrubed[day].push(event);
+        });
+        return distrubed;
+    };
 
     return (
         <>
@@ -31,7 +36,7 @@ function Calendar() {
                     <CalendarSideBar />
                 </div>
                 <div className="col ms-0 me-4">
-                    <WeekCalendar events={distEvents} />
+                    <WeekCalendar events={distrube()} />
                 </div>
             </div>
         </>
