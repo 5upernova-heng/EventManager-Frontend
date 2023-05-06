@@ -34,8 +34,8 @@ yarn dev
 
 ### To Do List
 
-- Complete event add method
-- Re-render modal when click a new cell
+- Change event form to text area
+- Add prop type check, format code
 
 ### 进度一览
 
