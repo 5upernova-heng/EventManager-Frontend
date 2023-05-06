@@ -20,10 +20,11 @@ const EventForm = ({ id, submitData, setSubmit }) => {
     const rangeKey = `${startTime}-${id}`;
     const buttonStyle = [
         { label: "课程", style: "btn-outline-primary" },
-        { label: "团体", style: "btn-outline-info" },
         { label: "个人", style: "btn-outline-success" },
+        { label: "团体", style: "btn-outline-info" },
     ];
     const categoryLabel = buttonStyle[category].label;
+
     const parseButtonInfo = () => {
         return buttonStyle.map((button, index) => {
             button.isActive = index == category;
