@@ -1,6 +1,6 @@
 import { Modal } from "bootstrap";
 import { useContext, useState } from "react";
-import { EventContext } from "./CalendarBody";
+import { EventContext } from "../../../pages/Calendar";
 
 const EventCell = ({ event }) => {
     const [hover, setHover] = useState(false);

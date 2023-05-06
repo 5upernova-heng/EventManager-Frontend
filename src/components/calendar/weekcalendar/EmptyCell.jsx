@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { EventContext } from "./CalendarBody";
+import { EventContext } from "../../../pages/Calendar";
 
 const EmptyCell = ({ row, col }) => {
     const [hover, setHover] = useState(false);
