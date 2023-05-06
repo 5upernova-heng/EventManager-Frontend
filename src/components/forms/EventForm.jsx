@@ -4,9 +4,11 @@ import Input from "./Input";
 import Range from "./Range";
 
 const EventForm = ({ id, submitData, setSubmit }) => {
-    const { title, month, date, startHour, endHour, description } = submitData;
+    const { title, month, date, startHour, endHour, description, startTime } =
+        submitData;
     const [startKey, setStartKey] = useState(`startHour-${startHour}`);
     const [endKey, setEndKey] = useState(`endHour-${endHour}`);
+    const rangeKey = `${startTime}-${id}`;
     const changeData = (dataObject) => {
         const newData = structuredClone(submitData);
         for (const prop in dataObject) {
@@ -28,6 +30,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                 <div className="col">
                     <Range
                         id={`month-${id}`}
+                        key={`month-${rangeKey}`}
                         label={`月: ${month}`}
                         value={month}
                         changeHandler={(event) => {
@@ -39,6 +42,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                 <div className="col">
                     <Range
                         id={`date-${id}`}
+                        key={`date-${rangeKey}`}
                         label={`日: ${date}`}
                         value={date}
                         changeHandler={(event) => {
@@ -55,7 +59,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
             <div className="row">
                 <div className="col">
                     <Range
-                        key={startKey}
+                        key={`${startKey}-${rangeKey}`}
                         id={`startTime-${id}`}
                         label={`开始时间: ${startHour}`}
                         value={startHour}
@@ -77,7 +81,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                 </div>
                 <div className="col">
                     <Range
-                        key={endKey}
+                        key={`${endKey}-${rangeKey}`}
                         id={`endTime-${id}`}
                         label={`结束时间: ${endHour}`}
                         value={endHour}

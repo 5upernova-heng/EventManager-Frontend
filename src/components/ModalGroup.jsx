@@ -18,6 +18,7 @@ const ModelGroup = () => {
         startHour,
         endHour,
         description,
+        startTime,
     });
     useEffect(() => {
         const { title, startTime, endTime, description } = choosedEvent;
@@ -26,7 +27,15 @@ const ModelGroup = () => {
         const date = eventStartDate.getDate();
         const startHour = eventStartDate.getHours();
         const endHour = new Date(endTime).getHours();
-        setSubmit({ title, month, date, startHour, endHour, description });
+        setSubmit({
+            title,
+            month,
+            date,
+            startHour,
+            endHour,
+            description,
+            startTime,
+        });
     }, [choosedEvent]);
     return (
         <>
