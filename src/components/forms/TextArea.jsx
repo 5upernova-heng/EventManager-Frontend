@@ -1,6 +1,7 @@
 const TextArea = ({ name, label, value, onChange }) => {
     return (
-        <div className="form-floating">
+        <div>
+            <label htmlFor={name}>{label}</label>
             <textarea
                 className="form-control"
                 style={{ height: "100px" }}
@@ -8,7 +9,6 @@ const TextArea = ({ name, label, value, onChange }) => {
                 value={value}
                 onChange={onChange}
             ></textarea>
-            <label htmlFor={name}>{label}</label>
         </div>
     );
 };

@@ -22,6 +22,8 @@ function Calendar() {
         endTime: 0,
         description: "",
         category: 0,
+        isOnce: 0,
+        isOfficial: 0,
     };
 
     const [events, setEvents] = useState([]);
@@ -75,6 +77,8 @@ function Calendar() {
             endTime: endTime.getTime(),
             description: "",
             category: 0,
+            isOnce: 0,
+            isOfficial: 0,
         });
     };
 

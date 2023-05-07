@@ -2,11 +2,21 @@ import { useContext, useState, useEffect } from "react";
 import EventModel from "./EventModel";
 import EventForm from "./forms/EventForm";
 import { EventContext } from "../pages/Calendar";
+import { AuthContext } from "../App";
 
 const ModelGroup = () => {
     const { events, choosedEvent, addEvent, updateEvent, deleteEvent } =
         useContext(EventContext);
-    const { title, startTime, endTime, description, category } = choosedEvent;
+    const { auth } = useContext(AuthContext);
+    const {
+        title,
+        startTime,
+        endTime,
+        description,
+        category,
+        isOnce,
+        isOfficial,
+    } = choosedEvent;
     const eventStartDate = new Date(startTime);
     const month = eventStartDate.getMonth() + 1;
     const date = eventStartDate.getDate();
@@ -21,25 +31,38 @@ const ModelGroup = () => {
         description,
         startTime,
         category,
+        isOnce,
+        isOfficial,
     });
 
     useEffect(() => {
-        const { title, startTime, endTime, description, category } =
-            choosedEvent;
+        const {
+            title,
+            startTime,
+            endTime,
+            description,
+            category,
+            isOnce,
+            isOfficial,
+        } = choosedEvent;
         const eventStartDate = new Date(startTime);
         const month = eventStartDate.getMonth() + 1;
         const date = eventStartDate.getDate();
+        const day = eventStartDate.getDay();
         const startHour = eventStartDate.getHours();
         const endHour = new Date(endTime).getHours();
         setSubmit({
             title,
             month,
             date,
+            day,
             startHour,
             endHour,
             description,
             startTime,
             category,
+            isOnce,
+            isOfficial,
         });
     }, [choosedEvent]);
 
@@ -52,14 +75,21 @@ const ModelGroup = () => {
             title,
             month,
             date,
+            day,
             startHour,
             endHour,
             description,
             category,
+            isOnce,
+            isOfficial,
         } = submitData;
         const newStartDate = new Date();
         newStartDate.setMonth(month - 1);
         newStartDate.setDate(date);
+        if (!isOnce) {
+            console.log("T", newStartDate.getDay(), day);
+            newStartDate.setDate(date - newStartDate.getDay() + day);
+        }
         newStartDate.setHours(startHour);
         const newEndDate = new Date(newStartDate);
         newEndDate.setHours(endHour);
@@ -70,6 +100,8 @@ const ModelGroup = () => {
             title,
             category,
             description,
+            isOnce,
+            isOfficial,
         };
     };
 
