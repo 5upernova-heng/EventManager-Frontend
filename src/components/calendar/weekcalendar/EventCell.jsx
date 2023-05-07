@@ -56,7 +56,10 @@ const EventCell = ({ event }) => {
         >
             <p className="fs-5 mb-0 text-white fw-bold">{`${title}`}</p>
             <p className="fs-6 mb-0 text-white">{`${startHour}:00-${endHour}:00`}</p>
-            <p className="fs-6 mb-0 text-white">{`${description}`}</p>
+            <p
+                className="fs-6 mb-0 text-white"
+                style={{ whiteSpace: "pre-line" }}
+            >{`${description}`}</p>
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { getDateLimit } from "../../utils/calDate";
 import Input from "./Input";
 import Range from "./Range";
 import SelectButtonGroup from "./SelectButtonGroup";
+import TextArea from "./TextArea";
 
 const EventForm = ({ id, submitData, setSubmit }) => {
     const {
@@ -137,7 +138,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                     />
                 </div>
             </div>
-            <Input
+            <TextArea
                 name="description"
                 label="事件描述"
                 value={description}
