@@ -27,7 +27,10 @@ const CalendarBody = ({ events }) => {
         return (
             <>
                 {officialLabel.map((label, index) => (
-                    <div className="d-flex justify-content-center align-items-center">
+                    <div
+                        key={index}
+                        className="d-flex justify-content-center align-items-center"
+                    >
                         {label}
                         <span
                             className={`badge bg-${officialColorSet[index]} mx-2`}
@@ -38,7 +41,10 @@ const CalendarBody = ({ events }) => {
                     </div>
                 ))}
                 {personalLabel.map((label, index) => (
-                    <div className="d-flex justify-content-center align-items-center">
+                    <div
+                        key={index}
+                        className="d-flex justify-content-center align-items-center"
+                    >
                         {label}
                         <span
                             className={`badge bg-${personalColorSet[index]} mx-2`}
