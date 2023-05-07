@@ -100,7 +100,7 @@ const ModelGroup = () => {
                             data-bs-dismiss="modal"
                             onClick={() => {
                                 choosedEvent.id = assignId();
-                                addEvent(choosedEvent);
+                                addEvent(data2Event());
                             }}
                         >
                             添加
