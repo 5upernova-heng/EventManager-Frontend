@@ -16,6 +16,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export const TimeContext = createContext();
 export const AlarmContext = createContext();
+export const AuthContext = createContext();
+
 function App() {
     // routes
     const routes = [
@@ -126,43 +128,52 @@ function App() {
         const { data: newAlarms } = await deleteAlarmApi(id);
         setAlarms(newAlarms);
     };
+
+    // Authority Level
+    const [auth, setAuth] = useState(1);
+
     return (
         <>
             <ToastContainer />
-            <TimeContext.Provider
-                value={{
-                    tick,
-                    toggleTick,
-                    date,
-                    setDate,
-                    sync,
-                    toggleSync,
-                    timeInterval,
-                    setTimeInterval,
-                }}
-            >
-                <AlarmContext.Provider
+            <AuthContext.Provider value={{ auth, setAuth }}>
+                <TimeContext.Provider
                     value={{
-                        alarms,
-                        triggerAlarm,
-                        addAlarm,
-                        changeAlarm,
-                        deleteAlarm,
+                        tick,
+                        toggleTick,
+                        date,
+                        setDate,
+                        sync,
+                        toggleSync,
+                        timeInterval,
+                        setTimeInterval,
                     }}
                 >
-                    <NavBar routes={routes} />
-                    <Routes>
-                        <Route path="/" element={<Navigate to="/calendar" />} />
-                        {routes.map((route) => (
+                    <AlarmContext.Provider
+                        value={{
+                            alarms,
+                            triggerAlarm,
+                            addAlarm,
+                            changeAlarm,
+                            deleteAlarm,
+                        }}
+                    >
+                        <NavBar routes={routes} />
+                        <Routes>
                             <Route
-                                key={route.path}
-                                path={route.path}
-                                element={route.element}
+                                path="/"
+                                element={<Navigate to="/calendar" />}
                             />
-                        ))}
-                    </Routes>
-                </AlarmContext.Provider>
-            </TimeContext.Provider>
+                            {routes.map((route) => (
+                                <Route
+                                    key={route.path}
+                                    path={route.path}
+                                    element={route.element}
+                                />
+                            ))}
+                        </Routes>
+                    </AlarmContext.Provider>
+                </TimeContext.Provider>
+            </AuthContext.Provider>
         </>
     );
 }

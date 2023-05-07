@@ -2,6 +2,7 @@ import Time from "./Time";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import RefreshTime from "./forms/RefreshTime";
+import UserDropdown from "./UserDropdown";
 
 function renderNavItems(routes) {
     const [currentPath, setCurrentPath] = useState(location.pathname);
@@ -52,6 +53,8 @@ function NavBar({ routes }) {
                     <Time />
                     <div className="px-1"></div>
                     <RefreshTime />
+                    <div className="px-1"></div>
+                    <UserDropdown />
                 </div>
             </div>
         </>
