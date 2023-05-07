@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { getDateLimit } from "../../utils/calDate";
 import Input from "./Input";
 import Range from "./Range";
 import SelectButtonGroup from "./SelectButtonGroup";
-import TextArea from "./TextArea";
 import CheckButtonGroup from "./CheckButtonGroup";
+import TextArea from "./TextArea";
+import { EventContext } from "../../pages/Calendar";
 
 const EventForm = ({ id, submitData, setSubmit }) => {
     const {
@@ -23,15 +24,21 @@ const EventForm = ({ id, submitData, setSubmit }) => {
     const [startKey, setStartKey] = useState(`startHour-${startHour}`);
     const [endKey, setEndKey] = useState(`endHour-${endHour}`);
     const rangeKey = `${startTime}-${id}`;
-    const categoryStyle = [
-        { label: "个人", style: "btn-outline-warning" },
-        { label: "团体", style: "btn-outline-success" },
-        { label: "临时", style: "btn-outline-info" },
+    const { officialColorSet, personalColorSet } = useContext(EventContext);
+    const personalCategory = [
+        { label: "个人" },
+        { label: "团体" },
+        { label: "临时" },
     ];
+    const categoryStyle = personalCategory.map((category, index) => {
+        category.style = `btn-outline-${personalColorSet[index]}`;
+        return category;
+    });
+
     const categoryLabel = categoryStyle[category].label;
     const timeStyle = [
-        { label: "每周", style: "btn-outline-secondary" },
-        { label: "单次", style: "btn-outline-secondary" },
+        { label: "每周", style: "btn-outline-primary" },
+        { label: "单次", style: "btn-outline-primary" },
     ];
     const intervalLabel = timeStyle[isOnce].label;
     const dayStyle = [

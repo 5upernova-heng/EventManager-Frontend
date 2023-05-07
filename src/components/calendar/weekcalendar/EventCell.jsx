@@ -6,8 +6,9 @@ const EventCell = ({ event }) => {
     const eventRef = useRef(null);
     const [hover, setHover] = useState(false);
     const [overflow, setOverflow] = useState(false);
-    const { setEventEvent } = useContext(EventContext);
-    const { startTime, endTime, title, description } = event;
+    const { setEventEvent, getEventColor } = useContext(EventContext);
+    const { startTime, endTime, title, description, isOnce, isOfficial } =
+        event;
     const startHour = new Date(startTime).getHours();
     const endHour = new Date(endTime).getHours();
 
@@ -32,11 +33,11 @@ const EventCell = ({ event }) => {
     };
 
     const renderStyle = () => {
-        const baseStyle = hover
-            ? "position-absolute p-2 start-0 end-0 ms-0 me-0 border rounded rounded-4 overflow-auto "
-            : "position-absolute p-2 start-0 end-0 ms-1 me-1 my-1 border rounded rounded-4 overflow-auto ";
-        const backgroundColorSet = ["bg-primary", "bg-success", "bg-info"];
-        return baseStyle + backgroundColorSet[event.category];
+        const baseStyle =
+            "position-absolute p-2 start-0 end-0 border rounded rounded-4 overflow-auto ";
+        const hoverStyle = hover ? "ms-0 me-0" : "ms-1 me-1 my-1";
+        const colorStyle = getEventColor(event);
+        return `${baseStyle} bg-${colorStyle} ${hoverStyle}`;
     };
     return (
         <div

@@ -7,9 +7,11 @@ import { getWeekDates } from "../../../utils/calDate";
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
 import ModelGroup from "../../ModalGroup";
+import { EventContext } from "../../../pages/Calendar";
 
 const CalendarBody = ({ events }) => {
     const { date } = useContext(TimeContext);
+    const { officialColorSet, personalColorSet } = useContext(EventContext);
     const dates = getWeekDates(date);
 
     const createColumn = () => {
@@ -18,6 +20,36 @@ const CalendarBody = ({ events }) => {
                 <CalendarDateColumn events={events[index]} row={index} />
             </div>
         ));
+    };
+    const renderExample = () => {
+        const officialLabel = ["课程事件", "考试事件"];
+        const personalLabel = ["个人事务", "团体事务", "临时事务"];
+        return (
+            <>
+                {officialLabel.map((label, index) => (
+                    <div className="d-flex justify-content-center align-items-center">
+                        {label}
+                        <span
+                            className={`badge bg-${officialColorSet[index]} mx-2`}
+                            style={{ height: "20px", width: "20px" }}
+                        >
+                            {" "}
+                        </span>
+                    </div>
+                ))}
+                {personalLabel.map((label, index) => (
+                    <div className="d-flex justify-content-center align-items-center">
+                        {label}
+                        <span
+                            className={`badge bg-${personalColorSet[index]} mx-2`}
+                            style={{ height: "20px", width: "20px" }}
+                        >
+                            {" "}
+                        </span>
+                    </div>
+                ))}
+            </>
+        );
     };
     return (
         <>
@@ -30,6 +62,10 @@ const CalendarBody = ({ events }) => {
                 </div>
                 {createColumn()}
             </div>
+            <div className="d-flex align-items-center justify-content-evenly py-4">
+                {renderExample()}
+            </div>
+
             <ModelGroup />
         </>
     );

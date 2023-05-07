@@ -28,6 +28,8 @@ function Calendar() {
 
     const [events, setEvents] = useState([]);
     const [choosedEvent, setChoosedEvent] = useState(emptyEvent);
+    const officialColorSet = ["primary", "danger"];
+    const personalColorSet = ["success", "info", "secondary"];
 
     useEffect(() => {
         // mount:
@@ -86,6 +88,13 @@ function Calendar() {
         setChoosedEvent(event);
     };
 
+    const getEventColor = (event) => {
+        const { isOfficial, category } = event;
+        return isOfficial
+            ? officialColorSet[category]
+            : personalColorSet[category];
+    };
+
     return (
         <>
             <CalendarBar />
@@ -103,6 +112,9 @@ function Calendar() {
                             choosedEvent,
                             setCellEvent,
                             setEventEvent,
+                            getEventColor,
+                            officialColorSet,
+                            personalColorSet,
                         }}
                     >
                         <WeekCalendar events={distrube()} />
