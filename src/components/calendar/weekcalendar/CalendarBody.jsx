@@ -1,4 +1,6 @@
+import PropTypes from "prop-types";
 import { useContext } from "react";
+
 import { TimeContext } from "../../../App";
 import { getWeekDates } from "../../../utils/calDate";
 
@@ -31,6 +33,10 @@ const CalendarBody = ({ events }) => {
             <ModelGroup />
         </>
     );
+};
+
+CalendarBody.propTypes = {
+    events: PropTypes.arrayOf(PropTypes.array),
 };
 
 export default CalendarBody;

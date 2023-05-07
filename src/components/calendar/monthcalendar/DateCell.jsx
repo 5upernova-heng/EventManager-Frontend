@@ -1,3 +1,5 @@
+import PropTypes from "prop-types";
+
 const DateCell = ({ date, currentDate }) => {
     const renderClass = () => {
         const grey =
@@ -18,6 +20,11 @@ const DateCell = ({ date, currentDate }) => {
             </span>
         </>
     );
+};
+
+DateCell.propTypes = {
+    date: PropTypes.instanceOf(Date),
+    currentDate: PropTypes.instanceOf(Date),
 };
 
 export default DateCell;

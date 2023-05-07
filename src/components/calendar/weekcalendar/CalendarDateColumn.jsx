@@ -2,6 +2,8 @@
 // a column container a header, which is the date and weekday
 // then it follows 24 cells, represents 24 hours
 // Finally, we render the event of the day, using
+import PropTypes from "prop-types";
+
 import EventContainer from "./EventContainer";
 import EmptyCell from "./EmptyCell";
 
@@ -20,6 +22,11 @@ const CalendarDateColumn = ({ events, row }) => {
             <EventContainer events={events} />
         </div>
     );
+};
+
+CalendarDateColumn.propTypes = {
+    events: PropTypes.array,
+    row: PropTypes.number,
 };
 
 export default CalendarDateColumn;
