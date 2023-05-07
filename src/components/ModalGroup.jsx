@@ -87,7 +87,6 @@ const ModelGroup = () => {
         newStartDate.setMonth(month - 1);
         newStartDate.setDate(date);
         if (!isOnce) {
-            console.log("T", newStartDate.getDay(), day);
             newStartDate.setDate(date - newStartDate.getDay() + day);
         }
         newStartDate.setHours(startHour);

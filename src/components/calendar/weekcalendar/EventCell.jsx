@@ -1,16 +1,19 @@
 import { Modal } from "bootstrap";
 import { useContext, useEffect, useRef, useState } from "react";
 import { EventContext } from "../../../pages/Calendar";
+import { AuthContext } from "../../../App";
+import { toast } from "react-toastify";
 
 const EventCell = ({ event }) => {
     const eventRef = useRef(null);
     const [hover, setHover] = useState(false);
     const [overflow, setOverflow] = useState(false);
+    const { auth } = useContext(AuthContext);
     const { setEventEvent, getEventColor } = useContext(EventContext);
-    const { startTime, endTime, title, description, isOnce, isOfficial } =
-        event;
+    const { startTime, endTime, title, description, isOfficial } = event;
     const startHour = new Date(startTime).getHours();
     const endHour = new Date(endTime).getHours();
+    const editable = !isOfficial || auth;
 
     useEffect(() => {
         setOverflow(
@@ -45,9 +48,13 @@ const EventCell = ({ event }) => {
             className={renderStyle()}
             style={calStyle(event)}
             type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#modifyEvent"
-            onClick={() => setEventEvent(event)}
+            data-bs-toggle={editable ? "modal" : false}
+            data-bs-target={editable ? "#modifyEvent" : false}
+            onClick={
+                editable
+                    ? () => setEventEvent(event)
+                    : () => toast("你没有编辑权限哦~")
+            }
             onMouseEnter={() => {
                 setHover(true);
             }}

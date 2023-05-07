@@ -6,6 +6,7 @@ import SelectButtonGroup from "./SelectButtonGroup";
 import CheckButtonGroup from "./CheckButtonGroup";
 import TextArea from "./TextArea";
 import { EventContext } from "../../pages/Calendar";
+import { AuthContext } from "../../App";
 
 const EventForm = ({ id, submitData, setSubmit }) => {
     const {
@@ -25,17 +26,29 @@ const EventForm = ({ id, submitData, setSubmit }) => {
     const [endKey, setEndKey] = useState(`endHour-${endHour}`);
     const rangeKey = `${startTime}-${id}`;
     const { officialColorSet, personalColorSet } = useContext(EventContext);
+    const { auth } = useContext(AuthContext);
+    const categoryStyle = [
+        { label: "课外", style: `btn-outline-${personalColorSet[0]}` },
+        { label: "课内", style: `btn-outline-${officialColorSet[0]}` },
+    ];
+    const officialCategory = [{ label: "课程" }, { label: "考试" }];
+    const officialStyle = officialCategory.map((category, index) => {
+        category.style = `btn-outline-${officialColorSet[index]}`;
+        return category;
+    });
     const personalCategory = [
         { label: "个人" },
         { label: "团体" },
         { label: "临时" },
     ];
-    const categoryStyle = personalCategory.map((category, index) => {
+    const personalStyle = personalCategory.map((category, index) => {
         category.style = `btn-outline-${personalColorSet[index]}`;
         return category;
     });
 
-    const categoryLabel = categoryStyle[category].label;
+    const categoryLabel = isOfficial
+        ? officialCategory[category].label
+        : personalStyle[category].label;
     const timeStyle = [
         { label: "每周", style: "btn-outline-primary" },
         { label: "单次", style: "btn-outline-primary" },
@@ -56,6 +69,9 @@ const EventForm = ({ id, submitData, setSubmit }) => {
             button.isActive = index == activeIndex;
             return button;
         });
+    };
+    const changeOfficial = (isOfficial) => {
+        changeData({ isOfficial });
     };
     const changeCategory = (category) => {
         changeData({ category });
@@ -103,9 +119,24 @@ const EventForm = ({ id, submitData, setSubmit }) => {
         return (
             <>
                 <div className="mt-2">{`事件类型：${categoryLabel}`}</div>
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-evenly">
+                    {auth ? (
+                        <SelectButtonGroup
+                            buttonsInfo={parseButtonInfo(
+                                categoryStyle,
+                                isOfficial
+                            )}
+                            changeSelect={changeOfficial}
+                        />
+                    ) : (
+                        <></>
+                    )}
                     <SelectButtonGroup
-                        buttonsInfo={parseButtonInfo(categoryStyle, category)}
+                        buttonsInfo={
+                            isOfficial
+                                ? parseButtonInfo(officialStyle, category)
+                                : parseButtonInfo(personalStyle, category)
+                        }
                         changeSelect={changeCategory}
                     />
                 </div>
