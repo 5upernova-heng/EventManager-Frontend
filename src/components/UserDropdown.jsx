@@ -6,7 +6,7 @@ function UserDropdown() {
     const authLabel = ["Normal", "Admin", "Root"];
     const renderNavItems = () => {
         return authLabel.map((label, index) => (
-            <li>
+            <li key={index}>
                 <a className="dropdown-item" onClick={() => setAuth(index)}>
                     {label}
                 </a>
