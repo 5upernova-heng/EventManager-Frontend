@@ -110,7 +110,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
         return (
             <>
                 <div className="my-2">{`周期性：${intervalLabel}`}</div>
-                <div className="d-flex justify-content-center align-items-center mb-2">
+                <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                     <SelectButtonGroup
                         buttonsInfo={parseButtonInfo(timeStyle, isOnce)}
                         changeSelect={changeInterval}
@@ -118,7 +118,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                     {isOnce ? (
                         <></>
                     ) : (
-                        <div className="mx-2">
+                        <div className="my-3">
                             <SelectButtonGroup
                                 buttonsInfo={parseButtonInfo(dayStyle, day)}
                                 changeSelect={changeDay}
