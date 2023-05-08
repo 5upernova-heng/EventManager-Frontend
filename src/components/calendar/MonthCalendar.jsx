@@ -2,6 +2,7 @@ import DateCell from "./monthcalendar/DateCell";
 import { TimeContext } from "../../App";
 import { getWeekDates } from "../../utils/calDate";
 import { useContext } from "react";
+import MonthCalendarHead from "./monthcalendar/MonthCalendarHead";
 
 const MonthCalendar = () => {
     const { date } = useContext(TimeContext);
@@ -55,6 +56,7 @@ const MonthCalendar = () => {
                 <h4 className="text-center fw-bold">
                     {monthList[currentMonth]}
                 </h4>
+                <div>{<MonthCalendarHead />}</div>
                 <div className="d-flex flex-column justify-content-center">
                     {renderDateCells()}
                 </div>
