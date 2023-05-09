@@ -34,8 +34,7 @@ yarn dev
 
 ### To Do List
 
-- Change event form to text area
-- Add prop type check, format code
+- Week changer
 
 ### 进度一览
 
@@ -57,10 +56,8 @@ yarn dev
 - [ ] 闹钟管理
   - [ ] 闹钟界面
     - [x] 闹钟
-    - [ ] 增删查改按钮
-  - [ ] 闹钟增删查改（部分兼用）
-  - [ ] Alert 界面
+    - [x] 增删查改按钮
+  - [x] Alert 界面
 - [ ] 登录界面
-
 - [ ] 说明文档
 - [ ] 测试代码
