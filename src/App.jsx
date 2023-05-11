@@ -4,6 +4,7 @@ import routes from "./routes";
 import Context from "./Context";
 import { createContext, useState } from "react";
 import TimeContextProvider from "./context/TimeContextProvider";
+import AlarmContextProvider from "./context/AlarmContextProvider";
 
 export const LoginContext = createContext();
 
@@ -41,7 +42,9 @@ function App() {
             }}
         >
             <TimeContextProvider>
-                <Context>{renderRoutes()}</Context>;
+                <AlarmContextProvider>
+                    <Context>{renderRoutes()}</Context>;
+                </AlarmContextProvider>
             </TimeContextProvider>
         </LoginContext.Provider>
     );
