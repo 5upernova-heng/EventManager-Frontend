@@ -12,19 +12,23 @@ function renderNavItems(routes) {
             ? "nav-link active"
             : "nav-link";
     };
-    return routes.map((route) => (
-        <li className="nav-item px-1 align-self-end" key={route.path}>
-            <Link
-                className={renderLinkClass(route)}
-                onClick={() => {
-                    setCurrentPath(route.path);
-                }}
-                to={route.path}
-            >
-                <p className="mb-0 fs-5">{route.label}</p>
-            </Link>
-        </li>
-    ));
+    return routes.map((route) => {
+        if (route.showOnTab) {
+            return (
+                <li className="nav-item px-1 align-self-end" key={route.path}>
+                    <Link
+                        className={renderLinkClass(route)}
+                        onClick={() => {
+                            setCurrentPath(route.path);
+                        }}
+                        to={route.path}
+                    >
+                        <p className="mb-0 fs-5">{route.label}</p>
+                    </Link>
+                </li>
+            );
+        }
+    });
 }
 
 function NavBar({ routes }) {

@@ -1,8 +1,4 @@
 import NavBar from "./components/NavBar";
-import Calendar from "./pages/Calendar";
-import Alarms from "./pages/Alarms";
-import Map from "./pages/Map";
-import Logs from "./pages/Logs";
 import { Navigate, Routes, Route } from "react-router-dom";
 import { useState, useEffect, createContext } from "react";
 import {
@@ -13,20 +9,13 @@ import {
 } from "./api/alarmApi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import routes from "./routes";
 
 export const TimeContext = createContext();
 export const AlarmContext = createContext();
 export const AuthContext = createContext();
 
 function App() {
-    // routes
-    const routes = [
-        { path: "/calendar", label: "日程日历", element: <Calendar /> },
-        { path: "/map", label: "校园地图", element: <Map /> },
-        { path: "/alarms", label: "闹钟管理", element: <Alarms /> },
-        { path: "/logs", label: "查看日志", element: <Logs /> },
-    ];
-
     //time
     const [date, setDate] = useState(new Date());
     const [tick, setTick] = useState(true);

@@ -1,0 +1,32 @@
+import Calendar from "./pages/Calendar";
+import Alarms from "./pages/Alarms";
+import Map from "./pages/Map";
+import Logs from "./pages/Logs";
+import Login from "./pages/Login";
+export default [
+    {
+        path: "/calendar",
+        label: "日程日历",
+        element: <Calendar />,
+        showOnTab: true,
+    },
+    { path: "/map", label: "校园地图", element: <Map />, showOnTab: true },
+    {
+        path: "/alarms",
+        label: "闹钟管理",
+        element: <Alarms />,
+        showOnTab: true,
+    },
+    {
+        path: "/logs",
+        label: "查看日志",
+        element: <Logs />,
+        showOnTab: true,
+    },
+    {
+        path: "/login",
+        label: "登录",
+        element: <Login />,
+        showOnTab: false,
+    },
+];
