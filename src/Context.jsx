@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect, createContext, useContext } from "react";
 import {
     getAlarmApi,
     updateAlarmApi,
@@ -8,47 +8,14 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { getTimeString } from "./utils/calDate";
+import { TimeContext } from "./context/TimeContextProvider";
 
-export const TimeContext = createContext();
 export const AlarmContext = createContext();
 export const AuthContext = createContext();
 
 function Context({ children }) {
     //time
-    const [date, setDate] = useState(new Date());
-    const [tick, setTick] = useState(true);
-    const [sync, setSync] = useState(true);
-    const [timeInterval, setTimeInterval] = useState(1);
-
-    useEffect(() => {
-        if (tick || sync) {
-            if (sync) setTick(true);
-            const interval = setInterval(() => {
-                setDate(
-                    sync
-                        ? new Date()
-                        : (prevDate) => {
-                              const newDate = new Date(prevDate);
-                              newDate.setSeconds(
-                                  newDate.getSeconds() + timeInterval
-                              );
-                              return newDate;
-                          }
-                );
-            }, 1000);
-            return () => clearInterval(interval);
-        }
-    }, [sync, tick, timeInterval]);
-    const toggleTick = () => {
-        if (tick) {
-            setSync(false);
-        }
-        setTick(!tick);
-    };
-    const toggleSync = () => {
-        setSync(!sync);
-    };
-
+    const { date } = useContext(TimeContext);
     // alarms
     const [alarms, setAlarms] = useState([]);
     const [ringed, setRinged] = useState([]);
@@ -123,36 +90,21 @@ function Context({ children }) {
     // Authority Level
     const [auth, setAuth] = useState(1);
 
-    // Login
-    const [isLogin, setLogin] = useState(false);
     return (
         <>
             <ToastContainer />
             <AuthContext.Provider value={{ auth, setAuth }}>
-                <TimeContext.Provider
+                <AlarmContext.Provider
                     value={{
-                        tick,
-                        toggleTick,
-                        date,
-                        setDate,
-                        sync,
-                        toggleSync,
-                        timeInterval,
-                        setTimeInterval,
+                        alarms,
+                        triggerAlarm,
+                        addAlarm,
+                        changeAlarm,
+                        deleteAlarm,
                     }}
                 >
-                    <AlarmContext.Provider
-                        value={{
-                            alarms,
-                            triggerAlarm,
-                            addAlarm,
-                            changeAlarm,
-                            deleteAlarm,
-                        }}
-                    >
-                        {children}
-                    </AlarmContext.Provider>
-                </TimeContext.Provider>
+                    {children}
+                </AlarmContext.Provider>
             </AuthContext.Provider>
         </>
     );

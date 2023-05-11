@@ -2,8 +2,15 @@ import { Navigate, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import routes from "./routes";
 import Context from "./Context";
+import { createContext, useState } from "react";
+import TimeContextProvider from "./context/TimeContextProvider";
+
+export const LoginContext = createContext();
 
 function App() {
+    // Login
+    const [isLogin, setLogin] = useState(false);
+
     const renderRoutes = () => {
         return (
             <Routes>
@@ -26,7 +33,18 @@ function App() {
             </Routes>
         );
     };
-    return <Context>{renderRoutes()}</Context>;
+    return (
+        <LoginContext.Provider
+            value={{
+                isLogin,
+                setLogin,
+            }}
+        >
+            <TimeContextProvider>
+                <Context>{renderRoutes()}</Context>;
+            </TimeContextProvider>
+        </LoginContext.Provider>
+    );
 }
 
 export default App;

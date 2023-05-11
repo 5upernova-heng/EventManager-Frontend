@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useContext } from "react";
 
-import { TimeContext } from "../../../Context";
+import { TimeContext } from "../../../context/TimeContextProvider";
 import { getWeekDates } from "../../../utils/calDate";
 
 import CalendarTimeColumn from "./CalendarTimeColumn";

@@ -1,4 +1,4 @@
-import { TimeContext } from "../../Context";
+import { TimeContext } from "../../context/TimeContextProvider";
 import { useContext } from "react";
 
 const ChooseInterval = () => {
