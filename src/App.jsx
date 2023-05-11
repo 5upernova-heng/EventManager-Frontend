@@ -1,25 +1,22 @@
-import { createContext, useState } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
-
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 import NavBar from "./components/NavBar";
 import routes from "./routes";
 import TimeContextProvider from "./context/TimeContextProvider";
 import AlarmContextProvider from "./context/AlarmContextProvider";
 import AuthContextProvider from "./context/AuthContextProvider";
-
-export const LoginContext = createContext();
+import LoginContextProvider from "./context/LoginContextProvider";
+import { useState } from "react";
 
 function App() {
     // Login
     const [isLogin, setLogin] = useState(false);
-
+    const defaultPage = <Navigate to={isLogin ? "/calendar" : "/login"} />;
+    const rootPageRoute = <Route path="/" element={defaultPage} />;
     const renderRoutes = () => {
         return (
             <Routes>
-                <Route path="/" element={<Navigate to="/calendar" />} />
+                {rootPageRoute}
                 {routes.map((route) => (
                     <Route
                         key={route.path}
@@ -40,13 +37,7 @@ function App() {
     };
     return (
         <>
-            <ToastContainer />
-            <LoginContext.Provider
-                value={{
-                    isLogin,
-                    setLogin,
-                }}
-            >
+            <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
                 <AuthContextProvider>
                     <TimeContextProvider>
                         <AlarmContextProvider>
@@ -54,7 +45,7 @@ function App() {
                         </AlarmContextProvider>
                     </TimeContextProvider>
                 </AuthContextProvider>
-            </LoginContext.Provider>
+            </LoginContextProvider>
         </>
     );
 }

@@ -1,15 +1,66 @@
-import React from "react";
-import PropTypes from "prop-types";
-import Input from "./Input";
+import Joi from "joi";
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-function LoginFormGroup(props) {
+import Input from "./Input";
+import { LoginContext } from "../../context/LoginContextProvider";
+
+function LoginFormGroup() {
+    const navigate = useNavigate();
+    const [account, setAccount] = useState({ username: "", password: "" });
+    const [errors, setErrors] = useState({});
+    const { setLogin } = useContext(LoginContext);
+    const schema = Joi.object({
+        username: Joi.string().min(3).max(20).required(),
+        password: Joi.string()
+            .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+            .required(),
+    });
+
+    const handleChange = ({ target: input }) => {
+        const { value, name } = input;
+        account[name] = value;
+        setAccount(account);
+    };
+
+    const handleSubmit = () => {
+        const { error } = schema.validate(account, { abortEarly: false });
+        const newErrors = error
+            ? error.details.reduce((allErrors, error) => {
+                  allErrors[error.path[0]] = error.message;
+                  return allErrors;
+              }, {})
+            : {};
+        setErrors(newErrors);
+        if (error) return;
+        console.log("T");
+        navigate("/");
+        setLogin(true);
+    };
     return (
-        <div style={{ minWidth: "600px" }}>
-            <Input name="username" label="用户名" onChange={() => {}} />
+        <div style={{ minWidth: "400px" }}>
+            <Input
+                name="username"
+                icon={<i className="fa fa-user" aria-hidden="true"></i>}
+                label="用户名"
+                error={errors.username}
+                onChange={handleChange}
+            />
             <div className="py-4"></div>
-            <Input name="password" label="密码" onChange={() => {}} />
+            <Input
+                name="password"
+                icon={<i className="fa fa-lock" aria-hidden="true"></i>}
+                label="密码"
+                error={errors.password}
+                onChange={handleChange}
+            />
             <div className="mt-5 d-flex justify-content-center align-items-center">
-                <button className="btn btn-lg btn-primary">登录</button>
+                <button
+                    className="btn btn-primary shadow"
+                    onClick={() => handleSubmit()}
+                >
+                    登录
+                </button>
             </div>
         </div>
     );
