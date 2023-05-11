@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Alarm from "../components/Alarm";
-import { AlarmContext } from "../App";
+import { AlarmContext } from "../Context";
 
 const Alarms = () => {
     const { alarms, addAlarm, triggerAlarm } = useContext(AlarmContext);

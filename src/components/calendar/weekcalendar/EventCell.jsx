@@ -1,7 +1,7 @@
 import { Modal } from "bootstrap";
 import { useContext, useEffect, useRef, useState } from "react";
 import { EventContext } from "../../../pages/Calendar";
-import { AuthContext } from "../../../App";
+import { AuthContext } from "../../../Context";
 import { toast } from "react-toastify";
 
 const EventCell = ({ event }) => {

@@ -1,4 +1,4 @@
-import { TimeContext } from "../../App";
+import { TimeContext } from "../../Context";
 import { useContext } from "react";
 import Switch from "../forms/Switch";
 

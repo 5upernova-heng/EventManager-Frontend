@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { TimeContext } from "../App";
+import { TimeContext } from "../Context";
 import { getDateString, getTimeString, getDayString } from "../utils/calDate";
 const Time = () => {
     const { date, toggleTick, tick, sync } = useContext(TimeContext);

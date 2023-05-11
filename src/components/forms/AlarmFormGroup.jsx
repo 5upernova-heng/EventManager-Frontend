@@ -2,7 +2,7 @@ import Range from "./Range";
 import CheckButtonGroup from "./CheckButtonGroup";
 import Input from "./Input";
 import { useContext, useState } from "react";
-import { AlarmContext } from "../../App";
+import { AlarmContext } from "../../Context";
 const AlarmFormGroup = ({ alarm }) => {
     const { time, description, interval, id } = alarm;
     const [hour, setHour] = useState(alarm.time.hour);

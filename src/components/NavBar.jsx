@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import RefreshTime from "./forms/RefreshTime";
 import UserDropdown from "./UserDropdown";
+import routes from "../routes";
 
-function renderNavItems(routes) {
+function renderNavItems() {
     const [currentPath, setCurrentPath] = useState(location.pathname);
     const renderLinkClass = (route) => {
         return route.path === currentPath ||

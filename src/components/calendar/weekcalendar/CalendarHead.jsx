@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { getWeekDates } from "../../../utils/calDate";
-import { TimeContext } from "../../../App";
+import { TimeContext } from "../../../Context";
 
 function createHeaderCells(date) {
     const week = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

@@ -6,7 +6,7 @@ import SelectButtonGroup from "./SelectButtonGroup";
 import CheckButtonGroup from "./CheckButtonGroup";
 import TextArea from "./TextArea";
 import { EventContext } from "../../pages/Calendar";
-import { AuthContext } from "../../App";
+import { AuthContext } from "../../Context";
 
 const EventForm = ({ id, submitData, setSubmit }) => {
     const {

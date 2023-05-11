@@ -1,7 +1,7 @@
 import CalendarBar from "../components/calendar/CalendarBar";
 import WeekCalendar from "../components/calendar/WeekCalendar";
 import CalendarSideBar from "../components/calendar/CalendarSideBar";
-import { TimeContext } from "../App";
+import { TimeContext } from "../Context";
 
 import {
     addEventApi,

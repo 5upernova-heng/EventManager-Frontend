@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { getDaysString, getTimeString } from "../utils/calDate";
 import Switch from "./forms/Switch";
 import AlarmFormGroup from "./forms/AlarmFormGroup";
-import { AlarmContext } from "../App";
+import { AlarmContext } from "../Context";
 
 const Alarm = ({ alarm, triggerAlarm }) => {
     const { time, description, interval, isOn, id } = alarm;

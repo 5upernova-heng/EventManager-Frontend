@@ -1,5 +1,5 @@
 import DateCell from "./monthcalendar/DateCell";
-import { TimeContext } from "../../App";
+import { TimeContext } from "../../Context";
 import { getWeekDates } from "../../utils/calDate";
 import { useContext } from "react";
 import MonthCalendarHead from "./monthcalendar/MonthCalendarHead";
