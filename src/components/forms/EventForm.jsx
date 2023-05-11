@@ -70,7 +70,8 @@ const EventForm = ({ id, submitData, setSubmit }) => {
         });
     };
     const changeOfficial = (isOfficial) => {
-        changeData({ isOfficial });
+        if (isOfficial && category > 1) changeData({ isOfficial, category: 0 });
+        else changeData({ isOfficial });
     };
     const changeCategory = (category) => {
         changeData({ category });
