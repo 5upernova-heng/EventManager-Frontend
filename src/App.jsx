@@ -1,10 +1,14 @@
+import { createContext, useState } from "react";
 import { Navigate, Routes, Route } from "react-router-dom";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import NavBar from "./components/NavBar";
 import routes from "./routes";
-import Context from "./Context";
-import { createContext, useState } from "react";
 import TimeContextProvider from "./context/TimeContextProvider";
 import AlarmContextProvider from "./context/AlarmContextProvider";
+import AuthContextProvider from "./context/AuthContextProvider";
 
 export const LoginContext = createContext();
 
@@ -35,18 +39,23 @@ function App() {
         );
     };
     return (
-        <LoginContext.Provider
-            value={{
-                isLogin,
-                setLogin,
-            }}
-        >
-            <TimeContextProvider>
-                <AlarmContextProvider>
-                    <Context>{renderRoutes()}</Context>;
-                </AlarmContextProvider>
-            </TimeContextProvider>
-        </LoginContext.Provider>
+        <>
+            <ToastContainer />
+            <LoginContext.Provider
+                value={{
+                    isLogin,
+                    setLogin,
+                }}
+            >
+                <AuthContextProvider>
+                    <TimeContextProvider>
+                        <AlarmContextProvider>
+                            {renderRoutes()};
+                        </AlarmContextProvider>
+                    </TimeContextProvider>
+                </AuthContextProvider>
+            </LoginContext.Provider>
+        </>
     );
 }
 

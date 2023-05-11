@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../Context";
+import { AuthContext } from "../context/AuthContextProvider";
 
 function UserDropdown() {
     const { auth, setAuth } = useContext(AuthContext);
