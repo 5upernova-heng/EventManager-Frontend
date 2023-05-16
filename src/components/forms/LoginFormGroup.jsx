@@ -33,7 +33,6 @@ function LoginFormGroup() {
             : {};
         setErrors(newErrors);
         if (error) return;
-        console.log("T");
         navigate("/");
         setLogin(true);
     };
