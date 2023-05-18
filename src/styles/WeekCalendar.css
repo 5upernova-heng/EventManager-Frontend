@@ -1,0 +1,3 @@
+.WeekCalendar *::-webkit-scrollbar {
+    display: none;
+}
