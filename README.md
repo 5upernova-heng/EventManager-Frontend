@@ -34,7 +34,7 @@ yarn dev
 
 ### To Do List
 
-- Week changer
+- Map
 
 ### 进度一览
 
