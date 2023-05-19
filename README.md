@@ -34,7 +34,9 @@ yarn dev
 
 ### To Do List
 
-- Map
+- Show Map node with tooltips on the map, and clickable
+- Adjust the main map's edges
+- Show inside view of some buildings.
 
 ### 进度一览
 
