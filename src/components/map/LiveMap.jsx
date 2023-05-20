@@ -98,9 +98,6 @@ function LiveMap({ draw }) {
 
     return (
         <div>
-            <button onClick={reset} className="btn btn-lg btn-light mt-1">
-                <i className="fa fa-arrows-alt" aria-hidden="true"></i>
-            </button>
             <div
                 draggable
                 className="border drag-map"
@@ -110,6 +107,12 @@ function LiveMap({ draw }) {
                 onDragOver={onDragOver}
                 onDragEnd={onDragEnd}
             >
+                <button
+                    onClick={reset}
+                    className="btn btn-lg btn-light m-2 position-absolute z-0"
+                >
+                    <i className="fa fa-arrows-alt" aria-hidden="true"></i>
+                </button>
                 <div
                     style={{
                         transform: `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`,
