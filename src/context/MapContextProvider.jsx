@@ -6,6 +6,8 @@ export const MapContext = createContext();
 export default function MapContextProvider({ children }) {
     const imgWidth = 1421;
     const imgHeight = 2002;
+    const scaleX = imgWidth / 26.4372;
+    const scaleY = imgHeight / 36.3141;
     const [nodes, setNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
 
@@ -31,11 +33,11 @@ export default function MapContextProvider({ children }) {
     }, []);
 
     const fixedX = (x) => {
-        return x * 53.75;
+        return x * scaleX;
     };
 
     const fixedY = (y) => {
-        return imgHeight - y * 55.13;
+        return imgHeight - y * scaleY;
     };
 
     return (

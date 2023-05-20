@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useContext, useState, useRef } from "react";
 import PropTypes from "prop-types";
-import MapLayer from "./map/MapLayer";
-import { MapContext } from "../context/MapContextProvider";
+import MapLayer from "./MapLayer";
+import { MapContext } from "../../context/MapContextProvider";
 import "/src/styles/LiveMap.css";
 
 function LiveMap({ draw }) {
