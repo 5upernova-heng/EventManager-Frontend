@@ -8,7 +8,7 @@ export default function MapContextProvider({ children }) {
     const imgHeight = 2002;
     const scaleX = imgWidth / 26.4372;
     const scaleY = imgHeight / 36.3141;
-    const [nodes, setNodes] = useState([]);
+    const [allNodes, setAllNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
 
     const [scale, setScale] = useState(1);
@@ -18,11 +18,19 @@ export default function MapContextProvider({ children }) {
     const scaleMin = 0.2;
     const scaleMax = 4.0;
 
+    const [showAllNodes, setShowAllNodes] = useState(false);
+    const [showRoutes, setShowRoutes] = useState(false);
+    // selected nav point (-1 for not selected)
+    const [selectedNav, setSelected] = useState(-1);
+    const [navLength, setNavLength] = useState(2);
+    // only id
+    const [navPoints, setNavPoints] = useState([]);
+
     useEffect(() => {
         // mount node and route data
         const fetchNodes = async () => {
             const { data } = await getNodesApi();
-            setNodes(data);
+            setAllNodes(data);
         };
         const fetchRoutes = async () => {
             const { data } = await getRoutesApi();
@@ -30,7 +38,13 @@ export default function MapContextProvider({ children }) {
         };
         fetchNodes();
         fetchRoutes();
+        // init navPoints
+        setNavPoints(initNavpoints());
     }, []);
+
+    useEffect(() => {
+        setShowAllNodes(selectedNav === -1 ? false : true);
+    }, [selectedNav]);
 
     const fixedX = (x) => {
         return x * scaleX;
@@ -40,13 +54,42 @@ export default function MapContextProvider({ children }) {
         return imgHeight - y * scaleY;
     };
 
+    const addNavPoint = (id) => {
+        const newNav = [...navPoints];
+        if (selectedNav === -1) {
+            console.log("This should never be triggered.");
+        } else {
+            newNav[selectedNav] = id;
+        }
+        setNavPoints(newNav);
+    };
+
+    const initNavpoints = () => {
+        const navPoints = [];
+        for (let i = 0; i < navLength; i++) {
+            navPoints.push(-1);
+        }
+        return navPoints;
+    };
+
+    const clearNavPoints = () => {
+        const newNav = [...navPoints];
+        for (let i = 0; i < navLength; i++) {
+            newNav[i] = -1;
+        }
+        setNavPoints(newNav);
+        setSelected(-1);
+    };
+
     return (
         <MapContext.Provider
             value={{
+                // Assets
                 imgWidth,
                 imgHeight,
-                nodes,
+                allNodes,
                 routes,
+                // Transformation
                 fixedX,
                 fixedY,
                 scale,
@@ -59,6 +102,15 @@ export default function MapContextProvider({ children }) {
                 setTranslate,
                 lastTranslate,
                 setLastTranslate,
+                showAllNodes,
+                showRoutes,
+                // Guidance
+                navPoints,
+                navLength,
+                selectedNav,
+                setSelected,
+                addNavPoint,
+                clearNavPoints,
             }}
         >
             {children}

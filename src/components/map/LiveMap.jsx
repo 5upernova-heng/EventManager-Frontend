@@ -1,16 +1,15 @@
 import React, { useEffect } from "react";
-import { useContext, useState, useRef } from "react";
-import PropTypes from "prop-types";
-import MapLayer from "./MapLayer";
+import { useContext, useRef } from "react";
+import NodeLayer from "./NodeLayer";
 import { MapContext } from "../../context/MapContextProvider";
 import "/src/styles/LiveMap.css";
 
-function LiveMap({ draw }) {
+function LiveMap() {
     const {
         imgWidth,
         imgHeight,
         routes,
-        nodes,
+        allNodes,
         fixedX,
         fixedY,
         scale,
@@ -23,6 +22,7 @@ function LiveMap({ draw }) {
         setTranslate,
         lastTranslate,
         setLastTranslate,
+        showRoutes,
     } = useContext(MapContext);
 
     const imageDivRef = useRef();
@@ -34,16 +34,16 @@ function LiveMap({ draw }) {
     }, []);
 
     useEffect(() => {
-        if (draw) {
+        if (showRoutes) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             routes.map((route) => {
-                const { x: x1, y: y1 } = nodes[route[0]];
-                const { x: x2, y: y2 } = nodes[route[1]];
+                const { x: x1, y: y1 } = allNodes[route[0]];
+                const { x: x2, y: y2 } = allNodes[route[1]];
                 drawLine(context, x1, y1, x2, y2, 5);
             });
         }
-    }, [draw, routes]);
+    }, [showRoutes, routes]);
 
     const drawCircle = (context, x, y, radius) => {
         context.beginPath();
@@ -132,15 +132,10 @@ function LiveMap({ draw }) {
                     height={`${imgHeight}px`}
                     ref={canvasRef}
                 ></canvas>
-                <MapLayer nodes={nodes} />
+                <NodeLayer />
             </div>
         </div>
     );
 }
-
-LiveMap.propTypes = {
-    draw: PropTypes.bool,
-    // route format: [{x, y}, {x, y}, ...]
-};
 
 export default LiveMap;
