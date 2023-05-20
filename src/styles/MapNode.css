@@ -1,0 +1,24 @@
+.map-node::before,
+.map-node::after{
+    --scale: 0;
+    position: absolute;
+    top: -.25rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%) scale(var(--scale));
+    transition: 150ms;
+    transform-origin: bottom;
+}
+
+.map-node::before {
+    content: attr(data-tooltip);
+    color: white;
+    padding: .5rem;
+    border-radius: .3rem;
+    text-align: center;
+    width: max-content;
+    background: #333;
+}
+
+.map-node:hover::before{
+    --scale: 1;
+}

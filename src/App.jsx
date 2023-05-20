@@ -6,6 +6,7 @@ import TimeContextProvider from "./context/TimeContextProvider";
 import AlarmContextProvider from "./context/AlarmContextProvider";
 import AuthContextProvider from "./context/AuthContextProvider";
 import LoginContextProvider from "./context/LoginContextProvider";
+import MapContextProvider from "./context/MapContextProvider";
 import { useState } from "react";
 
 function App() {
@@ -41,7 +42,9 @@ function App() {
                 <AuthContextProvider>
                     <TimeContextProvider>
                         <AlarmContextProvider>
-                            {renderRoutes()};
+                            <MapContextProvider>
+                                {renderRoutes()};
+                            </MapContextProvider>
                         </AlarmContextProvider>
                     </TimeContextProvider>
                 </AuthContextProvider>

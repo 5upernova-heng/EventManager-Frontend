@@ -1,0 +1,17 @@
+.drag-map {
+    position: absolute;
+    z-index: -1;
+    top: 50px;
+    left: 25%;
+    background-color: #def6fa;
+    overflow-x: hidden;
+    width: 75%;
+    height: 860px;
+}
+
+.map-canvas {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    border: 7px black solid;
+}
