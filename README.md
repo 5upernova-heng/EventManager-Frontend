@@ -34,8 +34,9 @@ yarn dev
 
 ### To Do List
 
-- Show Map node with tooltips on the map, and clickable
-- Adjust the main map's edges
+- Show map node when choosing location
+- Make map node clickable
+- Calculation button should only show when both locations are set
 - Show inside view of some buildings.
 
 ### 进度一览

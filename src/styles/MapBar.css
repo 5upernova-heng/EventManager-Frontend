@@ -1,0 +1,13 @@
+.map-bar {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    left: 0%;
+    width: 25%;
+    height: 879px;    
+}
+
+.location-card {
+    width: 20rem;
+}

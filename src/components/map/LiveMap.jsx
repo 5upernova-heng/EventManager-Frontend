@@ -97,44 +97,42 @@ function LiveMap({ draw }) {
     };
 
     return (
-        <div>
-            <div
-                draggable
-                className="border drag-map"
-                ref={imageDivRef}
-                onWheel={onWheel}
-                onDragStart={onDragStart}
-                onDragOver={onDragOver}
-                onDragEnd={onDragEnd}
+        <div
+            draggable
+            className="drag-map"
+            ref={imageDivRef}
+            onWheel={onWheel}
+            onDragStart={onDragStart}
+            onDragOver={onDragOver}
+            onDragEnd={onDragEnd}
+        >
+            <button
+                onClick={reset}
+                className="btn btn-lg btn-light m-2 position-absolute z-0"
             >
-                <button
-                    onClick={reset}
-                    className="btn btn-lg btn-light m-2 position-absolute z-0"
-                >
-                    <i className="fa fa-arrows-alt" aria-hidden="true"></i>
-                </button>
-                <div
+                <i className="fa fa-arrows-alt" aria-hidden="true"></i>
+            </button>
+            <div
+                style={{
+                    transform: `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`,
+                }}
+            >
+                <img
+                    ref={imageRef}
+                    src="/src/assets/map.jpg"
                     style={{
-                        transform: `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`,
+                        width: "100%",
+                        position: "relative",
                     }}
-                >
-                    <img
-                        ref={imageRef}
-                        src="/src/assets/map.jpg"
-                        style={{
-                            width: "100%",
-                            position: "relative",
-                        }}
-                        alt="Map"
-                    ></img>
-                    <canvas
-                        className="map-canvas shadow"
-                        width={`${imgWidth}px`}
-                        height={`${imgHeight}px`}
-                        ref={canvasRef}
-                    ></canvas>
-                    <MapLayer nodes={nodes} />
-                </div>
+                    alt="Map"
+                ></img>
+                <canvas
+                    className="map-canvas shadow"
+                    width={`${imgWidth}px`}
+                    height={`${imgHeight}px`}
+                    ref={canvasRef}
+                ></canvas>
+                <MapLayer nodes={nodes} />
             </div>
         </div>
     );
