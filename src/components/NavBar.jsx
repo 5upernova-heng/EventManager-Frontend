@@ -1,9 +1,10 @@
 import Time from "./Time";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import RefreshTime from "./forms/RefreshTime";
 import UserDropdown from "./UserDropdown";
 import routes from "../routes";
+import { LoginContext } from "../context/LoginContextProvider";
 
 function renderNavItems() {
     const [currentPath, setCurrentPath] = useState(location.pathname);
@@ -33,6 +34,8 @@ function renderNavItems() {
 }
 
 function NavBar({ routes }) {
+    const { login, setLogin } = useContext(LoginContext);
+    const navigate = useNavigate();
     return (
         <>
             <div className="d-flex px-2">
@@ -60,6 +63,16 @@ function NavBar({ routes }) {
                     <RefreshTime />
                     <div className="px-1"></div>
                     <UserDropdown />
+                    <div className="px-1"></div>
+                    <button
+                        className="btn btn-outline-dark"
+                        onClick={() => {
+                            setLogin(false);
+                            navigate("/");
+                        }}
+                    >
+                        退出登录
+                    </button>
                 </div>
             </div>
         </>

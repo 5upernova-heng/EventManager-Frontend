@@ -39,10 +39,9 @@ yarn dev
 - Make time 5min/jump;
 - Edit location in event form
 - Remind Fetcher
-- Personal HomePage;
 - Hide password when typing it;
-- Quit Login;
 - Duplication of event style color set and label;
+- A beautiful background;
 
 ### 进度一览
 
@@ -68,6 +67,8 @@ yarn dev
     - [x] 闹钟
     - [x] 增删查改按钮
   - [x] Alert 界面
-- [ ] 登录界面
+- [x] 登录界面
+  - [] 退出登录
+  - [] 连接后端
 - [ ] 说明文档
 - [ ] 测试代码
