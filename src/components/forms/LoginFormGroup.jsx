@@ -23,10 +23,6 @@ function LoginFormGroup() {
         setAccount(account);
     };
 
-    const renderStar = () => {
-        return account.password.replace(/./g, "*");
-    };
-
     const handleSubmit = () => {
         const { error } = schema.validate(account, { abortEarly: false });
         const newErrors = error
