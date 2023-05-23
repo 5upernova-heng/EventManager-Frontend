@@ -34,10 +34,12 @@ yarn dev
 
 ### To Do List
 
-- Show map node when choosing location
-- Make map node clickable
-- Calculation button should only show when both locations are set
-- Show inside view of some buildings.
+- Add passby nodes;
+- Show inside view of some buildings;
+- Make time 5min/jump;
+- Remind Fetcher
+- Personal HomePage;
+- Quit Login;
 
 ### 进度一览
 
