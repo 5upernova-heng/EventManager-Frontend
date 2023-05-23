@@ -11,8 +11,8 @@ import { useState } from "react";
 
 function App() {
     // Login
-    const [isLogin, setLogin] = useState(false);
-    const defaultPage = <Navigate to={isLogin ? "/calendar" : "/login"} />;
+    const [isLogin, setLogin] = useState(true);
+    const defaultPage = <Navigate to={isLogin ? "/dashboard" : "/login"} />;
     const rootPageRoute = <Route path="/" element={defaultPage} />;
     const renderRoutes = () => {
         return (

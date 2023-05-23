@@ -50,3 +50,11 @@ export const getDateLimit = (month) => {
     date.setMonth(month, 0);
     return date.getDate();
 };
+
+export const getGreetings = (hour) => {
+    if (6 < hour && hour <= 8) return "早上好";
+    if (8 < hour && hour <= 12) return "上午好";
+    if (12 < hour && hour <= 14) return "中午好";
+    if (14 < hour && hour <= 18) return "下午好";
+    return "晚上好";
+};

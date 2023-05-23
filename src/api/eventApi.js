@@ -19,3 +19,7 @@ export async function updateEventApi(id, event) {
     await request.put(`${apiRoot}/events/${id}`, event);
     return getEventsApi();
 }
+
+export async function getComingEventApi() {
+    return request.get(`${apiRoot}/coming`);
+}

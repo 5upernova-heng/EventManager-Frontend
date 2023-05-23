@@ -37,26 +37,30 @@ yarn dev
 - Add passby nodes;
 - Show inside view of some buildings;
 - Make time 5min/jump;
+- Edit location in event form
 - Remind Fetcher
 - Personal HomePage;
 - Hide password when typing it;
 - Quit Login;
+- Duplication of event style color set and label;
 
 ### 进度一览
 
-- [ ] 日程日历
-  - [ ] 周日历
+- [x] 日程日历
+  - [x] 周日历
     - [x] 日历头
     - [x] 日历表
     - [x] 日历编辑表单：增删查改
-      - [ ] 输入验证
-      - [ ] 分类与权限显示
+      - [x] 输入验证
+      - [x] 分类与权限显示
+      - [ ] 连接后端
   - [x] 侧边栏
     - [x] 月日历
     - [x] 更详细的时间调整
-- [ ] 校园地图
-  - [ ] 显示路线
-  - [ ] 画出路线
+- [x] 校园地图
+  - [x] 显示路线
+  - [x] 画出路线
+  - [ ] 连接后端
 - [ ] 日志显示
   - [ ] 指从后端请求的日志（list group 视图）
 - [ ] 闹钟管理

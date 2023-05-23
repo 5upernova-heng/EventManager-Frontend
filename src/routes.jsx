@@ -9,7 +9,7 @@ export default [
         path: "/dashboard",
         label: "个人主页",
         element: <Dashboard />,
-        showOnTab: false,
+        showOnTab: true,
         showBar: true,
     },
     {
