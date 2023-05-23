@@ -3,7 +3,15 @@ import Alarms from "./pages/Alarms";
 import Map from "./pages/Map";
 import Logs from "./pages/Logs";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
 export default [
+    {
+        path: "/dashboard",
+        label: "个人主页",
+        element: <Dashboard />,
+        showOnTab: false,
+        showBar: true,
+    },
     {
         path: "/calendar",
         label: "日程日历",

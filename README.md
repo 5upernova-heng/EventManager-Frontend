@@ -39,6 +39,7 @@ yarn dev
 - Make time 5min/jump;
 - Remind Fetcher
 - Personal HomePage;
+- Hide password when typing it;
 - Quit Login;
 
 ### 进度一览
