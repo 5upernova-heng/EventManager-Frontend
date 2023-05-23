@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Input = ({ name, icon, label, onChange, error }) => {
+const Input = ({ name, icon, label, type, onChange, error }) => {
     return (
         <>
             <label className="fw-bold  mb-1" htmlFor={name}>
@@ -11,7 +11,7 @@ const Input = ({ name, icon, label, onChange, error }) => {
                 <input
                     id={name}
                     name={name}
-                    type="text"
+                    type={type}
                     onChange={onChange}
                     className="form-control"
                 />
@@ -31,6 +31,7 @@ const Input = ({ name, icon, label, onChange, error }) => {
 Input.propTypes = {
     name: PropTypes.string.isRequired,
     icon: PropTypes.element,
+    type: PropTypes.string,
     label: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     error: PropTypes.string,

@@ -42,6 +42,7 @@ yarn dev
 - Hide password when typing it;
 - Duplication of event style color set and label;
 - A beautiful background;
+- Login page should not be scrollable
 
 ### 进度一览
 

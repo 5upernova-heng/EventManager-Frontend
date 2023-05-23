@@ -98,6 +98,7 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                         name={`title-${id}`}
                         label="事件标题"
                         value={title}
+                        type="text"
                         onChange={(event) => {
                             changeData({ title: event.target.value });
                         }}

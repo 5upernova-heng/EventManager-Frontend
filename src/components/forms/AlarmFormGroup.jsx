@@ -59,6 +59,7 @@ const AlarmFormGroup = ({ alarm }) => {
                 </div>
                 <div className="d-flex flex-column justify-content-between mb-2">
                     <Input
+                        type={"text"}
                         name={`input-${id}`}
                         label={`描述`}
                         value={description}

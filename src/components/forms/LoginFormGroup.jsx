@@ -23,6 +23,10 @@ function LoginFormGroup() {
         setAccount(account);
     };
 
+    const renderStar = () => {
+        return account.password.replace(/./g, "*");
+    };
+
     const handleSubmit = () => {
         const { error } = schema.validate(account, { abortEarly: false });
         const newErrors = error
@@ -50,6 +54,7 @@ function LoginFormGroup() {
                 name="password"
                 icon={<i className="fa fa-lock" aria-hidden="true"></i>}
                 label="密码"
+                type="password"
                 error={errors.password}
                 onChange={handleChange}
             />
