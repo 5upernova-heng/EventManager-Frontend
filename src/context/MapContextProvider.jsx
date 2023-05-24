@@ -82,8 +82,12 @@ export default function MapContextProvider({ children }) {
     };
 
     const getLocationName = (id) => {
-        if (allNodes.length !== 0) {
-            return allNodes[id] ? allNodes[id].name : "未选择";
+        if (id < allNodes.length && id >= 0) {
+            if (allNodes.length !== 0) {
+                return allNodes[id] ? allNodes[id].name : "未选择";
+            }
+        } else {
+            return "未选择";
         }
     };
 

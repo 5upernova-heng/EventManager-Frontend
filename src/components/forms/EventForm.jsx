@@ -5,9 +5,13 @@ import Range from "./Range";
 import SelectButtonGroup from "./SelectButtonGroup";
 import { EventContext } from "../../context/EventContextProvider";
 import { AuthContext } from "../../context/AuthContextProvider";
+import { MapContext } from "../../context/MapContextProvider";
+import LocationSelector from "./LocationSelector";
 
 const EventForm = ({ id }) => {
-    const { submitData, changeData } = useContext(EventContext);
+    const { submitData, changeData, officialColorSet, personalColorSet } =
+        useContext(EventContext);
+    const { getLocationName } = useContext(MapContext);
     const {
         title,
         month,
@@ -19,13 +23,14 @@ const EventForm = ({ id }) => {
         category,
         isOnce,
         isOfficial,
+        location,
     } = submitData;
-    // console.log(startMinute, endMinute);
+    // map node select
+
     const [startKey, setStartKey] = useState(`start-${startMinute}`);
     const [endKey, setEndKey] = useState(`end-${endMinute}`);
     const rangeKey = `${startTime}-${id}`;
 
-    const { officialColorSet, personalColorSet } = useContext(EventContext);
     const { auth } = useContext(AuthContext);
     const categoryStyle = [
         { label: "课外", style: `btn-outline-${personalColorSet[0]}` },
@@ -83,6 +88,9 @@ const EventForm = ({ id }) => {
     const changeDay = (day) => {
         changeData({ day });
     };
+    const changeLocation = (location) => {
+        changeData({ location });
+    };
 
     const renderBasicInfo = () => {
         return (
@@ -97,8 +105,30 @@ const EventForm = ({ id }) => {
                             changeData({ title: event.target.value });
                         }}
                     />
-                    <div className="mt-2">{`当前地点：${categoryLabel}`}</div>
-                    <button className="mt-2 btn btn-primary">当前地点</button>
+                    <div className="mt-2">
+                        <p className="mb-0">{`事件地点：${getLocationName(
+                            location
+                        )}`}</p>
+                    </div>
+                    <div className="d-flex justify-content-between align-items-center mt-2">
+                        <button
+                            className="btn btn-outline-dark ms-5"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#mapCollapse"
+                        >
+                            <i
+                                className="fa fa-map-marker"
+                                aria-hidden="true"
+                            ></i>
+                        </button>
+                        <button className="d-flex align-items-center btn btn-primary">
+                            <p className="mb-0 pe-2">查看导航</p>
+                            <i
+                                className="fa fa-location-arrow"
+                                aria-hidden="true"
+                            ></i>
+                        </button>
+                    </div>
                 </div>
             </>
         );
@@ -240,12 +270,24 @@ const EventForm = ({ id }) => {
     };
 
     return (
-        <div>
-            {renderBasicInfo()}
-            <hr />
-            {renderCategoryInfo()}
-            <hr />
-            {renderTimeInfo()}
+        <div className="d-flex">
+            <div
+                style={{
+                    width: "100%",
+                }}
+            >
+                {renderBasicInfo()}
+                <hr />
+                {renderCategoryInfo()}
+                <hr />
+                {renderTimeInfo()}
+            </div>
+            <div className="collapse collapse-horizontal" id="mapCollapse">
+                <LocationSelector
+                    selected={location}
+                    changeLocation={changeLocation}
+                />
+            </div>
         </div>
     );
 };

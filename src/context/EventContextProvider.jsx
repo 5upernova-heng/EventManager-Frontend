@@ -16,7 +16,7 @@ export default function EventContextProvider({ children }) {
         title: "",
         startTime: 0,
         endTime: 0,
-        location: 0,
+        location: -1,
         category: 0,
         isOnce: 0,
         isOfficial: 0,
@@ -58,9 +58,7 @@ export default function EventContextProvider({ children }) {
 
     const updateEvent = async (newEvent) => {
         const { data: newEvents } = await updateEventApi(newEvent.id, newEvent);
-        console.log(newEvents);
         setEvents(newEvents);
-        console.log(events);
     };
 
     const deleteEvent = async (id) => {
@@ -79,7 +77,7 @@ export default function EventContextProvider({ children }) {
             title: "",
             startTime: startTime.getTime(),
             endTime: endTime.getTime(),
-            location: 0,
+            location: -1,
             category: 0,
             isOnce: 0,
             isOfficial: 0,

@@ -8,14 +8,17 @@ import { minutesToString, stampTo5Minutes } from "../../../utils/calDate";
 
 const EventCell = ({ event }) => {
     const eventRef = useRef(null);
+    // style
     const [hover, setHover] = useState(false);
     const [overflow, setOverflow] = useState(false);
-    const { auth } = useContext(AuthContext);
     const { setEventEvent, getEventColor } = useContext(EventContext);
+    // data
     const { getLocationName } = useContext(MapContext);
     const { startTime, endTime, title, location, isOfficial } = event;
     const startMinute = stampTo5Minutes(startTime);
     const endMinute = stampTo5Minutes(endTime);
+    // auth
+    const { auth } = useContext(AuthContext);
     const editable = !isOfficial || auth;
     useEffect(() => {
         setOverflow(

@@ -1,7 +1,7 @@
 const EventModel = ({ id, headerLabel, bodyComponent, footerComponent }) => {
     return (
         <div className="modal fade" tabIndex="-1" id={id} aria-hidden="true">
-            <div className="modal-dialog">
+            <div className="modal-dialog modal-lg">
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">{headerLabel}</h5>
