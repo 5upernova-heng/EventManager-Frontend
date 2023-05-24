@@ -2,15 +2,16 @@ import { TimeContext } from "../../context/TimeContextProvider";
 import { useContext } from "react";
 
 const ChooseInterval = () => {
-    const { setTimeInterval } = useContext(TimeContext);
+    const { timeInterval, setTimeInterval } = useContext(TimeContext);
     const intervalList = [1, 60 * 5, 60 * 60, 60 * 60 * 24, 60 * 60 * 24 * 7];
     return (
         <div className="col d-flex justify-content-between align-item-center my-3">
-            <label className="text-center mb-0">非同步状态下的时间跨度</label>
+            <label className="text-center mb-0">时间跨度</label>
             <select
                 className="form-select-sm"
                 aria-label="Default select example"
                 defaultValue="1"
+                value={intervalList.indexOf(timeInterval)}
                 onChange={(e) => {
                     setTimeInterval(
                         intervalList[parseInt(e.currentTarget.value)]
