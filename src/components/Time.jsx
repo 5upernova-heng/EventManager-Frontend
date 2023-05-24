@@ -21,7 +21,6 @@ const Time = () => {
     );
     const dayStr = getDayString(date.getDay());
     const textStr = `${dateStr} ${timeStr} ${dayStr}`;
-    console.log(timeInterval);
     return (
         <button className={renderClassName()} onClick={toggleTick}>
             <p className="fs-6 fw-bold mb-0 text-center">{textStr}</p>

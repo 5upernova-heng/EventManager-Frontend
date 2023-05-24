@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { getTimeString } from "../utils/calDate";
 
 function EventCard({ event }) {
-    console.log(event);
     const { startTime, endTime, title, isOnce } = event;
 
     const parseTimeString = (timeStamp) => {
