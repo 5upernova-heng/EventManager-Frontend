@@ -4,6 +4,7 @@ import { EventContext } from "../../../context/EventContextProvider";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "../../../context/MapContextProvider";
+import { minutesToString, stampTo5Minutes } from "../../../utils/calDate";
 
 const EventCell = ({ event }) => {
     const eventRef = useRef(null);
@@ -13,10 +14,9 @@ const EventCell = ({ event }) => {
     const { setEventEvent, getEventColor } = useContext(EventContext);
     const { getLocationName } = useContext(MapContext);
     const { startTime, endTime, title, location, isOfficial } = event;
-    const startHour = new Date(startTime).getHours();
-    const endHour = new Date(endTime).getHours();
+    const startMinute = stampTo5Minutes(startTime);
+    const endMinute = stampTo5Minutes(endTime);
     const editable = !isOfficial || auth;
-
     useEffect(() => {
         setOverflow(
             eventRef.current.clientHeight < eventRef.current.scrollHeight
@@ -24,8 +24,8 @@ const EventCell = ({ event }) => {
     }, [event]);
 
     const calStyle = () => {
-        const top = `${(startHour / 24) * 100}%`;
-        const bottom = `${(1 - endHour / 24) * 100}%`;
+        const top = `${(startMinute / 288) * 100}%`;
+        const bottom = `${(1 - endMinute / 288) * 100}%`;
         return hover
             ? {
                   top,
@@ -39,7 +39,7 @@ const EventCell = ({ event }) => {
 
     const renderStyle = () => {
         const baseStyle =
-            "position-absolute p-2 start-0 end-0 border rounded rounded-4 overflow-auto ";
+            "position-absolute p-2 start-0 end-0 border rounded rounded-4 overflow-auto shadow ";
         const hoverStyle = hover ? "ms-0 me-0" : "ms-1 me-1 my-1";
         const colorStyle = getEventColor(event);
         return `${baseStyle} bg-${colorStyle} ${hoverStyle}`;
@@ -65,7 +65,9 @@ const EventCell = ({ event }) => {
             }}
         >
             <p className="fs-5 mb-0 text-white fw-bold">{`${title}`}</p>
-            <p className="fs-6 mb-0 text-white">{`${startHour}:00-${endHour}:00`}</p>
+            <p className="fs-6 mb-0 text-white">{`${minutesToString(
+                startMinute
+            )}-${minutesToString(endMinute)}`}</p>
             <p
                 className="fs-6 mb-0 text-white"
                 style={{ whiteSpace: "pre-line" }}

@@ -2,106 +2,20 @@ import { useContext, useState, useEffect } from "react";
 import EventModel from "./EventModel";
 import EventForm from "./forms/EventForm";
 import { EventContext } from "../context/EventContextProvider";
-import { AuthContext } from "../context/AuthContextProvider";
 
 const ModelGroup = () => {
-    const { events, choosedEvent, addEvent, updateEvent, deleteEvent } =
-        useContext(EventContext);
-    const { auth } = useContext(AuthContext);
     const {
-        title,
-        startTime,
-        endTime,
-        description,
-        category,
-        isOnce,
-        isOfficial,
-    } = choosedEvent;
-    const eventStartDate = new Date(startTime);
-    const month = eventStartDate.getMonth() + 1;
-    const date = eventStartDate.getDate();
-    const startHour = eventStartDate.getHours();
-    const endHour = new Date(endTime).getHours();
-    const [submitData, setSubmit] = useState({
-        title,
-        month,
-        date,
-        startHour,
-        endHour,
-        description,
-        startTime,
-        category,
-        isOnce,
-        isOfficial,
-    });
-
-    useEffect(() => {
-        const {
-            title,
-            startTime,
-            endTime,
-            description,
-            category,
-            isOnce,
-            isOfficial,
-        } = choosedEvent;
-        const eventStartDate = new Date(startTime);
-        const month = eventStartDate.getMonth() + 1;
-        const date = eventStartDate.getDate();
-        const day = eventStartDate.getDay();
-        const startHour = eventStartDate.getHours();
-        const endHour = new Date(endTime).getHours();
-        setSubmit({
-            title,
-            month,
-            date,
-            day,
-            startHour,
-            endHour,
-            description,
-            startTime,
-            category,
-            isOnce,
-            isOfficial,
-        });
-    }, [choosedEvent]);
+        events,
+        choosedEvent,
+        submitData,
+        dataToEvent,
+        addEvent,
+        updateEvent,
+        deleteEvent,
+    } = useContext(EventContext);
 
     const assignId = () => {
         return events[events.length - 1].id + 1;
-    };
-
-    const data2Event = () => {
-        const {
-            title,
-            month,
-            date,
-            day,
-            startHour,
-            endHour,
-            description,
-            category,
-            isOnce,
-            isOfficial,
-        } = submitData;
-        const newStartDate = new Date();
-        newStartDate.setMonth(month - 1);
-        newStartDate.setDate(date);
-        if (!isOnce) {
-            newStartDate.setDate(date - newStartDate.getDay() + day);
-        }
-        newStartDate.setHours(startHour);
-        const newEndDate = new Date(newStartDate);
-        newEndDate.setHours(endHour);
-        return {
-            id: choosedEvent.id,
-            startTime: newStartDate.getTime(),
-            endTime: newEndDate.getTime(),
-            title,
-            category,
-            description,
-            isOnce,
-            isOfficial,
-        };
     };
 
     return (
@@ -109,13 +23,7 @@ const ModelGroup = () => {
             <EventModel
                 id="addEvent"
                 headerLabel="添加事件"
-                bodyComponent={
-                    <EventForm
-                        id="add"
-                        submitData={submitData}
-                        setSubmit={setSubmit}
-                    />
-                }
+                bodyComponent={<EventForm id="add" />}
                 footerComponent={
                     <>
                         <button
@@ -130,8 +38,9 @@ const ModelGroup = () => {
                             className="btn btn-success"
                             data-bs-dismiss="modal"
                             onClick={() => {
-                                choosedEvent.id = assignId();
-                                addEvent(data2Event());
+                                const submitEvent = dataToEvent(submitData);
+                                submitEvent.id = assignId();
+                                addEvent(submitEvent);
                             }}
                         >
                             添加
@@ -142,13 +51,7 @@ const ModelGroup = () => {
             <EventModel
                 id="modifyEvent"
                 headerLabel="修改事件"
-                bodyComponent={
-                    <EventForm
-                        id="modify"
-                        submitData={submitData}
-                        setSubmit={setSubmit}
-                    />
-                }
+                bodyComponent={<EventForm id="modify" />}
                 footerComponent={
                     <>
                         <button
@@ -173,7 +76,9 @@ const ModelGroup = () => {
                             className="btn btn-primary"
                             data-bs-dismiss="modal"
                             onClick={() => {
-                                updateEvent(data2Event());
+                                const newEvent = dataToEvent(submitData);
+                                newEvent.id = choosedEvent.id;
+                                updateEvent(newEvent);
                             }}
                         >
                             提交修改

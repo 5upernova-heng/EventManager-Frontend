@@ -58,3 +58,35 @@ export const getGreetings = (hour) => {
     if (14 < hour && hour <= 18) return "下午好";
     return "晚上好";
 };
+
+/** return the number of 5 minutes passed from today */
+export const stampTo5Minutes = (timestamp) => {
+    const date = new Date(timestamp);
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    return Math.floor(hour * 12 + minute / 5);
+};
+
+export const minutesToDate = (minutes) => {
+    minutes *= 5;
+    const date = new Date();
+    const hour = Math.floor(minutes / 60);
+    const min = minutes % 60;
+    date.setHours(hour);
+    date.setMinutes(min);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    return date;
+};
+
+export const minutesToStamp = (minutes) => {
+    return minutesToDate(minutes).getTime();
+};
+
+/** convert minutes to string */
+export const minutesToString = (minutes) => {
+    const date = minutesToDate(minutes);
+    const hour = date.getHours();
+    const min = date.getMinutes();
+    return getTimeString(hour, min);
+};

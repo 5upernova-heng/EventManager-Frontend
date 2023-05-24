@@ -36,9 +36,10 @@ yarn dev
 
 1. Event form change:
    1. Edit location interface
-   2. Extract Event Context
-   3. 5 Minute precision
-   4. Multiple event at the same time 
+   2. 5 Minute precision
+   3. Multiple event at the same time
+   4. Make isOnce a integer instead of a boolean (doLoop)
+   5. Owner and Participants
 2. Map:
    1. Add passby nodes;
    2. Show inside view of some buildings;

@@ -1,27 +1,30 @@
 import { useState, useContext } from "react";
-import { getDateLimit } from "../../utils/calDate";
+import { getDateLimit, minutesToString } from "../../utils/calDate";
 import Input from "./Input";
 import Range from "./Range";
 import SelectButtonGroup from "./SelectButtonGroup";
 import { EventContext } from "../../context/EventContextProvider";
 import { AuthContext } from "../../context/AuthContextProvider";
 
-const EventForm = ({ id, submitData, setSubmit }) => {
+const EventForm = ({ id }) => {
+    const { submitData, changeData } = useContext(EventContext);
     const {
         title,
         month,
         date,
         day,
-        startHour,
-        endHour,
+        startMinute,
+        endMinute,
         startTime,
         category,
         isOnce,
         isOfficial,
     } = submitData;
-    const [startKey, setStartKey] = useState(`startHour-${startHour}`);
-    const [endKey, setEndKey] = useState(`endHour-${endHour}`);
+    // console.log(startMinute, endMinute);
+    const [startKey, setStartKey] = useState(`start-${startMinute}`);
+    const [endKey, setEndKey] = useState(`end-${endMinute}`);
     const rangeKey = `${startTime}-${id}`;
+
     const { officialColorSet, personalColorSet } = useContext(EventContext);
     const { auth } = useContext(AuthContext);
     const categoryStyle = [
@@ -79,13 +82,6 @@ const EventForm = ({ id, submitData, setSubmit }) => {
     };
     const changeDay = (day) => {
         changeData({ day });
-    };
-    const changeData = (dataObject) => {
-        const newData = structuredClone(submitData);
-        for (const prop in dataObject) {
-            newData[prop] = dataObject[prop];
-        }
-        setSubmit(newData);
     };
 
     const renderBasicInfo = () => {
@@ -166,7 +162,9 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                                 label={`月: ${month}`}
                                 value={month}
                                 changeHandler={(event) => {
-                                    changeData({ month: event.target.value });
+                                    changeData({
+                                        month: event.target.value,
+                                    });
                                 }}
                                 rangeAttrs={{ min: 1, max: 12, step: 1 }}
                             />
@@ -178,7 +176,9 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                                 label={`日: ${date}`}
                                 value={date}
                                 changeHandler={(event) => {
-                                    changeData({ date: event.target.value });
+                                    changeData({
+                                        date: event.target.value,
+                                    });
                                 }}
                                 rangeAttrs={{
                                     min: 1,
@@ -191,52 +191,50 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                 ) : (
                     <div></div>
                 )}
-                <div className="row">
-                    <div className="col">
-                        <Range
-                            key={`${startKey}-${rangeKey}`}
-                            id={`startTime-${id}`}
-                            label={`开始时间: ${startHour}`}
-                            value={startHour}
-                            changeHandler={(event) => {
-                                const newStartHour = Number(event.target.value);
-                                if (newStartHour >= endHour) {
-                                    const newEndHour = newStartHour + 1;
-                                    changeData({
-                                        startHour: newStartHour,
-                                        endHour: newEndHour,
-                                    });
-                                    setEndKey(`endHour-${newEndHour}`);
-                                } else {
-                                    changeData({ startHour: newStartHour });
-                                }
-                            }}
-                            rangeAttrs={{ min: 0, max: 23, step: 1 }}
-                        />
-                    </div>
-                    <div className="col">
-                        <Range
-                            key={`${endKey}-${rangeKey}`}
-                            id={`endTime-${id}`}
-                            label={`结束时间: ${endHour}`}
-                            value={endHour}
-                            changeHandler={(event) => {
-                                const newEndHour = Number(event.target.value);
-                                if (newEndHour <= startHour) {
-                                    const newStartHour = newEndHour - 1;
-                                    changeData({
-                                        startHour: newEndHour - 1,
-                                        endHour: newEndHour,
-                                    });
-                                    setStartKey(`startHour-${newStartHour}`);
-                                } else {
-                                    changeData({ endHour: newEndHour });
-                                }
-                            }}
-                            rangeAttrs={{ min: 0, max: 23, step: 1 }}
-                        />
-                    </div>
-                </div>
+                <Range
+                    key={`${startKey}-${rangeKey}`}
+                    id={`startTime-${id}`}
+                    label={`开始时间: ${minutesToString(startMinute)}`}
+                    value={startMinute}
+                    changeHandler={(event) => {
+                        const newStartMinute = Number(event.target.value);
+                        if (newStartMinute >= endMinute) {
+                            const newEndMinute = newStartMinute + 1;
+                            changeData({
+                                startMinute: newStartMinute,
+                                endMinute: newEndMinute,
+                            });
+                            setEndKey(`endMinute-${newEndMinute}`);
+                        } else {
+                            changeData({
+                                startMinute: newStartMinute,
+                            });
+                        }
+                    }}
+                    rangeAttrs={{ min: 0, max: 288, step: 1 }}
+                />
+                <Range
+                    key={`${endKey}-${rangeKey}`}
+                    id={`endTime-${id}`}
+                    label={`结束时间: ${minutesToString(endMinute)}`}
+                    value={endMinute}
+                    changeHandler={(event) => {
+                        const newEndMinute = Number(event.target.value);
+                        if (newEndMinute <= startMinute) {
+                            const newStartMinute = newEndMinute - 1;
+                            changeData({
+                                startMinute: newEndMinute - 1,
+                                endMinute: newEndMinute,
+                            });
+                            setStartKey(`startMinute-${newStartMinute}`);
+                        } else {
+                            changeData({
+                                endMinute: newEndMinute,
+                            });
+                        }
+                    }}
+                    rangeAttrs={{ min: 0, max: 288, step: 1 }}
+                />
             </>
         );
     };
