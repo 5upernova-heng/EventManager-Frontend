@@ -34,15 +34,22 @@ yarn dev
 
 ### To Do List
 
-- Add passby nodes;
-- Show inside view of some buildings;
-- Make time 5min/jump;
-- Edit location in event form
-- Remind Fetcher
-- Hide password when typing it;
-- Duplication of event style color set and label;
+1. Make time 5min/sec jump;
+2. Event form change:
+  - Edit location interface
+  - 5 Minute precision
+  - Multiple event at the same time 
+3. Map:
+  - Add passby nodes;
+  - Show inside view of some buildings;
+4. With backend:
+  - Remind Fetcher
+
+More:
+- Login page should not be scrollable;
+- Duplicate declaration of event style color set and label;
 - A beautiful background;
-- Login page should not be scrollable
+- Delete event description;
 
 ### 进度一览
 
@@ -69,7 +76,7 @@ yarn dev
     - [x] 增删查改按钮
   - [x] Alert 界面
 - [x] 登录界面
-  - [] 退出登录
+  - [x] 退出登录
   - [] 连接后端
 - [ ] 说明文档
 - [ ] 测试代码

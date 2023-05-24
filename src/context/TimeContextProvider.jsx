@@ -3,13 +3,18 @@ import React, { createContext, useState, useEffect } from "react";
 export const TimeContext = createContext();
 export default function TimeContextProvider({ children }) {
     const [date, setDate] = useState(new Date());
+    // pause or not
     const [tick, setTick] = useState(true);
-    const [sync, setSync] = useState(true);
-    const [timeInterval, setTimeInterval] = useState(1);
+    // sync with real time or not
+    const [sync, setSync] = useState(false);
+    const [timeInterval, setTimeInterval] = useState(60 * 5);
 
     useEffect(() => {
         if (tick || sync) {
-            if (sync) setTick(true);
+            if (sync) {
+                setTick(true);
+                setTimeInterval(1);
+            }
             const interval = setInterval(() => {
                 setDate(
                     sync
