@@ -35,9 +35,11 @@ yarn dev
 ### To Do List
 
 1. Event form change:
-   1. Multiple event at the same time
+   1. Use a uniform category
    2. Make isOnce a integer instead of a boolean (doLoop)
-   3. Owner and Participants
+   3. Multiple event at the same time
+   4. 
+   5. Owner and Participants
 2. Map:
    1. Add passby nodes;
    2. The result of routes;

@@ -7,11 +7,10 @@ import { getWeekDates } from "../../../utils/calDate";
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
 import ModelGroup from "../../ModalGroup";
-import { EventContext } from "../../../context/EventContextProvider";
+import STYLE from "../../../style";
 
 const CalendarBody = ({ events }) => {
     const { date } = useContext(TimeContext);
-    const { officialColorSet, personalColorSet } = useContext(EventContext);
     const dates = getWeekDates(date);
 
     const createColumn = () => {
@@ -22,38 +21,24 @@ const CalendarBody = ({ events }) => {
         ));
     };
     const renderExample = () => {
-        const officialLabel = ["课程事件", "考试事件"];
-        const personalLabel = ["个人事务", "团体事务", "临时事务"];
         return (
             <>
-                {officialLabel.map((label, index) => (
-                    <div
-                        key={index}
-                        className="d-flex justify-content-center align-items-center"
-                    >
-                        {label}
-                        <span
-                            className={`badge bg-${officialColorSet[index]} mx-2`}
-                            style={{ height: "20px", width: "20px" }}
+                {STYLE.categoryLabel.map((label, index) => {
+                    return (
+                        <div
+                            key={index}
+                            className="d-flex justify-content-center align-items-center"
                         >
-                            {" "}
-                        </span>
-                    </div>
-                ))}
-                {personalLabel.map((label, index) => (
-                    <div
-                        key={index}
-                        className="d-flex justify-content-center align-items-center"
-                    >
-                        {label}
-                        <span
-                            className={`badge bg-${personalColorSet[index]} mx-2`}
-                            style={{ height: "20px", width: "20px" }}
-                        >
-                            {" "}
-                        </span>
-                    </div>
-                ))}
+                            {label}
+                            <span
+                                className={`badge bg-${STYLE.colorSet[index]} mx-2`}
+                                style={{ height: "20px", width: "20px" }}
+                            >
+                                {" "}
+                            </span>
+                        </div>
+                    );
+                })}
             </>
         );
     };

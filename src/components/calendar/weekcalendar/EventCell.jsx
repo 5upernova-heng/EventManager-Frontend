@@ -5,21 +5,22 @@ import { AuthContext } from "../../../context/AuthContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "../../../context/MapContextProvider";
 import { minutesToString, stampTo5Minutes } from "../../../utils/calDate";
+import STYLE from "../../../style";
 
 const EventCell = ({ event }) => {
     const eventRef = useRef(null);
     // style
     const [hover, setHover] = useState(false);
     const [overflow, setOverflow] = useState(false);
-    const { setEventEvent, getEventColor } = useContext(EventContext);
+    const { setEventEvent } = useContext(EventContext);
     // data
     const { getLocationName } = useContext(MapContext);
-    const { startTime, endTime, title, location, isOfficial } = event;
+    const { startTime, endTime, title, location, category } = event;
     const startMinute = stampTo5Minutes(startTime);
     const endMinute = stampTo5Minutes(endTime);
     // auth
     const { auth } = useContext(AuthContext);
-    const editable = !isOfficial || auth;
+    const editable = category > 1 || auth;
     useEffect(() => {
         setOverflow(
             eventRef.current.clientHeight < eventRef.current.scrollHeight
@@ -44,7 +45,7 @@ const EventCell = ({ event }) => {
         const baseStyle =
             "position-absolute p-2 start-0 end-0 border rounded rounded-4 overflow-auto shadow ";
         const hoverStyle = hover ? "ms-0 me-0" : "ms-1 me-1 my-1";
-        const colorStyle = getEventColor(event);
+        const colorStyle = STYLE.getCategoryColor(category);
         return `${baseStyle} bg-${colorStyle} ${hoverStyle}`;
     };
     return (

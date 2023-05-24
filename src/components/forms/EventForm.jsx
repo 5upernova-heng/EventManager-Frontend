@@ -7,10 +7,10 @@ import { EventContext } from "../../context/EventContextProvider";
 import { AuthContext } from "../../context/AuthContextProvider";
 import { MapContext } from "../../context/MapContextProvider";
 import LocationSelector from "./LocationSelector";
+import STYLE from "../../style";
 
 const EventForm = ({ id }) => {
-    const { submitData, changeData, officialColorSet, personalColorSet } =
-        useContext(EventContext);
+    const { submitData, changeData } = useContext(EventContext);
     const { getLocationName } = useContext(MapContext);
     const {
         title,
@@ -22,7 +22,6 @@ const EventForm = ({ id }) => {
         startTime,
         category,
         isOnce,
-        isOfficial,
         location,
     } = submitData;
     // map node select
@@ -32,52 +31,14 @@ const EventForm = ({ id }) => {
     const rangeKey = `${startTime}-${id}`;
 
     const { auth } = useContext(AuthContext);
-    const categoryStyle = [
-        { label: "课外", style: `btn-outline-${personalColorSet[0]}` },
-        { label: "课内", style: `btn-outline-${officialColorSet[0]}` },
-    ];
-    const officialCategory = [{ label: "课程" }, { label: "考试" }];
-    const officialStyle = officialCategory.map((category, index) => {
-        category.style = `btn-outline-${officialColorSet[index]}`;
-        return category;
-    });
-    const personalCategory = [
-        { label: "个人" },
-        { label: "团体" },
-        { label: "临时" },
-    ];
-    const personalStyle = personalCategory.map((category, index) => {
-        category.style = `btn-outline-${personalColorSet[index]}`;
-        return category;
-    });
-
-    const categoryLabel = isOfficial
-        ? officialCategory[category].label
-        : personalStyle[category].label;
-    const timeStyle = [
-        { label: "每周", style: "btn-outline-primary" },
-        { label: "单次", style: "btn-outline-primary" },
-    ];
-    const intervalLabel = timeStyle[isOnce].label;
-    const dayStyle = [
-        { label: "周日", style: "btn-sm btn-outline-secondary" },
-        { label: "周一", style: "btn-sm btn-outline-secondary" },
-        { label: "周二", style: "btn-sm btn-outline-secondary" },
-        { label: "周三", style: "btn-sm btn-outline-secondary" },
-        { label: "周四", style: "btn-sm btn-outline-secondary" },
-        { label: "周五", style: "btn-sm btn-outline-secondary" },
-        { label: "周六", style: "btn-sm btn-outline-secondary" },
-    ];
+    const categoryLabel = STYLE.categoryLabel[category];
+    const intervalLabel = STYLE.timeStyle[isOnce].label;
 
     const parseButtonInfo = (style, activeIndex) => {
         return style.map((button, index) => {
             button.isActive = index == activeIndex;
             return button;
         });
-    };
-    const changeOfficial = (isOfficial) => {
-        if (isOfficial && category > 1) changeData({ isOfficial, category: 0 });
-        else changeData({ isOfficial });
     };
     const changeCategory = (category) => {
         changeData({ category });
@@ -142,22 +103,14 @@ const EventForm = ({ id }) => {
                     {auth ? (
                         <SelectButtonGroup
                             buttonsInfo={parseButtonInfo(
-                                categoryStyle,
-                                isOfficial
+                                STYLE.categoryStyle,
+                                category
                             )}
-                            changeSelect={changeOfficial}
+                            changeSelect={changeCategory}
                         />
                     ) : (
                         <></>
                     )}
-                    <SelectButtonGroup
-                        buttonsInfo={
-                            isOfficial
-                                ? parseButtonInfo(officialStyle, category)
-                                : parseButtonInfo(personalStyle, category)
-                        }
-                        changeSelect={changeCategory}
-                    />
                 </div>
             </>
         );
@@ -169,7 +122,7 @@ const EventForm = ({ id }) => {
                 <div className="my-2">{`周期性：${intervalLabel}`}</div>
                 <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                     <SelectButtonGroup
-                        buttonsInfo={parseButtonInfo(timeStyle, isOnce)}
+                        buttonsInfo={parseButtonInfo(STYLE.timeStyle, isOnce)}
                         changeSelect={changeInterval}
                     />
                     {isOnce ? (
@@ -177,7 +130,10 @@ const EventForm = ({ id }) => {
                     ) : (
                         <div className="my-3">
                             <SelectButtonGroup
-                                buttonsInfo={parseButtonInfo(dayStyle, day)}
+                                buttonsInfo={parseButtonInfo(
+                                    STYLE.dayStyle,
+                                    day
+                                )}
                                 changeSelect={changeDay}
                             />
                         </div>

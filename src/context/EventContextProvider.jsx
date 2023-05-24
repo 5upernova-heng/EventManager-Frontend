@@ -19,7 +19,6 @@ export default function EventContextProvider({ children }) {
         location: -1,
         category: 0,
         isOnce: 0,
-        isOfficial: 0,
     };
     /** All events in an array */
     const [events, setEvents] = useState([]);
@@ -27,8 +26,6 @@ export default function EventContextProvider({ children }) {
      * Use choosedEvent, we can fill some form before user to fill
      */
     const [choosedEvent, setChoosedEvent] = useState(emptyEvent);
-    const officialColorSet = ["primary", "danger"];
-    const personalColorSet = ["success", "info", "secondary"];
 
     /** mount data */
     useEffect(() => {
@@ -80,7 +77,6 @@ export default function EventContextProvider({ children }) {
             location: -1,
             category: 0,
             isOnce: 0,
-            isOfficial: 0,
         });
     };
 
@@ -88,34 +84,18 @@ export default function EventContextProvider({ children }) {
         setChoosedEvent(event);
     };
 
-    const getEventColor = (event) => {
-        const { isOfficial, category } = event;
-        return isOfficial
-            ? officialColorSet[category]
-            : personalColorSet[category];
-    };
-
     /**Temp event that wait for submit
      * It will update when choosedEvent changes.
      * (Modal make sure that it will not change when user is modifying an event)
      */
     const eventToData = (event) => {
-        const {
-            title,
-            location,
-            category,
-            isOnce,
-            isOfficial,
-            startTime,
-            endTime,
-        } = event;
+        const { title, location, category, isOnce, startTime, endTime } = event;
         const startDate = new Date(startTime);
         return {
             title,
             location,
             category,
             isOnce,
-            isOfficial,
             // time
             startTime,
             month: startDate.getMonth(),
@@ -132,7 +112,6 @@ export default function EventContextProvider({ children }) {
             location,
             category,
             isOnce,
-            isOfficial,
             month,
             date,
             day,
@@ -151,7 +130,6 @@ export default function EventContextProvider({ children }) {
             location,
             category,
             isOnce,
-            isOfficial,
             startTime: startDate.getTime(),
             endTime: endDate.getTime(),
         };
@@ -189,10 +167,6 @@ export default function EventContextProvider({ children }) {
                 // event data conversion
                 dataToEvent,
                 eventToData,
-                // event style
-                officialColorSet,
-                personalColorSet,
-                getEventColor,
             }}
         >
             {children}
