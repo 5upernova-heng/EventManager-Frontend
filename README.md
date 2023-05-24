@@ -34,16 +34,15 @@ yarn dev
 
 ### To Do List
 
-1. Make time 5min/sec jump;
-2. Event form change:
-  - Edit location interface
-  - 5 Minute precision
-  - Multiple event at the same time 
-3. Map:
-  - Add passby nodes;
-  - Show inside view of some buildings;
-4. With backend:
-  - Remind Fetcher
+1. Event form change:
+   1. Edit location interface
+   2. 5 Minute precision
+   3. Multiple event at the same time 
+2. Map:
+   1. Add passby nodes;
+   2. Show inside view of some buildings;
+3. With backend:
+   1. Remind Fetcher
 
 More:
 - Login page should not be scrollable;

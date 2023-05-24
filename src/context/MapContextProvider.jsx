@@ -81,6 +81,10 @@ export default function MapContextProvider({ children }) {
         setSelected(-1);
     };
 
+    const getLocationName = (id) => {
+        return allNodes[id].name;
+    };
+
     return (
         <MapContext.Provider
             value={{
@@ -89,6 +93,7 @@ export default function MapContextProvider({ children }) {
                 imgHeight,
                 allNodes,
                 routes,
+                getLocationName,
                 // Transformation
                 fixedX,
                 fixedY,

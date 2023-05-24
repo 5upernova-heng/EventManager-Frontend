@@ -3,6 +3,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { EventContext } from "../../../pages/Calendar";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { toast } from "react-toastify";
+import { MapContext } from "../../../context/MapContextProvider";
 
 const EventCell = ({ event }) => {
     const eventRef = useRef(null);
@@ -10,7 +11,8 @@ const EventCell = ({ event }) => {
     const [overflow, setOverflow] = useState(false);
     const { auth } = useContext(AuthContext);
     const { setEventEvent, getEventColor } = useContext(EventContext);
-    const { startTime, endTime, title, description, isOfficial } = event;
+    const { getLocationName } = useContext(MapContext);
+    const { startTime, endTime, title, location, isOfficial } = event;
     const startHour = new Date(startTime).getHours();
     const endHour = new Date(endTime).getHours();
     const editable = !isOfficial || auth;
@@ -67,7 +69,7 @@ const EventCell = ({ event }) => {
             <p
                 className="fs-6 mb-0 text-white"
                 style={{ whiteSpace: "pre-line" }}
-            >{`${description}`}</p>
+            >{`${getLocationName(location)}`}</p>
         </div>
     );
 };

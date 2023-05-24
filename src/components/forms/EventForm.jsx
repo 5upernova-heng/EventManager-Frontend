@@ -3,7 +3,6 @@ import { getDateLimit } from "../../utils/calDate";
 import Input from "./Input";
 import Range from "./Range";
 import SelectButtonGroup from "./SelectButtonGroup";
-import TextArea from "./TextArea";
 import { EventContext } from "../../pages/Calendar";
 import { AuthContext } from "../../context/AuthContextProvider";
 
@@ -15,7 +14,6 @@ const EventForm = ({ id, submitData, setSubmit }) => {
         day,
         startHour,
         endHour,
-        description,
         startTime,
         category,
         isOnce,
@@ -103,15 +101,9 @@ const EventForm = ({ id, submitData, setSubmit }) => {
                             changeData({ title: event.target.value });
                         }}
                     />
+                    <div className="mt-2">{`当前地点：${categoryLabel}`}</div>
+                    <button className="mt-2 btn btn-primary">当前地点</button>
                 </div>
-                <TextArea
-                    name="description"
-                    label="事件描述"
-                    value={description}
-                    onChange={(event) => {
-                        changeData({ description: event.target.value });
-                    }}
-                />
             </>
         );
     };
