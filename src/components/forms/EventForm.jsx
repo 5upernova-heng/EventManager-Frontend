@@ -3,7 +3,7 @@ import { getDateLimit } from "../../utils/calDate";
 import Input from "./Input";
 import Range from "./Range";
 import SelectButtonGroup from "./SelectButtonGroup";
-import { EventContext } from "../../pages/Calendar";
+import { EventContext } from "../../context/EventContextProvider";
 import { AuthContext } from "../../context/AuthContextProvider";
 
 const EventForm = ({ id, submitData, setSubmit }) => {

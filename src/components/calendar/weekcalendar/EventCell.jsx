@@ -1,6 +1,6 @@
 import { Modal } from "bootstrap";
 import { useContext, useEffect, useRef, useState } from "react";
-import { EventContext } from "../../../pages/Calendar";
+import { EventContext } from "../../../context/EventContextProvider";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "../../../context/MapContextProvider";

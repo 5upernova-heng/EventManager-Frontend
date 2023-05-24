@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import EventModel from "./EventModel";
 import EventForm from "./forms/EventForm";
-import { EventContext } from "../pages/Calendar";
+import { EventContext } from "../context/EventContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
 
 const ModelGroup = () => {

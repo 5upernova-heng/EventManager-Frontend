@@ -28,14 +28,6 @@ export default function MapContextProvider({ children }) {
 
     useEffect(() => {
         // mount node and route data
-        const fetchNodes = async () => {
-            const { data } = await getNodesApi();
-            setAllNodes(data);
-        };
-        const fetchRoutes = async () => {
-            const { data } = await getRoutesApi();
-            setRoutes(data);
-        };
         fetchNodes();
         fetchRoutes();
         // init navPoints
@@ -46,6 +38,14 @@ export default function MapContextProvider({ children }) {
         setShowAllNodes(selectedNav === -1 ? false : true);
     }, [selectedNav]);
 
+    const fetchNodes = async () => {
+        const { data } = await getNodesApi();
+        setAllNodes(data);
+    };
+    const fetchRoutes = async () => {
+        const { data } = await getRoutesApi();
+        setRoutes(data);
+    };
     const fixedX = (x) => {
         return x * scaleX;
     };
@@ -82,7 +82,9 @@ export default function MapContextProvider({ children }) {
     };
 
     const getLocationName = (id) => {
-        return allNodes[id].name;
+        if (allNodes.length !== 0) {
+            return allNodes[id] ? allNodes[id].name : "未选择";
+        }
     };
 
     return (

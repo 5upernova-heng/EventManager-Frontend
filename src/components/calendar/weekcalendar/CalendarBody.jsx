@@ -7,7 +7,7 @@ import { getWeekDates } from "../../../utils/calDate";
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
 import ModelGroup from "../../ModalGroup";
-import { EventContext } from "../../../pages/Calendar";
+import { EventContext } from "../../../context/EventContextProvider";
 
 const CalendarBody = ({ events }) => {
     const { date } = useContext(TimeContext);
