@@ -21,7 +21,7 @@ const EventForm = ({ id }) => {
         endMinute,
         startTime,
         category,
-        isOnce,
+        doLoop,
         location,
     } = submitData;
     // map node select
@@ -31,8 +31,8 @@ const EventForm = ({ id }) => {
     const rangeKey = `${startTime}-${id}`;
 
     const { auth } = useContext(AuthContext);
-    const categoryLabel = STYLE.categoryLabel[category];
-    const intervalLabel = STYLE.timeStyle[isOnce].label;
+    const categoryLabel = STYLE.getCategoryLabel(category);
+    const intervalLabel = STYLE.getLoopLabel(doLoop);
 
     const parseButtonInfo = (style, activeIndex) => {
         return style.map((button, index) => {
@@ -43,8 +43,8 @@ const EventForm = ({ id }) => {
     const changeCategory = (category) => {
         changeData({ category });
     };
-    const changeInterval = (isOnce) => {
-        changeData({ isOnce });
+    const changeInterval = (doLoop) => {
+        changeData({ doLoop });
     };
     const changeDay = (day) => {
         changeData({ day });
@@ -122,10 +122,10 @@ const EventForm = ({ id }) => {
                 <div className="my-2">{`周期性：${intervalLabel}`}</div>
                 <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                     <SelectButtonGroup
-                        buttonsInfo={parseButtonInfo(STYLE.timeStyle, isOnce)}
+                        buttonsInfo={parseButtonInfo(STYLE.timeStyle, doLoop)}
                         changeSelect={changeInterval}
                     />
-                    {isOnce ? (
+                    {doLoop != 0 ? (
                         <></>
                     ) : (
                         <div className="my-3">
@@ -139,7 +139,7 @@ const EventForm = ({ id }) => {
                         </div>
                     )}
                 </div>
-                {isOnce ? (
+                {doLoop == 2 ? (
                     <div className="row">
                         <div className="col">
                             <Range

@@ -4,7 +4,7 @@ import { getTimeString } from "../utils/calDate";
 import STYLE from "../style";
 
 function EventCard({ event }) {
-    const { startTime, endTime, title, isOnce, category } = event;
+    const { startTime, endTime, title, doLoop, category } = event;
 
     const parseTimeString = (timeStamp) => {
         const date = new Date(timeStamp);
@@ -29,7 +29,7 @@ function EventCard({ event }) {
                 <p className="fw-bold fs-3 mb-1">{title}</p>
                 <p className="fs-4 mb-0">{`${STYLE.getCategoryLabel(
                     category
-                )} | ${STYLE.timeLabel[isOnce]} | 教三楼 3-217`}</p>
+                )} | ${STYLE.timeLabel[doLoop]} | 教三楼 3-217`}</p>
             </div>
             <div style={{ width: "20rem" }}></div>
             <div className="d-flex align-items-center">

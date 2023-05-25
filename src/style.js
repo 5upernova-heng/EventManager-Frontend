@@ -1,8 +1,17 @@
 const colorSet = ["primary", "danger", "success", "info", "secondary"];
 // label
-const categoryLabel = ["课程", "考试", "个人事件", "团体事件", "临时事务"];
+// category should be two characters long
+const categoryLabel = ["课程", "考试", "个人", "团体", "临时"];
 const dayLabel = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-const timeLabel = ["每周", "单次"];
+const timeLabel = ["每周", "每日", "单次"];
+
+const getCategoryLabel = (category) => {
+    return categoryLabel[category];
+};
+
+const getLoopLabel = (doLoop) => {
+    return timeLabel[doLoop];
+};
 // style
 const categoryStyle = categoryLabel.map((label, index) => {
     return { label, style: `btn-outline-${colorSet[index]}` };
@@ -17,9 +26,7 @@ const dayStyle = dayLabel.map((label) => {
 const getCategoryColor = (category) => {
     return colorSet[category];
 };
-const getCategoryLabel = (category) => {
-    return categoryLabel[category];
-};
+
 export default {
     // color
     colorSet,
@@ -29,6 +36,7 @@ export default {
     timeLabel,
     categoryLabel,
     getCategoryLabel,
+    getLoopLabel,
     // style
     dayStyle,
     timeStyle,

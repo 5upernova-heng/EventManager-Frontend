@@ -35,17 +35,17 @@ yarn dev
 ### To Do List
 
 1. Event form change:
-   1. Use a uniform category
-   2. Make isOnce a integer instead of a boolean (doLoop)
-   3. Multiple event at the same time
-   4. 
-   5. Owner and Participants
+   1. Auth
+   2. Set start Location
+   3. Use another tab to represent temp event
+   4. Owner and Participants(show when category == course/test/group)
 2. Map:
    1. Add passby nodes;
    2. The result of routes;
    3. Show inside view of some buildings;
 3. With backend:
    1. Remind Fetcher
+   1. Call route searching after remind
 
 More:
 - Login page should not be scrollable;
@@ -79,6 +79,6 @@ More:
   - [x] Alert 界面
 - [x] 登录界面
   - [x] 退出登录
-  - [] 连接后端
+  - [x] 连接后端
 - [ ] 说明文档
 - [ ] 测试代码

@@ -18,7 +18,7 @@ export default function EventContextProvider({ children }) {
         endTime: 0,
         location: -1,
         category: 0,
-        isOnce: 0,
+        doLoop: 0,
     };
     /** All events in an array */
     const [events, setEvents] = useState([]);
@@ -42,8 +42,12 @@ export default function EventContextProvider({ children }) {
         const distrubed = [[], [], [], [], [], [], []];
         events.map((event) => {
             const date = new Date(event.startTime);
-            const day = date.getDay();
-            distrubed[day].push(event);
+            if (event.doLoop == 1) {
+                for (let day = 0; day < 7; day++) distrubed[day].push(event);
+            } else {
+                const day = date.getDay();
+                distrubed[day].push(event);
+            }
         });
         return distrubed;
     };
@@ -76,7 +80,7 @@ export default function EventContextProvider({ children }) {
             endTime: endTime.getTime(),
             location: -1,
             category: 0,
-            isOnce: 0,
+            doLoop: 0,
         });
     };
 
@@ -89,13 +93,13 @@ export default function EventContextProvider({ children }) {
      * (Modal make sure that it will not change when user is modifying an event)
      */
     const eventToData = (event) => {
-        const { title, location, category, isOnce, startTime, endTime } = event;
+        const { title, location, category, doLoop, startTime, endTime } = event;
         const startDate = new Date(startTime);
         return {
             title,
             location,
             category,
-            isOnce,
+            doLoop,
             // time
             startTime,
             month: startDate.getMonth(),
@@ -111,7 +115,7 @@ export default function EventContextProvider({ children }) {
             title,
             location,
             category,
-            isOnce,
+            doLoop,
             month,
             date,
             day,
@@ -122,14 +126,14 @@ export default function EventContextProvider({ children }) {
         const endDate = new Date(minutesToStamp(endMinute));
         startDate.setMonth(month);
         startDate.setDate(date);
-        if (!isOnce) startDate.setDate(date - startDate.getDay() + day);
+        if (!doLoop) startDate.setDate(date - startDate.getDay() + day);
         endDate.setMonth(month);
         endDate.setDate(startDate.getDate());
         return {
             title,
             location,
             category,
-            isOnce,
+            doLoop,
             startTime: startDate.getTime(),
             endTime: endDate.getTime(),
         };
