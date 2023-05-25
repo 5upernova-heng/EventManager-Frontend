@@ -6,7 +6,6 @@ import { getWeekDates } from "../../../utils/calDate";
 
 import CalendarTimeColumn from "./CalendarTimeColumn";
 import CalendarDateColumn from "./CalendarDateColumn";
-import ModelGroup from "../../ModalGroup";
 import STYLE from "../../../style";
 
 const CalendarBody = ({ events }) => {
@@ -27,7 +26,7 @@ const CalendarBody = ({ events }) => {
                     return (
                         <div
                             key={index}
-                            className="d-flex justify-content-center align-items-center"
+                            className="fs-5 d-flex justify-content-center align-items-center"
                         >
                             {label}
                             <span
@@ -56,8 +55,6 @@ const CalendarBody = ({ events }) => {
             <div className="d-flex align-items-center justify-content-evenly py-4">
                 {renderExample()}
             </div>
-
-            <ModelGroup />
         </>
     );
 };

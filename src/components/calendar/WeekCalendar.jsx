@@ -10,7 +10,7 @@ const WeekCalendar = () => {
         <>
             <div className="WeekCalendar">
                 <CalendarHead />
-                <CalendarBody events={distrube()} />
+                <CalendarBody events={distrube().normalEvents} />
             </div>
         </>
     );

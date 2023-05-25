@@ -34,12 +34,6 @@ const EventForm = ({ id }) => {
     const categoryLabel = STYLE.getCategoryLabel(category);
     const intervalLabel = STYLE.getLoopLabel(doLoop);
 
-    const parseButtonInfo = (style, activeIndex) => {
-        return style.map((button, index) => {
-            button.isActive = index == activeIndex;
-            return button;
-        });
-    };
     const changeCategory = (category) => {
         changeData({ category });
     };
@@ -111,7 +105,7 @@ const EventForm = ({ id }) => {
                 <div className="mt-2">{`事件类型：${categoryLabel}`}</div>
                 <div className="d-flex justify-content-evenly">
                     <SelectButtonGroup
-                        buttonsInfo={parseButtonInfo(
+                        buttonsInfo={STYLE.parseButtonInfo(
                             renderCategoryButton(),
                             category
                         )}
@@ -128,7 +122,10 @@ const EventForm = ({ id }) => {
                 <div className="my-2">{`周期性：${intervalLabel}`}</div>
                 <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                     <SelectButtonGroup
-                        buttonsInfo={parseButtonInfo(STYLE.timeStyle, doLoop)}
+                        buttonsInfo={STYLE.parseButtonInfo(
+                            STYLE.timeStyle,
+                            doLoop
+                        )}
                         changeSelect={changeInterval}
                     />
                     {doLoop != 0 ? (
@@ -136,7 +133,7 @@ const EventForm = ({ id }) => {
                     ) : (
                         <div className="my-3">
                             <SelectButtonGroup
-                                buttonsInfo={parseButtonInfo(
+                                buttonsInfo={STYLE.parseButtonInfo(
                                     STYLE.dayStyle,
                                     day
                                 )}

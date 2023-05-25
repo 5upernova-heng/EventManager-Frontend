@@ -8,6 +8,7 @@ import AuthContextProvider from "./context/AuthContextProvider";
 import LoginContextProvider from "./context/LoginContextProvider";
 import MapContextProvider from "./context/MapContextProvider";
 import { useState } from "react";
+import EventContextProvider from "./context/EventContextProvider";
 
 function App() {
     // Login
@@ -41,11 +42,13 @@ function App() {
             <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
                 <AuthContextProvider>
                     <TimeContextProvider>
-                        <AlarmContextProvider>
-                            <MapContextProvider>
-                                {renderRoutes()};
-                            </MapContextProvider>
-                        </AlarmContextProvider>
+                        <EventContextProvider>
+                            <AlarmContextProvider>
+                                <MapContextProvider>
+                                    {renderRoutes()};
+                                </MapContextProvider>
+                            </AlarmContextProvider>
+                        </EventContextProvider>
                     </TimeContextProvider>
                 </AuthContextProvider>
             </LoginContextProvider>

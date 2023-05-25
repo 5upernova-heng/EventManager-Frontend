@@ -1,21 +1,26 @@
+import { useContext } from "react";
 import CalendarBar from "../components/calendar/CalendarBar";
-import WeekCalendar from "../components/calendar/WeekCalendar";
 import CalendarSideBar from "../components/calendar/CalendarSideBar";
-import EventContextProvider from "../context/EventContextProvider";
+import ModelGroup from "../components/ModalGroup";
+import { EventContext } from "../context/EventContextProvider";
+import WeekCalendar from "../components/calendar/WeekCalendar";
+import TempEvents from "../components/calendar/TempEvents";
 
 function Calendar() {
+    const { view } = useContext(EventContext);
+    const views = [<WeekCalendar />, <TempEvents />];
+    const renderView = () => {
+        return views[view];
+    };
     return (
         <>
             <CalendarBar />
-            <div className="row container-fluid mx-0 pe-0">
+            <div className="row mx-0 pe-0">
                 <div className="col-2">
                     <CalendarSideBar />
                 </div>
-                <div className="col ms-0 me-4">
-                    <EventContextProvider>
-                        <WeekCalendar />
-                    </EventContextProvider>
-                </div>
+                <div className="col ms-0 me-4">{renderView()}</div>
+                <ModelGroup />
             </div>
         </>
     );

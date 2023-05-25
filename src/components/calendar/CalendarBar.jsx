@@ -1,4 +1,4 @@
-import Time from "../Time";
+import ViewToggler from "./ViewToggler";
 
 function CalendarBar() {
     return (
@@ -6,7 +6,7 @@ function CalendarBar() {
             <div className="container-fluid py-3 border-bottom">
                 <div className="row">
                     <div className="col-3 d-flex align-items-center justify-content-center">
-                        <Time />
+                        <ViewToggler />
                     </div>
                     <div className="col d-flex align-items-center justify-content-end gap-3">
                         <div className="flex-grow-1 mr-3">

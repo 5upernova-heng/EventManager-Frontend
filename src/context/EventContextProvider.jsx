@@ -39,17 +39,23 @@ export default function EventContextProvider({ children }) {
 
     /**  Distrube events to a 2D array*/
     const distrube = () => {
-        const distrubed = [[], [], [], [], [], [], []];
+        const normalEvents = [[], [], [], [], [], [], []];
+        const tempEvents = [];
         events.map((event) => {
             const date = new Date(event.startTime);
-            if (event.doLoop == 1) {
-                for (let day = 0; day < 7; day++) distrubed[day].push(event);
+            if (event.category != 4) {
+                if (event.doLoop == 1) {
+                    for (let day = 0; day < 7; day++)
+                        normalEvents[day].push(event);
+                } else {
+                    const day = date.getDay();
+                    normalEvents[day].push(event);
+                }
             } else {
-                const day = date.getDay();
-                distrubed[day].push(event);
+                tempEvents.push(event);
             }
         });
-        return distrubed;
+        return { normalEvents, tempEvents };
     };
 
     const addEvent = async (event) => {
@@ -153,6 +159,8 @@ export default function EventContextProvider({ children }) {
         setSubmit(newData);
     };
 
+    // view: what content will be shown in Calendar Page
+    const [view, setView] = useState(0);
     return (
         <EventContext.Provider
             value={{
@@ -171,6 +179,9 @@ export default function EventContextProvider({ children }) {
                 // event data conversion
                 dataToEvent,
                 eventToData,
+                // view
+                view,
+                setView,
             }}
         >
             {children}
