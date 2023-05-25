@@ -33,7 +33,7 @@ function Dashboard() {
     const renderEventCards = () => {
         if (events.length > 0) {
             return events.map((event, index) => {
-                if (index < 4) return <EventCard event={event} />;
+                if (index < 4) return <EventCard key={index} event={event} />;
             });
         } else {
             return (
