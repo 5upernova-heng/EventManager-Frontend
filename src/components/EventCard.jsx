@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { getTimeString } from "../utils/calDate";
+import { getDayString, getTimeString, stampToDay } from "../utils/calDate";
 import STYLE from "../style";
 import { MapContext } from "../context/MapContextProvider";
 
 function EventCard({ event }) {
+    const [hover, setHover] = useState(false);
     const { startTime, endTime, title, doLoop, category, location } = event;
     const { getLocationName } = useContext(MapContext);
 
@@ -15,9 +16,20 @@ function EventCard({ event }) {
 
     const startTimeStr = parseTimeString(startTime);
     const endTimeStr = parseTimeString(endTime);
+    const dayStr = stampToDay(startTime);
 
     return (
-        <div className="d-flex justify-content-between my-3 p-2">
+        <div
+            className={`d-flex justify-content-between rounded my-2 p-2 ${
+                hover ? "border shadow" : ""
+            }`}
+            onMouseEnter={() => {
+                setHover(true);
+            }}
+            onMouseLeave={() => {
+                setHover(false);
+            }}
+        >
             <div className="d-flex">
                 <div className="d-flex flex-column justify-content-between pe-1">
                     <p className="mb-1 fs-4 text-secondary">{startTimeStr}</p>
@@ -32,9 +44,9 @@ function EventCard({ event }) {
                     <p className="fw-bold fs-3 mb-1">{title}</p>
                     <p className="fs-4 mb-0">{`${STYLE.getCategoryLabel(
                         category
-                    )} | ${STYLE.timeLabel[doLoop]} | ${getLocationName(
-                        location
-                    )}`}</p>
+                    )} | ${
+                        STYLE.timeLabel[doLoop]
+                    } ${dayStr} | ${getLocationName(location)}`}</p>
                 </div>
             </div>
             <div className="d-flex align-items-center">

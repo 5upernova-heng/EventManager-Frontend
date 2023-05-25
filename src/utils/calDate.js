@@ -1,3 +1,4 @@
+const dayString = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 export function getWeekDates(date) {
     // get the date of this week, returns an array of date
     // to avoid affect the param, we need to create a new object.
@@ -28,9 +29,15 @@ export const getTimeString = (hour, minute, second) => {
         ? `${hourStr}:${minuteStr}:${secondStr}`
         : `${hourStr}:${minuteStr}`;
 };
+
+/**Return the day of a week*/
 export const getDayString = (dayNum) => {
-    const dayString = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
     return dayString[dayNum];
+};
+
+export const stampToDay = (timestamp) => {
+    const date = new Date(timestamp);
+    return dayString[date.getDay()];
 };
 
 export const getDaysString = (days) => {
