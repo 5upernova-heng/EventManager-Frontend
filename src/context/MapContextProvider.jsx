@@ -69,7 +69,14 @@ export default function MapContextProvider({ children }) {
         for (let i = 0; i < navLength; i++) {
             navPoints.push(-1);
         }
+        navPoints[0] = 34;
         return navPoints;
+    };
+
+    const setNavPoint = (index, location) => {
+        const newNav = [...navPoints];
+        newNav[index] = location;
+        setNavPoints(newNav);
     };
 
     const clearNavPoints = () => {
@@ -84,10 +91,10 @@ export default function MapContextProvider({ children }) {
     const getLocationName = (id) => {
         if (id < allNodes.length && id >= 0) {
             if (allNodes.length !== 0) {
-                return allNodes[id] ? allNodes[id].name : "未选择";
+                return allNodes[id] ? allNodes[id].name : "未选择地点";
             }
         } else {
-            return "未选择";
+            return "未选择地点";
         }
     };
 
@@ -119,6 +126,7 @@ export default function MapContextProvider({ children }) {
                 navPoints,
                 navLength,
                 selectedNav,
+                setNavPoint,
                 setSelected,
                 addNavPoint,
                 clearNavPoints,

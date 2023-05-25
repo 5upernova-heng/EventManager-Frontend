@@ -1,41 +1,46 @@
 import Time from "./Time";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import RefreshTime from "./forms/RefreshTime";
 import UserDropdown from "./UserDropdown";
 import routes from "../routes";
 import { LoginContext } from "../context/LoginContextProvider";
 
-function renderNavItems() {
+function NavBar() {
+    const { setLogin } = useContext(LoginContext);
     const [currentPath, setCurrentPath] = useState(location.pathname);
+    useEffect(() => {
+        setCurrentPath(location.pathname);
+    }, [location.pathname]);
+    const navigate = useNavigate();
     const renderLinkClass = (route) => {
         return route.path === currentPath ||
             (route.path === "/calendar" && currentPath === "/")
             ? "nav-link active"
             : "nav-link";
     };
-    return routes.map((route) => {
-        if (route.showOnTab) {
-            return (
-                <li className="nav-item px-1 align-self-end" key={route.path}>
-                    <Link
-                        className={renderLinkClass(route)}
-                        onClick={() => {
-                            setCurrentPath(route.path);
-                        }}
-                        to={route.path}
+    const renderNavItems = () => {
+        return routes.map((route) => {
+            if (route.showOnTab) {
+                return (
+                    <li
+                        className="nav-item px-1 align-self-end"
+                        key={route.path}
                     >
-                        <p className="mb-0 fs-5">{route.label}</p>
-                    </Link>
-                </li>
-            );
-        }
-    });
-}
-
-function NavBar({ routes }) {
-    const { login, setLogin } = useContext(LoginContext);
-    const navigate = useNavigate();
+                        <Link
+                            className={renderLinkClass(route)}
+                            onClick={() => {
+                                setCurrentPath(route.path);
+                            }}
+                            to={route.path}
+                        >
+                            <p className="mb-0 fs-5">{route.label}</p>
+                        </Link>
+                    </li>
+                );
+            }
+        });
+    };
     return (
         <>
             <div className="d-flex px-2">

@@ -244,7 +244,14 @@ const EventForm = ({ id }) => {
                 <hr />
                 {renderTimeInfo()}
             </div>
-            <div className="collapse collapse-horizontal" id="mapCollapse">
+            <div
+                className="collapse collapse-horizontal border rounded ms-3"
+                style={{
+                    maxHeight: "33rem",
+                    overflow: "auto",
+                }}
+                id="mapCollapse"
+            >
                 <LocationSelector
                     selected={location}
                     changeLocation={changeLocation}

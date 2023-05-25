@@ -35,10 +35,9 @@ yarn dev
 ### To Do List
 
 1. Event form change:
-   1. Auth
-   2. Set start Location
-   3. Use another tab to represent temp event
-   4. Owner and Participants(show when category == course/test/group)
+   1. Set start Location
+   2. Use another tab to represent temp event
+   3. Owner and Participants(show when category == course/test/group)
 2. Map:
    1. Add passby nodes;
    2. The result of routes;
@@ -52,6 +51,7 @@ More:
 - Duplicate declaration of event style color set and label;
 - A beautiful background;
 - Delete event description;
+- Sort location selector by alphabet
 
 ### 进度一览
 

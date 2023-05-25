@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { MapContext } from "../../context/MapContextProvider";
+import "/src/styles/LocationSelector.css";
 
 function LocationSelector({ selected, changeLocation }) {
     const { allNodes } = useContext(MapContext);
@@ -26,12 +27,11 @@ function LocationSelector({ selected, changeLocation }) {
     };
     return (
         <div
-            className="ms-3 p-1 border rounded"
+            className="p-1 rounded"
             style={{
                 whiteSpace: "no-wrap",
                 wordBreak: "keep-all",
                 maxWidth: "40rem",
-                maxHeight: "33rem",
                 overflow: "auto",
             }}
         >
