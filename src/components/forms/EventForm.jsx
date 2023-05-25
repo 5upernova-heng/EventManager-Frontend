@@ -53,6 +53,16 @@ const EventForm = ({ id }) => {
         changeData({ location });
     };
 
+    /**Render according to the auth level */
+    const renderCategoryButton = () => {
+        return STYLE.categoryStyle.map((category, index) => {
+            if (auth == 0 && index < 2) {
+                category.style += " disabled";
+            }
+            return category;
+        });
+    };
+
     const renderBasicInfo = () => {
         return (
             <>
@@ -100,17 +110,13 @@ const EventForm = ({ id }) => {
             <>
                 <div className="mt-2">{`事件类型：${categoryLabel}`}</div>
                 <div className="d-flex justify-content-evenly">
-                    {auth ? (
-                        <SelectButtonGroup
-                            buttonsInfo={parseButtonInfo(
-                                STYLE.categoryStyle,
-                                category
-                            )}
-                            changeSelect={changeCategory}
-                        />
-                    ) : (
-                        <></>
-                    )}
+                    <SelectButtonGroup
+                        buttonsInfo={parseButtonInfo(
+                            renderCategoryButton(),
+                            category
+                        )}
+                        changeSelect={changeCategory}
+                    />
                 </div>
             </>
         );
