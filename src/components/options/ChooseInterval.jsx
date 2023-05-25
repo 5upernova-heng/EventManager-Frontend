@@ -10,7 +10,6 @@ const ChooseInterval = () => {
             <select
                 className="form-select-sm"
                 aria-label="Default select example"
-                defaultValue="1"
                 value={intervalList.indexOf(timeInterval)}
                 onChange={(e) => {
                     setTimeInterval(
