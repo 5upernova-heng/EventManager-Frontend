@@ -4,7 +4,11 @@ import { EventContext } from "../../../context/EventContextProvider";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "../../../context/MapContextProvider";
-import { minutesToString, stampTo5Minutes } from "../../../utils/calDate";
+import {
+    minutesToString,
+    stampTo5Minutes,
+    stampToDay,
+} from "../../../utils/calDate";
 import STYLE from "../../../style";
 
 const EventCell = ({ event }) => {
@@ -15,12 +19,16 @@ const EventCell = ({ event }) => {
     const { setEventEvent } = useContext(EventContext);
     // data
     const { getLocationName } = useContext(MapContext);
-    const { startTime, endTime, title, location, category } = event;
+    const { startTime, endTime, title, location, category, doLoop } = event;
     const startMinute = stampTo5Minutes(startTime);
     const endMinute = stampTo5Minutes(endTime);
     // auth
     const { auth } = useContext(AuthContext);
     const editable = category > 1 || auth;
+
+    const categoryLabel = STYLE.getCategoryLabel(category);
+    const loopLabel = STYLE.getLoopLabel(doLoop);
+
     useEffect(() => {
         setOverflow(
             eventRef.current.clientHeight < eventRef.current.scrollHeight
@@ -68,8 +76,8 @@ const EventCell = ({ event }) => {
                 setHover(false);
             }}
         >
-            <p className="fs-5 mb-0 text-white fw-bold">{`${title}`}</p>
-            <p className="fs-6 mb-0 text-white">{`${minutesToString(
+            <p className="fs-5 mb-0 text-white fw-bold">{`[${categoryLabel}]${title}`}</p>
+            <p className="fs-6 mb-0 text-white">{`${loopLabel} | ${minutesToString(
                 startMinute
             )}-${minutesToString(endMinute)}`}</p>
             <p
