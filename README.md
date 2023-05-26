@@ -55,6 +55,7 @@ More:
 - Sort location selector by alphabet
 - 404 Page && Can't not access page even by pathname directly
 - refresh map page
+- modal size
 
 ### 进度一览
 

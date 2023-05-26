@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import Input from "./Input";
 import SelectButtonGroup from "./SelectButtonGroup";
 import PropTypes from "prop-types";
 import STYLE from "../../style";
+import { GroupContext } from "../../context/GroupContextProvider";
 
-export default function UserForm({ mode, user, changeSubmit }) {
-    // mode: add(0), modify(1)
+export default function UserForm({}) {
+    const { submitUser, changeSubmitUser } = useContext(GroupContext);
     const changeAuth = (auth) => {
-        changeSubmit({ authLevel: auth });
+        changeSubmitUser({ authLevel: auth });
     };
 
     const changeName = (name) => {
-        changeSubmit({ name });
+        changeSubmitUser({ username: name });
+    };
+
+    const changePassword = (password) => {
+        changeSubmitUser({ password });
     };
 
     return (
@@ -19,32 +24,29 @@ export default function UserForm({ mode, user, changeSubmit }) {
             <Input
                 label="用户名"
                 type={"text"}
-                value={user.name}
+                value={submitUser.name}
                 onChange={(e) => {
                     changeName(e.target.value);
                 }}
             />
-            {mode === 0 && <Input label="密码" type={"password"} />}
+            <Input
+                label="密码"
+                type={"text"}
+                value={submitUser.password}
+                onChange={(e) => {
+                    changePassword(e.target.value);
+                }}
+            />
             <p className="my-1 fw-bold">权限等级</p>
             <SelectButtonGroup
                 buttonsInfo={STYLE.parseButtonInfo(
                     STYLE.authStyle,
-                    user.authLevel
+                    submitUser.authLevel
                 )}
                 changeSelect={changeAuth}
             />
-            <div className="d-flex align-items-center justify-content-end mt-3">
-                <button className="btn btn-sm btn-primary mx-2">
-                    提交修改
-                </button>
-                {mode === 1 && (
-                    <button className="btn btn-sm btn-danger mx-2">删除</button>
-                )}
-            </div>
         </div>
     );
 }
 
-UserForm.propType = {
-    mode: PropTypes.number.isRequired,
-};
+UserForm.propType = {};
