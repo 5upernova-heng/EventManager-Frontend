@@ -1,8 +1,8 @@
 .map-bar {
     position: absolute;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
     left: 0%;
     width: 25%;
     height: 879px;    
@@ -10,4 +10,8 @@
 
 .location-card {
     width: 20rem;
+}
+
+.location-card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)
 }

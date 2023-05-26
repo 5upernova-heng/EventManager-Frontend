@@ -34,13 +34,16 @@ yarn dev
 
 ### To Do List
 
+Essiencial
+
 1. Event form change:
-   1. Use another tab to represent temp event
-   2. Owner and Participants(show when category == course/test/group)
+   1. Group Page
+   1. Owner and Participants(show when category == course/test/group)
 2. Map:
    1. Add passby nodes;
    2. The result of routes;
    3. Show inside view of some buildings;
+   4. support different screen size
 3. With backend:
    1. Remind Fetcher
    1. Call route searching after remind
@@ -51,6 +54,7 @@ More:
 - A beautiful background;
 - Delete event description;
 - Sort location selector by alphabet
+- 404 Page && Can't not access page even by pathname directly
 
 ### 进度一览
 

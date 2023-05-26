@@ -5,7 +5,7 @@ import "/src/styles/MapNode.css";
 import { MapContext } from "../../context/MapContextProvider";
 
 function MapNode({ node, selected }) {
-    const { fixedX, fixedY, scale, addNavPoint } = useContext(MapContext);
+    const { fixedX, fixedY, scale, setNavPoint } = useContext(MapContext);
     const { id, x, y, name } = node;
 
     const [hover, setHover] = useState(false);
@@ -14,6 +14,7 @@ function MapNode({ node, selected }) {
         return {
             top: `${fixedY(y)}px`,
             left: `${fixedX(x)}px`,
+            padding: "0.7rem",
             position: "absolute",
             transform: `scale(${1 / scale})`,
         };
@@ -45,12 +46,12 @@ function MapNode({ node, selected }) {
 
     return (
         <div
-            className={`p-2 rounded-circle shadow ${
-                selected ? "bg-primary" : "bg-success"
+            className={`rounded-circle shadow ${
+                selected ? "bg-primary" : "bg-secondary"
             }`}
             style={calStyle()}
             onClick={() => {
-                addNavPoint(id);
+                setNavPoint(id);
             }}
             onMouseEnter={() => setHover(true)}
             onMouseLeave={() => setHover(false)}

@@ -21,10 +21,11 @@ export default function MapContextProvider({ children }) {
     const [showAllNodes, setShowAllNodes] = useState(false);
     const [showRoutes, setShowRoutes] = useState(false);
     // selected nav point (-1 for not selected)
-    const [selectedNav, setSelected] = useState(-1);
-    const [navLength, setNavLength] = useState(2);
+    const [selectedNav, setSelected] = useState(0);
     // only id
     const [navPoints, setNavPoints] = useState([]);
+    // mode: single dest route finding(0) or multi-dest route finding(1)
+    const [mode, setMode] = useState(0);
 
     useEffect(() => {
         // mount node and route data
@@ -55,36 +56,33 @@ export default function MapContextProvider({ children }) {
     };
 
     const addNavPoint = (id) => {
-        const newNav = [...navPoints];
-        if (selectedNav === -1) {
-            console.log("This should never be triggered.");
-        } else {
-            newNav[selectedNav] = id;
-        }
-        setNavPoints(newNav);
+        navPoints.push(id);
+        setNavPoints(navPoints);
     };
 
     const initNavpoints = () => {
         const navPoints = [];
-        for (let i = 0; i < navLength; i++) {
+        for (let i = 0; i < 2; i++) {
             navPoints.push(-1);
         }
         navPoints[0] = 34;
         return navPoints;
     };
 
-    const setNavPoint = (index, location) => {
+    const setNavPoint = (location) => {
         const newNav = [...navPoints];
-        newNav[index] = location;
+        newNav[selectedNav] = location;
         setNavPoints(newNav);
     };
 
+    const deleteNavPoint = (id) => {
+        const index = navPoints.indexOf(id);
+        navPoints.splice(index, 1);
+        setNavPoints(navPoints);
+    };
+
     const clearNavPoints = () => {
-        const newNav = [...navPoints];
-        for (let i = 0; i < navLength; i++) {
-            newNav[i] = -1;
-        }
-        setNavPoints(newNav);
+        setNavPoints([-1, -1]);
         setSelected(-1);
     };
 
@@ -124,12 +122,15 @@ export default function MapContextProvider({ children }) {
                 showRoutes,
                 // Guidance
                 navPoints,
-                navLength,
                 selectedNav,
                 setNavPoint,
                 setSelected,
                 addNavPoint,
+                deleteNavPoint,
                 clearNavPoints,
+                // view mode
+                mode,
+                setMode,
             }}
         >
             {children}

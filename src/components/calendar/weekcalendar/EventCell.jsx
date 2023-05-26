@@ -4,11 +4,7 @@ import { EventContext } from "../../../context/EventContextProvider";
 import { AuthContext } from "../../../context/AuthContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "../../../context/MapContextProvider";
-import {
-    minutesToString,
-    stampTo5Minutes,
-    stampToDay,
-} from "../../../utils/calDate";
+import { minutesToString, stampTo5Minutes } from "../../../utils/calDate";
 import STYLE from "../../../style";
 
 const EventCell = ({ event }) => {
