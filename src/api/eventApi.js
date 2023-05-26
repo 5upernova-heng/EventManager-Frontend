@@ -1,8 +1,9 @@
 import request from "./request";
 import { apiRoot } from "../config.json";
 
-export function getEventsApi() {
-    return request.get(`${apiRoot}/events`);
+export async function getEventsApi() {
+    const response = await request.get(`${apiRoot}/events`);
+    return response;
 }
 
 export async function addEventApi(event) {

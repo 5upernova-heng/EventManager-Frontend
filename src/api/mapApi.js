@@ -1,10 +1,12 @@
 import request from "./request";
 import { apiRoot } from "../config.json";
 
-export function getNodesApi() {
-    return request.get(`${apiRoot}/nodes`);
+export async function getNodesApi() {
+    const response = await request.get(`${apiRoot}/nodes`);
+    return response;
 }
 
-export function getRoutesApi() {
-    return request.get(`${apiRoot}/routes`);
+export async function getRoutesApi() {
+    const response = await request.get(`${apiRoot}/routes`);
+    return response;
 }

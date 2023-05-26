@@ -1,8 +1,9 @@
 import request from "./request";
 import { apiRoot } from "../config.json";
 
-export function getAlarmApi() {
-    return request.get(`${apiRoot}/alarms`);
+export async function getAlarmApi() {
+    const response = await request.get(`${apiRoot}/alarms`);
+    return response;
 }
 
 export async function addAlarmApi(alarm) {
