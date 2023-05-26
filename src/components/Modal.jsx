@@ -1,4 +1,4 @@
-const Model = ({ id, headerLabel, bodyComponent, footerComponent }) => {
+const Modal = ({ id, headerLabel, bodyComponent, footerComponent }) => {
     return (
         <div className="modal fade" tabIndex="-1" id={id} aria-hidden="true">
             <div className="modal-dialog modal-lg">
@@ -20,4 +20,4 @@ const Model = ({ id, headerLabel, bodyComponent, footerComponent }) => {
     );
 };
 
-export default Model;
+export default Modal;
