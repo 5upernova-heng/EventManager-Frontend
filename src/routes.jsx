@@ -40,7 +40,7 @@ export default [
     },
     {
         path: "/groups",
-        label: "团体管理",
+        label: "班级管理",
         element: <Groups />,
         showOnTab: true,
         showBar: true,

@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-const Input = ({ name, icon, label, type, onChange, error }) => {
+const Input = ({ name, icon, label, value, type, onChange, error }) => {
     return (
         <>
             <label className="fw-bold  mb-1" htmlFor={name}>
@@ -10,6 +10,7 @@ const Input = ({ name, icon, label, type, onChange, error }) => {
                 {icon && <span className="input-group-text">{icon}</span>}
                 <input
                     id={name}
+                    value={value}
                     name={name}
                     type={type}
                     onChange={onChange}

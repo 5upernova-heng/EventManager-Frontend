@@ -9,6 +9,7 @@ import LoginContextProvider from "./context/LoginContextProvider";
 import MapContextProvider from "./context/MapContextProvider";
 import { useState } from "react";
 import EventContextProvider from "./context/EventContextProvider";
+import GroupContextProvider from "./context/GroupContextProvider";
 
 function App() {
     // Login
@@ -45,7 +46,9 @@ function App() {
                         <EventContextProvider>
                             <AlarmContextProvider>
                                 <MapContextProvider>
-                                    {renderRoutes()};
+                                    <GroupContextProvider>
+                                        {renderRoutes()};
+                                    </GroupContextProvider>
                                 </MapContextProvider>
                             </AlarmContextProvider>
                         </EventContextProvider>

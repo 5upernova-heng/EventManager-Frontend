@@ -40,10 +40,9 @@ Essiencial
    1. Group Page
    1. Owner and Participants(show when category == course/test/group)
 2. Map:
-   1. Add passby nodes;
-   2. The result of routes;
-   3. Show inside view of some buildings;
-   4. support different screen size
+   1. The result of routes;
+   2. Show inside view of some buildings;
+   3. support different screen size
 3. With backend:
    1. Remind Fetcher
    1. Call route searching after remind
@@ -55,6 +54,7 @@ More:
 - Delete event description;
 - Sort location selector by alphabet
 - 404 Page && Can't not access page even by pathname directly
+- refresh map page
 
 ### 进度一览
 
