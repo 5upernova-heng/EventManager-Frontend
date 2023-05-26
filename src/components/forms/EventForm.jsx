@@ -8,6 +8,7 @@ import { AuthContext } from "../../context/AuthContextProvider";
 import { MapContext } from "../../context/MapContextProvider";
 import LocationSelector from "./LocationSelector";
 import STYLE from "../../style";
+import MemberSelector from "./MemberSelector";
 
 const EventForm = ({ id }) => {
     const { submitData, changeData } = useContext(EventContext);
@@ -23,6 +24,7 @@ const EventForm = ({ id }) => {
         category,
         doLoop,
         location,
+        participants,
     } = submitData;
     // map node select
 
@@ -45,6 +47,18 @@ const EventForm = ({ id }) => {
     };
     const changeLocation = (location) => {
         changeData({ location });
+    };
+    const toggleMember = (id) => {
+        if (participants.includes(id)) {
+            const index = participants.indexOf(id);
+            participants.splice(index, 1);
+        } else {
+            participants.push(id);
+        }
+        changeData({ participants });
+    };
+    const isGroupEvent = () => {
+        return [0, 1, 3].includes(category);
     };
 
     /**Render according to the auth level */
@@ -103,7 +117,7 @@ const EventForm = ({ id }) => {
         return (
             <>
                 <div className="mt-2">{`事件类型：${categoryLabel}`}</div>
-                <div className="d-flex justify-content-evenly">
+                <div className="d-flex justify-content-evenly my-2">
                     <SelectButtonGroup
                         buttonsInfo={STYLE.parseButtonInfo(
                             renderCategoryButton(),
@@ -112,6 +126,15 @@ const EventForm = ({ id }) => {
                         changeSelect={changeCategory}
                     />
                 </div>
+                {isGroupEvent() && (
+                    <>
+                        <p className="fs-6 mb-1">参与者</p>
+                        <MemberSelector
+                            members={participants}
+                            toggleMember={toggleMember}
+                        />
+                    </>
+                )}
             </>
         );
     };
@@ -244,7 +267,7 @@ const EventForm = ({ id }) => {
             <div
                 className="collapse collapse-horizontal border rounded ms-3"
                 style={{
-                    maxHeight: "33rem",
+                    maxHeight: "41rem",
                     overflow: "auto",
                 }}
                 id="mapCollapse"

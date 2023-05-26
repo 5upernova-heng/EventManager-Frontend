@@ -19,6 +19,7 @@ export default function EventContextProvider({ children }) {
         location: -1,
         category: 0,
         doLoop: 0,
+        participants: [],
     };
     /** All events in an array */
     const [events, setEvents] = useState([]);
@@ -87,6 +88,7 @@ export default function EventContextProvider({ children }) {
             location: -1,
             category: 0,
             doLoop: 0,
+            participants: [],
         });
     };
 
@@ -99,7 +101,15 @@ export default function EventContextProvider({ children }) {
      * (Modal make sure that it will not change when user is modifying an event)
      */
     const eventToData = (event) => {
-        const { title, location, category, doLoop, startTime, endTime } = event;
+        const {
+            title,
+            location,
+            category,
+            doLoop,
+            startTime,
+            endTime,
+            participants,
+        } = event;
         const startDate = new Date(startTime);
         return {
             title,
@@ -113,6 +123,7 @@ export default function EventContextProvider({ children }) {
             day: startDate.getDay(),
             startMinute: stampTo5Minutes(startTime),
             endMinute: stampTo5Minutes(endTime),
+            participants,
         };
     };
 
@@ -127,6 +138,7 @@ export default function EventContextProvider({ children }) {
             day,
             startMinute,
             endMinute,
+            participants,
         } = data;
         const startDate = new Date(minutesToStamp(startMinute));
         const endDate = new Date(minutesToStamp(endMinute));
@@ -142,6 +154,7 @@ export default function EventContextProvider({ children }) {
             doLoop,
             startTime: startDate.getTime(),
             endTime: endDate.getTime(),
+            participants,
         };
     };
 

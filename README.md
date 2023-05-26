@@ -36,14 +36,11 @@ yarn dev
 
 Essiencial
 
-1. Event form change:
-   1. Group Page
-   1. Owner and Participants(show when category == course/test/group)
-2. Map:
+1. Map:
    1. The result of routes;
    2. Show inside view of some buildings;
    3. support different screen size
-3. With backend:
+2. With backend:
    1. Remind Fetcher
    1. Call route searching after remind
 
@@ -56,6 +53,7 @@ More:
 - 404 Page && Can't not access page even by pathname directly
 - refresh map page
 - modal size
+- Group Page
 
 ### 进度一览
 
