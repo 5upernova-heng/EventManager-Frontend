@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import EventModel from "./EventModel";
+import Modal from "./Modal";
 import EventForm from "./forms/EventForm";
 import { EventContext } from "../context/EventContextProvider";
 
@@ -20,7 +20,7 @@ const ModelGroup = () => {
 
     return (
         <>
-            <EventModel
+            <Modal
                 id="addEvent"
                 headerLabel="添加事件"
                 bodyComponent={<EventForm id="add" />}
@@ -48,7 +48,7 @@ const ModelGroup = () => {
                     </>
                 }
             />
-            <EventModel
+            <Modal
                 id="modifyEvent"
                 headerLabel="修改事件"
                 bodyComponent={<EventForm id="modify" />}
