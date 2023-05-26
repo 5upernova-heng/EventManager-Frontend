@@ -5,9 +5,11 @@ import RefreshTime from "./forms/RefreshTime";
 import UserDropdown from "./UserDropdown";
 import routes from "../routes";
 import { LoginContext } from "../context/LoginContextProvider";
+import { AuthContext } from "../context/AuthContextProvider";
 
 function NavBar() {
     const { setLogin } = useContext(LoginContext);
+    const { auth } = useContext(AuthContext);
     const [currentPath, setCurrentPath] = useState(location.pathname);
     useEffect(() => {
         setCurrentPath(location.pathname);
@@ -21,7 +23,7 @@ function NavBar() {
     };
     const renderNavItems = () => {
         return routes.map((route) => {
-            if (route.showOnTab) {
+            if (route.showOnTab && route.authLevel <= auth) {
                 return (
                     <li
                         className="nav-item px-1 align-self-end"

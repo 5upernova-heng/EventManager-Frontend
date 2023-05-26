@@ -4,6 +4,7 @@ import Map from "./pages/Map";
 import Logs from "./pages/Logs";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
+import Groups from "./pages/Groups";
 export default [
     {
         path: "/dashboard",
@@ -11,6 +12,7 @@ export default [
         element: <Dashboard />,
         showOnTab: true,
         showBar: true,
+        authLevel: 0,
     },
     {
         path: "/calendar",
@@ -18,6 +20,7 @@ export default [
         element: <Calendar />,
         showOnTab: true,
         showBar: true,
+        authLevel: 0,
     },
     {
         path: "/map",
@@ -25,6 +28,7 @@ export default [
         element: <Map />,
         showOnTab: true,
         showBar: true,
+        authLevel: 0,
     },
     {
         path: "/alarms",
@@ -32,6 +36,15 @@ export default [
         element: <Alarms />,
         showOnTab: true,
         showBar: true,
+        authLevel: 0,
+    },
+    {
+        path: "/groups",
+        label: "团体管理",
+        element: <Groups />,
+        showOnTab: true,
+        showBar: true,
+        authLevel: 2,
     },
     {
         path: "/logs",
@@ -39,6 +52,7 @@ export default [
         element: <Logs />,
         showOnTab: true,
         showBar: true,
+        authLevel: 2,
     },
     {
         path: "/login",
@@ -46,5 +60,6 @@ export default [
         element: <Login />,
         showOnTab: false,
         showBar: false,
+        authLevel: 0,
     },
 ];
