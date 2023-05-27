@@ -3,7 +3,6 @@ import { GroupContext } from "../../context/GroupContextProvider";
 
 export default function MemberSelector({ members, toggleMember }) {
     const { users } = useContext(GroupContext);
-    console.log(members);
     const renderUsers = (users) => {
         return users.map((user, index) => {
             const { id, name } = user;

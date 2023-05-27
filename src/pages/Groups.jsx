@@ -109,7 +109,6 @@ export default function Groups() {
                             className="btn btn-danger"
                             data-bs-dismiss="modal"
                             onClick={() => {
-                                console.log(submitGroup.id);
                                 deleteGroup(submitGroup.id);
                             }}
                         >
