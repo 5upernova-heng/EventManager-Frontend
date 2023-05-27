@@ -44,7 +44,7 @@ const CalendarBody = ({ events }) => {
     return (
         <>
             <div
-                style={{ maxHeight: "600px" }}
+                style={{ height: "calc(100vh - 320px)" }}
                 className="row overflow-auto border"
             >
                 <div className="col-1 p-0">

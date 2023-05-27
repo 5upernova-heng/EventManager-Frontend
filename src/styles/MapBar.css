@@ -5,7 +5,7 @@
     align-items: center;
     left: 0%;
     width: 25%;
-    height: 879px;    
+    height: calc(100vh - 50px);    
 }
 
 .location-card {

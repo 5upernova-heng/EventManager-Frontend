@@ -121,8 +121,9 @@ function LiveMap() {
                 <img
                     ref={imageRef}
                     src="/src/assets/map.jpg"
+                    width={`${imgWidth}px`}
+                    height={`${imgHeight}px`}
                     style={{
-                        width: "100%",
                         position: "relative",
                     }}
                     alt="Map"

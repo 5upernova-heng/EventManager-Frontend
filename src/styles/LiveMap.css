@@ -7,7 +7,7 @@
     overflow-x: hidden;
     width: 75%;
     /* TODO: calc(100vh - 50px) */
-    height: 879px;
+    height: calc(100vh - 50px);
 }
 
 .map-canvas {
