@@ -38,6 +38,45 @@ const EventForm = ({ id }) => {
     const categoryLabel = STYLE.getCategoryLabel(category);
     const intervalLabel = STYLE.getLoopLabel(doLoop);
 
+    const changeStartMinute = (startMinute) => {
+        //
+        if (startMinute + 36 < endMinute) {
+            changeData({
+                startMinute,
+                endMinute: startMinute + 36,
+            });
+            setEndKey(endMinute);
+            return;
+        }
+        if (startMinute + 12 > endMinute) {
+            changeData({
+                startMinute,
+                endMinute: startMinute + 12,
+            });
+            setEndKey(endMinute);
+            return;
+        }
+        changeData({ startMinute });
+    };
+    const changeEndMinute = (endMinute) => {
+        if (startMinute > endMinute - 12) {
+            changeData({
+                startMinute: endMinute - 12,
+                endMinute,
+            });
+            setStartKey(startMinute);
+            return;
+        }
+        if (startMinute < endMinute - 36) {
+            changeData({
+                startMinute: endMinute - 36,
+                endMinute,
+            });
+            setStartKey(startMinute);
+            return;
+        }
+        changeData({ endMinute });
+    };
     const changeCategory = (category) => {
         changeData({ category });
     };
@@ -233,18 +272,7 @@ const EventForm = ({ id }) => {
                     value={startMinute}
                     changeHandler={(event) => {
                         const newStartMinute = Number(event.target.value);
-                        if (newStartMinute >= endMinute) {
-                            const newEndMinute = newStartMinute + 1;
-                            changeData({
-                                startMinute: newStartMinute,
-                                endMinute: newEndMinute,
-                            });
-                            setEndKey(`endMinute-${newEndMinute}`);
-                        } else {
-                            changeData({
-                                startMinute: newStartMinute,
-                            });
-                        }
+                        changeStartMinute(newStartMinute);
                     }}
                     rangeAttrs={{ min: 0, max: 288, step: 1 }}
                 />
@@ -255,18 +283,7 @@ const EventForm = ({ id }) => {
                     value={endMinute}
                     changeHandler={(event) => {
                         const newEndMinute = Number(event.target.value);
-                        if (newEndMinute <= startMinute) {
-                            const newStartMinute = newEndMinute - 1;
-                            changeData({
-                                startMinute: newEndMinute - 1,
-                                endMinute: newEndMinute,
-                            });
-                            setStartKey(`startMinute-${newStartMinute}`);
-                        } else {
-                            changeData({
-                                endMinute: newEndMinute,
-                            });
-                        }
+                        changeEndMinute(newEndMinute);
                     }}
                     rangeAttrs={{ min: 0, max: 288, step: 1 }}
                 />
