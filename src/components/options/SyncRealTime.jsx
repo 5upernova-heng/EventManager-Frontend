@@ -6,7 +6,9 @@ const SyncRealTime = () => {
     const { sync, toggleSync } = useContext(TimeContext);
     return (
         <div className="col d-flex justify-content-between align-items-center my-2">
-            <label htmlFor="syncRealTime">与自然时间同步</label>
+            <label htmlFor="syncRealTime" className="flex-grow-1">
+                与自然时间同步
+            </label>
             <Switch
                 id="syncRealTime"
                 isOn={sync}

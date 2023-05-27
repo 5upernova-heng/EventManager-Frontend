@@ -123,7 +123,7 @@ const EventForm = ({ id }) => {
         const id = "event-remind";
         return (
             <div className="mt-2 d-flex justify-content-between align-items-center">
-                <label className="mb-0" htmlFor={id}>
+                <label className="mb-0 flex-grow-1" htmlFor={id}>
                     是否提醒
                 </label>
                 <Switch
