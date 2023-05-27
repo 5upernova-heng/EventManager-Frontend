@@ -20,6 +20,7 @@ export default function EventContextProvider({ children }) {
         location: -1,
         category: 0,
         doLoop: 0,
+        doRemind: false,
         participants: [],
     };
     /** All events in an array */
@@ -103,15 +104,9 @@ export default function EventContextProvider({ children }) {
         startTime.setHours(col);
         const endTime = new Date(startTime);
         endTime.setHours(col + 1);
-        setChoosedEvent({
-            title: "",
-            startTime: startTime.getTime(),
-            endTime: endTime.getTime(),
-            location: -1,
-            category: 0,
-            doLoop: 0,
-            participants: [],
-        });
+        emptyEvent.startTime = startTime.getTime();
+        emptyEvent.endTime = endTime.getTime();
+        setChoosedEvent(emptyEvent);
     };
 
     const setEventEvent = (event) => {
@@ -130,6 +125,7 @@ export default function EventContextProvider({ children }) {
             doLoop,
             startTime,
             endTime,
+            doRemind,
             participants,
         } = event;
         const startDate = new Date(startTime);
@@ -138,6 +134,7 @@ export default function EventContextProvider({ children }) {
             location,
             category,
             doLoop,
+            doRemind,
             // time
             startTime,
             month: startDate.getMonth(),
@@ -155,6 +152,7 @@ export default function EventContextProvider({ children }) {
             location,
             category,
             doLoop,
+            doRemind,
             month,
             date,
             day,
@@ -174,6 +172,7 @@ export default function EventContextProvider({ children }) {
             location,
             category,
             doLoop,
+            doRemind,
             startTime: startDate.getTime(),
             endTime: endDate.getTime(),
             participants,

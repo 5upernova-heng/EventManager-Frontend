@@ -11,7 +11,7 @@ const SyncRealTime = () => {
                 id="syncRealTime"
                 isOn={sync}
                 toggleHandler={toggleSync}
-                size={""}
+                size={"md"}
             />
         </div>
     );

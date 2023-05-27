@@ -37,9 +37,7 @@ yarn dev
 Essiencial
 
 1. Map:
-   1. The result of routes;
-   2. Show inside view of some buildings;
-   3. support different screen size
+   1. Show inside view of some buildings;
 2. With backend:
    1. Remind Fetcher
    1. Search method

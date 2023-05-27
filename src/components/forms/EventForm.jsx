@@ -9,6 +9,7 @@ import { MapContext } from "../../context/MapContextProvider";
 import LocationSelector from "./LocationSelector";
 import STYLE from "../../style";
 import MemberSelector from "./MemberSelector";
+import Switch from "./Switch";
 
 const EventForm = ({ id }) => {
     const { submitData, changeData } = useContext(EventContext);
@@ -23,6 +24,7 @@ const EventForm = ({ id }) => {
         startTime,
         category,
         doLoop,
+        doRemind,
         location,
         participants,
     } = submitData;
@@ -56,6 +58,10 @@ const EventForm = ({ id }) => {
             participants.push(id);
         }
         changeData({ participants });
+    };
+    const toggleRemind = () => {
+        const prev = submitData.doRemind;
+        changeData({ doRemind: !prev });
     };
     const isGroupEvent = () => {
         return [0, 1, 3].includes(category);
@@ -110,6 +116,23 @@ const EventForm = ({ id }) => {
                     </div>
                 </div>
             </>
+        );
+    };
+
+    const renderRemindInfo = () => {
+        const id = "event-remind";
+        return (
+            <div className="mt-2 d-flex justify-content-between align-items-center">
+                <label className="mb-0" htmlFor={id}>
+                    是否提醒
+                </label>
+                <Switch
+                    id={id}
+                    isOn={doRemind}
+                    size="md"
+                    toggleHandler={toggleRemind}
+                />
+            </div>
         );
     };
 
@@ -259,6 +282,8 @@ const EventForm = ({ id }) => {
                 }}
             >
                 {renderBasicInfo()}
+                <hr />
+                {renderRemindInfo()}
                 <hr />
                 {renderCategoryInfo()}
                 <hr />
