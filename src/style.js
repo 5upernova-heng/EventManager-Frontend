@@ -5,9 +5,10 @@ const modeColorSet = ["primary", "warning"];
 const categoryLabel = ["课程", "考试", "个人", "团体", "临时"];
 const dayLabel = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 const timeLabel = ["每周", "每日", "单次"];
-const viewLabel = ["非临时事件", "临时事件"];
+const viewLabel = ["非临时事件", "临时事件", "搜索"];
 const authLabel = ["学生", "教师", "管理员"];
 const mapModeLabel = ["单点寻路", "多点寻路"];
+const keywordLabel = ["标题", "地点", "参与者"];
 const modePrompt = ["请选择起始地和目的地", "请添加途径节点（无序）"];
 
 const getCategoryLabel = (category) => {
@@ -64,6 +65,7 @@ export default {
     viewLabel,
     mapModeLabel,
     authLabel,
+    keywordLabel,
     modePrompt,
     getCategoryLabel,
     getLoopLabel,

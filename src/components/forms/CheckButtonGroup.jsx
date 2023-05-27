@@ -1,3 +1,5 @@
+import STYLE from "../../style";
+
 const CheckButtonGroup = ({ interval, changeInterval }) => {
     const { days } = interval;
     const toggleDayCheck = (index) => {
@@ -8,16 +10,7 @@ const CheckButtonGroup = ({ interval, changeInterval }) => {
         changeInterval(interval);
     };
     const renderButtons = () => {
-        const dayLabels = [
-            "周日",
-            "周一",
-            "周二",
-            "周三",
-            "周四",
-            "周五",
-            "周六",
-        ];
-        return dayLabels.map((label, index) => (
+        return STYLE.dayLabel.map((label, index) => (
             <button
                 key={index}
                 type="button"

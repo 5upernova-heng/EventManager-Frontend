@@ -24,3 +24,8 @@ export async function updateEventApi(id, event) {
 export async function getComingEventApi() {
     return request.get(`${apiRoot}/coming`);
 }
+
+export async function searchEventsApi() {
+    const response = await request.get(`${apiRoot}/events`);
+    return response;
+}

@@ -4,6 +4,7 @@ import {
     addEventApi,
     deleteEventApi,
     updateEventApi,
+    searchEventsApi,
 } from "../api/eventApi";
 import { TimeContext } from "./TimeContextProvider";
 import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
@@ -28,6 +29,15 @@ export default function EventContextProvider({ children }) {
      */
     const [choosedEvent, setChoosedEvent] = useState(emptyEvent);
 
+    /**Search State */
+    /**
+     * Keywork List: a list of properties that should search
+     * searchLabels: keywords to search
+     * searchResult: a list of events
+     */
+    // three: title, location, participants
+    const [searchLabels, setSearchLabels] = useState([false, false, false]);
+    const [searchResult, setSearchResult] = useState([]);
     /** mount data */
     useEffect(() => {
         getEvents();
@@ -72,6 +82,18 @@ export default function EventContextProvider({ children }) {
     const deleteEvent = async (id) => {
         const { data: newEvents } = await deleteEventApi(id);
         setEvents(newEvents);
+    };
+
+    /**TODO: Add params. This is just a mocking */
+    const searchEvent = async (keyWordList) => {
+        const { data } = await searchEventsApi(keyWordList, searchLabels);
+        setSearchResult(data);
+    };
+
+    const toggleSearchLabels = (index) => {
+        const newLabels = [...searchLabels];
+        newLabels[index] = !searchLabels[index];
+        setSearchLabels(newLabels);
     };
 
     /** Called when clicking the cell */
@@ -173,6 +195,7 @@ export default function EventContextProvider({ children }) {
     };
 
     // view: what content will be shown in Calendar Page
+    // non-temp(0), temp(1), search result(2)
     const [view, setView] = useState(0);
     return (
         <EventContext.Provider
@@ -195,6 +218,11 @@ export default function EventContextProvider({ children }) {
                 // view
                 view,
                 setView,
+                // search
+                searchLabels,
+                searchResult,
+                searchEvent,
+                toggleSearchLabels,
             }}
         >
             {children}

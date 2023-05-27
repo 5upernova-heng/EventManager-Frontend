@@ -1,3 +1,4 @@
+import SearchBar from "./SearchBar";
 import ViewToggler from "./ViewToggler";
 
 function CalendarBar() {
@@ -9,13 +10,7 @@ function CalendarBar() {
                         <ViewToggler />
                     </div>
                     <div className="col d-flex align-items-center justify-content-end gap-3">
-                        <div className="flex-grow-1 mr-3">
-                            <input
-                                className="p-2 form-control me-auto"
-                                placeholder="搜索事件"
-                            ></input>
-                        </div>
-                        <button className="btn btn-secondary">搜索</button>
+                        <SearchBar />
                         <div className="vr"></div>
                         <button
                             className="btn btn-outline-primary"

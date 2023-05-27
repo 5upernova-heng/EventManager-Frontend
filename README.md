@@ -42,6 +42,7 @@ Essiencial
    3. support different screen size
 2. With backend:
    1. Remind Fetcher
+   1. Search method
    1. Call route searching after remind
 
 More:

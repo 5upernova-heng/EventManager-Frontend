@@ -5,10 +5,11 @@ import ModelGroup from "../components/ModalGroup";
 import { EventContext } from "../context/EventContextProvider";
 import WeekCalendar from "../components/calendar/WeekCalendar";
 import TempEvents from "../components/calendar/TempEvents";
+import SearchResult from "../components/calendar/SearchResult";
 
 function Calendar() {
     const { view } = useContext(EventContext);
-    const views = [<WeekCalendar />, <TempEvents />];
+    const views = [<WeekCalendar />, <TempEvents />, <SearchResult />];
     const renderView = () => {
         return views[view];
     };

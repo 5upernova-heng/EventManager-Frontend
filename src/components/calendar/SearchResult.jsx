@@ -1,13 +1,14 @@
 import React from "react";
-import EventCard from "../EventCard";
-import { EventContext } from "../../context/EventContextProvider";
 import { useContext } from "react";
+import { EventContext } from "../../context/EventContextProvider";
+import EventCard from "../EventCard";
 
-/**The page for display temparory event */
-export default function TempEvents() {
-    const { setEventEvent, distrube } = useContext(EventContext);
+export default function SearchResult() {
+    const { setEventEvent, searchResult } = useContext(EventContext);
     const renderEvents = () => {
-        return distrube().tempEvents.map((event, index) => {
+        if (searchResult.length === 0)
+            return <h1 className="text-center mt-5">无搜索结果</h1>;
+        return searchResult.map((event, index) => {
             return (
                 <div
                     style={{ cursor: "pointer" }}
