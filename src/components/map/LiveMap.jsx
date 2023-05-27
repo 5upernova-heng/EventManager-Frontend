@@ -37,6 +37,7 @@ function LiveMap() {
         if (showRoutes) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
+            console.log(routes);
             routes.map((route) => {
                 const { x: x1, y: y1 } = allNodes[route[0]];
                 const { x: x2, y: y2 } = allNodes[route[1]];

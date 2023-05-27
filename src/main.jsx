@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 ReactDOM.createRoot(document.getElementById("root")).render(
     <React.StrictMode>
         <BrowserRouter>
-            <ToastContainer />
+            <ToastContainer theme="dark" />
             <App />
         </BrowserRouter>
     </React.StrictMode>

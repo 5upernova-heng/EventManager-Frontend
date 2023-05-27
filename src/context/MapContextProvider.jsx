@@ -1,6 +1,6 @@
 import React, { createContext } from "react";
 import { useEffect, useState } from "react";
-import { getNodesApi, getRoutesApi } from "../api/mapApi";
+import { findPathApi, getNodesApi, getRoutesApi } from "../api/mapApi";
 
 export const MapContext = createContext();
 export default function MapContextProvider({ children }) {
@@ -30,7 +30,7 @@ export default function MapContextProvider({ children }) {
     useEffect(() => {
         // mount node and route data
         fetchNodes();
-        fetchRoutes();
+        // fetchRoutes();
         // init navPoints
         setNavPoints(initNavpoints());
     }, []);
@@ -86,6 +86,11 @@ export default function MapContextProvider({ children }) {
         setSelected(-1);
     };
 
+    const findPath = async () => {
+        const { data: path } = await findPathApi();
+        setRoutes(path);
+    };
+
     const getLocationName = (id) => {
         if (id < allNodes.length && id >= 0) {
             if (allNodes.length !== 0) {
@@ -120,6 +125,7 @@ export default function MapContextProvider({ children }) {
                 setLastTranslate,
                 showAllNodes,
                 showRoutes,
+                setShowRoutes,
                 // Guidance
                 navPoints,
                 selectedNav,
@@ -128,6 +134,7 @@ export default function MapContextProvider({ children }) {
                 addNavPoint,
                 deleteNavPoint,
                 clearNavPoints,
+                findPath,
                 // view mode
                 mode,
                 setMode,
