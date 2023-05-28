@@ -1,12 +1,19 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { getDayString, getTimeString, stampToDay } from "../utils/calDate";
+import {
+    getDayString,
+    getTimeString,
+    hourDiff,
+    stampToDay,
+} from "../utils/calDate";
 import STYLE from "../style";
 import { MapContext } from "../context/MapContextProvider";
+import { TimeContext } from "../context/TimeContextProvider";
 
 function EventCard({ event }) {
     const [hover, setHover] = useState(false);
     const { startTime, endTime, title, doLoop, category, location } = event;
+    const { date } = useContext(TimeContext);
     const { getLocationName } = useContext(MapContext);
 
     const parseTimeString = (timeStamp) => {
@@ -50,7 +57,10 @@ function EventCard({ event }) {
                 </div>
             </div>
             <div className="d-flex align-items-center">
-                <p className="fs-4">3 小时后</p>
+                <p className="fs-4">{`约 ${hourDiff(
+                    startTime,
+                    date
+                )} 小时后`}</p>
             </div>
         </div>
     );

@@ -97,3 +97,11 @@ export const minutesToString = (minutes) => {
     const min = date.getMinutes();
     return getTimeString(hour, min);
 };
+
+/**Hour diff */
+export const hourDiff = (timeStamp, nowDate) => {
+    const nowTime = nowDate.getTime();
+    const timeDiff = nowTime - timeStamp;
+    const hourDiff = Math.round(timeDiff / 60 / 60 / 1000);
+    return hourDiff;
+};
