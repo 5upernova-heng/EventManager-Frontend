@@ -24,18 +24,20 @@ const CalendarBody = ({ events }) => {
             <>
                 {STYLE.categoryLabel.map((label, index) => {
                     return (
-                        <div
-                            key={index}
-                            className="fs-5 d-flex justify-content-center align-items-center"
-                        >
-                            {label}
-                            <span
-                                className={`badge bg-${STYLE.colorSet[index]} mx-2`}
-                                style={{ height: "20px", width: "20px" }}
+                        index < 4 && (
+                            <div
+                                key={index}
+                                className="fs-5 d-flex justify-content-center align-items-center"
                             >
-                                {" "}
-                            </span>
-                        </div>
+                                {label}
+                                <span
+                                    className={`badge bg-${STYLE.colorSet[index]} mx-2`}
+                                    style={{ height: "20px", width: "20px" }}
+                                >
+                                    {" "}
+                                </span>
+                            </div>
+                        )
                     );
                 })}
             </>
