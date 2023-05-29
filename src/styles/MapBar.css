@@ -8,6 +8,15 @@
     height: calc(100vh - 50px);    
 }
 
+.view {
+    cursor: pointer;
+    padding: .6rem;
+    border-radius: .5rem 0 0 .5rem;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    border: 1px solid #dee2e6;
+}
+
 .location-card {
     width: 20rem;
 }

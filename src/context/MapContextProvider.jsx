@@ -11,13 +11,6 @@ export default function MapContextProvider({ children }) {
     const [allNodes, setAllNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
 
-    const [scale, setScale] = useState(1);
-    const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
-    const [translate, setTranslate] = useState({ x: 0, y: 0 });
-    const [lastTranslate, setLastTranslate] = useState({ x: 0, y: 0 });
-    const scaleMin = 0.2;
-    const scaleMax = 4.0;
-
     const [showAllNodes, setShowAllNodes] = useState(false);
     const [showRoutes, setShowRoutes] = useState(false);
     // selected nav point (-1 for not selected)
@@ -113,16 +106,6 @@ export default function MapContextProvider({ children }) {
                 // Transformation
                 fixedX,
                 fixedY,
-                scale,
-                setScale,
-                scaleMin,
-                scaleMax,
-                startPoint,
-                setStartPoint,
-                translate,
-                setTranslate,
-                lastTranslate,
-                setLastTranslate,
                 showAllNodes,
                 showRoutes,
                 setShowRoutes,

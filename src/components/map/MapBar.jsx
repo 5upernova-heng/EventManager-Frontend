@@ -70,6 +70,13 @@ export default function MapBar() {
                         </button>
                     </div>
                 </div>
+                <div className="position-absolute top-0 end-0 mt-1">
+                    <div className="d-flex flex-column align-items-end gap-2">
+                        <div className="fs-5 view">西土城</div>
+                        <div className="fs-5 view">西土城</div>
+                        <div className="fs-5 view">西土城</div>
+                    </div>
+                </div>
             </div>
         </>
     );

@@ -46,8 +46,6 @@ Essiencial
    1. Call route searching after remind
 
 More:
-- Login page should not be scrollable;
-- A beautiful background;
 - Sort location selector by alphabet
 - 404 Page && Can't not access page by pathname directly
 - Group Page

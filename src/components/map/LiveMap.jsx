@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useContext, useRef } from "react";
+import React, { useEffect, useState, useContext, useRef } from "react";
 import NodeLayer from "./NodeLayer";
 import { MapContext } from "../../context/MapContextProvider";
 import "/src/styles/LiveMap.css";
@@ -12,18 +11,15 @@ function LiveMap() {
         allNodes,
         fixedX,
         fixedY,
-        scale,
-        setScale,
-        scaleMin,
-        scaleMax,
-        startPoint,
-        setStartPoint,
-        translate,
-        setTranslate,
-        lastTranslate,
-        setLastTranslate,
         showRoutes,
     } = useContext(MapContext);
+
+    const [scale, setScale] = useState(1);
+    const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
+    const [translate, setTranslate] = useState({ x: 0, y: 0 });
+    const [lastTranslate, setLastTranslate] = useState({ x: 0, y: 0 });
+    const scaleMin = 0.4;
+    const scaleMax = 1.8;
 
     const imageDivRef = useRef();
     const canvasRef = useRef();
@@ -45,13 +41,6 @@ function LiveMap() {
         }
     }, [showRoutes, routes]);
 
-    const drawCircle = (context, x, y, radius) => {
-        context.beginPath();
-        context.arc(x, y, radius, 0, 2 * Math.PI);
-        context.fill();
-        context.stroke();
-    };
-
     const drawLine = (context, x1, y1, x2, y2, lineWidth) => {
         x1 = fixedX(x1);
         x2 = fixedX(x2);
@@ -70,6 +59,7 @@ function LiveMap() {
     const onWheel = (event) => {
         let newScale = scale + event.deltaY * -0.001;
         newScale = Math.min(Math.max(scaleMin, newScale), scaleMax);
+        console.log(newScale);
         setScale(newScale);
     };
 
