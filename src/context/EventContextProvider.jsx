@@ -100,51 +100,20 @@ export default function EventContextProvider({ children }) {
      * (Modal make sure that it will not change when user is modifying an event)
      */
     const eventToData = (event) => {
-        const {
-            title,
-            location,
-            category,
-            doLoop,
-            startTime,
-            endTime,
-            doRemind,
-            owner,
-            participants,
-        } = event;
+        const { startTime, endTime } = event;
+        const newEvent = structuredClone(event);
         const startDate = new Date(startTime);
-        return {
-            title,
-            location,
-            category,
-            doLoop,
-            doRemind,
-            // time
-            startTime,
-            month: startDate.getMonth(),
-            date: startDate.getDate(),
-            day: startDate.getDay(),
-            startMinute: stampTo5Minutes(startTime),
-            endMinute: stampTo5Minutes(endTime),
-            owner,
-            participants,
-        };
+        newEvent.month = startDate.getMonth();
+        newEvent.date = startDate.getDate();
+        newEvent.day = startDate.getDay();
+        newEvent.startMinute = stampTo5Minutes(startTime);
+        newEvent.endMinute = stampTo5Minutes(endTime);
+        return newEvent;
     };
 
     const dataToEvent = (data) => {
-        const {
-            title,
-            location,
-            category,
-            doLoop,
-            doRemind,
-            month,
-            date,
-            day,
-            startMinute,
-            endMinute,
-            owner,
-            participants,
-        } = data;
+        const { doLoop, month, date, day, startMinute, endMinute } = data;
+        const event = structuredClone(data);
         const startDate = new Date(minutesToStamp(startMinute));
         const endDate = new Date(minutesToStamp(endMinute));
         startDate.setMonth(month);
@@ -152,17 +121,9 @@ export default function EventContextProvider({ children }) {
         if (!doLoop) startDate.setDate(date - startDate.getDay() + day);
         endDate.setMonth(month);
         endDate.setDate(startDate.getDate());
-        return {
-            title,
-            location,
-            category,
-            doLoop,
-            doRemind,
-            startTime: startDate.getTime(),
-            endTime: endDate.getTime(),
-            owner,
-            participants,
-        };
+        event.startTime = startDate.getTime();
+        event.endTime = endDate.getTime();
+        return event;
     };
 
     const emptyData = eventToData(emptyEvent);
