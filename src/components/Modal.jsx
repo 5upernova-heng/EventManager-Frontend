@@ -1,7 +1,9 @@
-const Modal = ({ id, headerLabel, bodyComponent, footerComponent }) => {
+import PropTypes from "prop-types";
+
+const Modal = ({ id, size, headerLabel, bodyComponent, footerComponent }) => {
     return (
         <div className="modal fade" tabIndex="-1" id={id} aria-hidden="true">
-            <div className="modal-dialog modal-lg">
+            <div className={`modal-dialog modal-${size}`}>
                 <div className="modal-content">
                     <div className="modal-header">
                         <h5 className="modal-title">{headerLabel}</h5>
@@ -18,6 +20,14 @@ const Modal = ({ id, headerLabel, bodyComponent, footerComponent }) => {
             </div>
         </div>
     );
+};
+
+Modal.propTypes = {
+    id: PropTypes.string.isRequired,
+    size: PropTypes.string,
+    headerLabel: PropTypes.string,
+    bodyComponent: PropTypes.element,
+    footerComponent: PropTypes.element,
 };
 
 export default Modal;

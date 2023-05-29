@@ -22,6 +22,7 @@ const ModelGroup = () => {
         <>
             <Modal
                 id="addEvent"
+                size="lg"
                 headerLabel="添加事件"
                 bodyComponent={<EventForm id="add" />}
                 footerComponent={
@@ -50,6 +51,7 @@ const ModelGroup = () => {
             />
             <Modal
                 id="modifyEvent"
+                size="lg"
                 headerLabel="修改事件"
                 bodyComponent={<EventForm id="modify" />}
                 footerComponent={
