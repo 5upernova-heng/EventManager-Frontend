@@ -9,6 +9,7 @@ const viewLabel = ["非临时事件", "临时事件", "搜索"];
 const authLabel = ["学生", "教师", "管理员"];
 const mapModeLabel = ["单点寻路", "多点寻路"];
 const keywordLabel = ["标题", "地点", "参与者"];
+const searchModeLabel = ["搜索结果取交集", "搜索结果取并集"];
 const modePrompt = ["请选择起始地和目的地", "请添加途径节点（无序）"];
 
 const getCategoryLabel = (category) => {
@@ -44,6 +45,9 @@ const mapModeStyle = mapModeLabel.map((label, index) => ({
 const authStyle = authLabel.map((label) => {
     return { label, style: `btn-sm btn-outline-secondary` };
 });
+const searchModeStyle = searchModeLabel.map((label) => {
+    return { label, style: `btn-sm btn-outline-secondary` };
+});
 const getCategoryColor = (category) => {
     return colorSet[category];
 };
@@ -66,6 +70,7 @@ export default {
     mapModeLabel,
     authLabel,
     keywordLabel,
+    searchModeLabel,
     modePrompt,
     getCategoryLabel,
     getLoopLabel,
@@ -78,6 +83,7 @@ export default {
     viewStyle,
     mapModeStyle,
     authStyle,
+    searchModeStyle,
     // utils
     parseButtonInfo,
 };

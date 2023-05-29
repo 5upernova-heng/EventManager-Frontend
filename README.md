@@ -36,16 +36,22 @@ yarn dev
 
 Essiencial
 
-1. Map:
+1. Event:
+   1. Set owner
+
+2. Map:
    1. Show inside view of some buildings;
-2. With backend:
+3. Search
+   1. Time selector
+   2. mode button
+   3. Reset button
+
+4. With backend:
    1. Remind Fetcher
-   1. Search method
    1. Call route searching after remind
 
 More:
 - Login page should not be scrollable;
-- Duplicate declaration of event style color set and label;
 - A beautiful background;
 - Delete event description;
 - Sort location selector by alphabet

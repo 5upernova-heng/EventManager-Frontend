@@ -10,6 +10,7 @@ import MapContextProvider from "./context/MapContextProvider";
 import { useState } from "react";
 import EventContextProvider from "./context/EventContextProvider";
 import GroupContextProvider from "./context/GroupContextProvider";
+import SearchContextProvider from "./context/SearchContextProvider";
 
 function App() {
     // Login
@@ -47,7 +48,9 @@ function App() {
                             <AlarmContextProvider>
                                 <MapContextProvider>
                                     <GroupContextProvider>
-                                        {renderRoutes()};
+                                        <SearchContextProvider>
+                                            {renderRoutes()};
+                                        </SearchContextProvider>
                                     </GroupContextProvider>
                                 </MapContextProvider>
                             </AlarmContextProvider>

@@ -15,13 +15,13 @@ function Calendar() {
     };
     return (
         <>
+            <ModelGroup />
             <CalendarBar />
             <div className="row mx-0 pe-0">
                 <div className="col-2">
                     <CalendarSideBar />
                 </div>
                 <div className="col ms-0 me-4">{renderView()}</div>
-                <ModelGroup />
             </div>
         </>
     );
