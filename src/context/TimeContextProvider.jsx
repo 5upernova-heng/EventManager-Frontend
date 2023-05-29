@@ -10,6 +10,13 @@ export default function TimeContextProvider({ children }) {
     const [timeInterval, setTimeInterval] = useState(60 * 5);
 
     useEffect(() => {
+        date.setSeconds(0);
+        const minute = date.getMinutes();
+        date.setMinutes(minute - (minute % 5));
+        setDate(date);
+    }, []);
+
+    useEffect(() => {
         if (tick || sync) {
             if (sync) {
                 setTick(true);
@@ -40,6 +47,12 @@ export default function TimeContextProvider({ children }) {
     const toggleSync = () => {
         setSync(!sync);
     };
+    const changeInterval = (interval) => {
+        if (interval > 60) date.setSeconds(0);
+        if (interval > 60 * 60) date.setMinutes(0);
+        setDate(date);
+        setTimeInterval(interval);
+    };
     return (
         <TimeContext.Provider
             value={{
@@ -50,7 +63,7 @@ export default function TimeContextProvider({ children }) {
                 sync,
                 toggleSync,
                 timeInterval,
-                setTimeInterval,
+                setTimeInterval: changeInterval,
             }}
         >
             {children}
