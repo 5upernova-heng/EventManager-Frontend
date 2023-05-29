@@ -1,5 +1,4 @@
 import { Navigate, Routes, Route } from "react-router-dom";
-
 import NavBar from "./components/NavBar";
 import routes from "./routes";
 import TimeContextProvider from "./context/TimeContextProvider";
@@ -11,6 +10,7 @@ import { useState } from "react";
 import EventContextProvider from "./context/EventContextProvider";
 import GroupContextProvider from "./context/GroupContextProvider";
 import SearchContextProvider from "./context/SearchContextProvider";
+import "/src/styles/App.css";
 
 function App() {
     // Login
@@ -41,6 +41,7 @@ function App() {
     };
     return (
         <>
+            <div className="background"></div>
             <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
                 <AuthContextProvider>
                     <TimeContextProvider>

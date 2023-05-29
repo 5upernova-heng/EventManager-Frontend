@@ -9,7 +9,7 @@ function createHeaderCells(date) {
     return dates.map((d, index) => {
         return (
             <div
-                className="col border border-white py-4 d-flex flex-column align-items-center justify-content-center"
+                className="col border-start border-end py-3 d-flex flex-column align-items-center justify-content-center"
                 key={index}
             >
                 <h4 className="text-center">{week[index]}</h4>
