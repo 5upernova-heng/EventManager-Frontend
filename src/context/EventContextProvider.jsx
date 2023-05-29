@@ -8,11 +8,13 @@ import {
 } from "../api/eventApi";
 import { TimeContext } from "./TimeContextProvider";
 import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
+import { LoginContext } from "./LoginContextProvider";
 
 export const EventContext = createContext();
 
 export default function EventContextProvider({ children }) {
     const { date } = useContext(TimeContext);
+    const { loginAccount } = useContext(LoginContext);
     const emptyEvent = {
         title: "",
         startTime: 0,
@@ -21,6 +23,7 @@ export default function EventContextProvider({ children }) {
         category: 0,
         doLoop: 0,
         doRemind: false,
+        owner: loginAccount.username,
         participants: [],
     };
     /** All events in an array */
@@ -105,6 +108,7 @@ export default function EventContextProvider({ children }) {
             startTime,
             endTime,
             doRemind,
+            owner,
             participants,
         } = event;
         const startDate = new Date(startTime);
@@ -121,6 +125,7 @@ export default function EventContextProvider({ children }) {
             day: startDate.getDay(),
             startMinute: stampTo5Minutes(startTime),
             endMinute: stampTo5Minutes(endTime),
+            owner,
             participants,
         };
     };
@@ -137,6 +142,7 @@ export default function EventContextProvider({ children }) {
             day,
             startMinute,
             endMinute,
+            owner,
             participants,
         } = data;
         const startDate = new Date(minutesToStamp(startMinute));
@@ -154,6 +160,7 @@ export default function EventContextProvider({ children }) {
             doRemind,
             startTime: startDate.getTime(),
             endTime: endDate.getTime(),
+            owner,
             participants,
         };
     };

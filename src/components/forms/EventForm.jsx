@@ -26,6 +26,7 @@ const EventForm = ({ id }) => {
         doLoop,
         doRemind,
         location,
+        owner,
         participants,
     } = submitData;
     // map node select
@@ -188,6 +189,7 @@ const EventForm = ({ id }) => {
                         changeSelect={changeCategory}
                     />
                 </div>
+                <p className="fs-6 mb-1">{`创建者：${owner}`}</p>
                 {isGroupEvent() && (
                     <>
                         <p className="fs-6 mb-1">参与者</p>
