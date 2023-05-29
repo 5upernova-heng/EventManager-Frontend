@@ -15,7 +15,7 @@ import { getComingEventApi } from "../api/eventApi";
 
 function Dashboard() {
     const { auth } = useContext(AuthContext);
-    const { username } = useContext(LoginContext);
+    const { loginAccount } = useContext(LoginContext);
     const { date } = useContext(TimeContext);
     const greetingSuffix = ["同学", "老师", "管理员"];
 
@@ -53,9 +53,9 @@ function Dashboard() {
                     )}
                 </p>
                 <p className="fs-1 fw-bold text-center">
-                    {`${getGreetings(date.getHours())}，${username} ${
-                        greetingSuffix[auth]
-                    }!`}
+                    {`${getGreetings(date.getHours())}，${
+                        loginAccount.username
+                    } ${greetingSuffix[auth]}!`}
                 </p>
             </div>
             <div
