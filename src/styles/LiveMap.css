@@ -1,12 +1,11 @@
 .drag-map {
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     top: 50px;
     left: 25%;
     background-color: #def6fa;
     overflow-x: hidden;
     width: 75%;
-    /* TODO: calc(100vh - 50px) */
     height: calc(100vh - 50px);
 }
 
