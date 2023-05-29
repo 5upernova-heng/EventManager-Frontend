@@ -9,7 +9,7 @@ function LoginFormGroup() {
     const navigate = useNavigate();
     const [account, setAccount] = useState({ username: "", password: "" });
     const [errors, setErrors] = useState({});
-    const { setLogin } = useContext(LoginContext);
+    const { tryLogin } = useContext(LoginContext);
     const schema = Joi.object({
         username: Joi.string().min(3).max(20).required(),
         password: Joi.string()
@@ -34,7 +34,7 @@ function LoginFormGroup() {
         setErrors(newErrors);
         if (error) return;
         navigate("/");
-        setLogin(true);
+        tryLogin(account);
     };
     return (
         <div style={{ minWidth: "400px" }}>

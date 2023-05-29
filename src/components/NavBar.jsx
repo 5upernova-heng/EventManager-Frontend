@@ -8,7 +8,7 @@ import { LoginContext } from "../context/LoginContextProvider";
 import { AuthContext } from "../context/AuthContextProvider";
 
 function NavBar() {
-    const { setLogin } = useContext(LoginContext);
+    const { quitLogin } = useContext(LoginContext);
     const { auth } = useContext(AuthContext);
     const [currentPath, setCurrentPath] = useState(location.pathname);
     useEffect(() => {
@@ -74,7 +74,7 @@ function NavBar() {
                     <button
                         className="btn btn-outline-dark"
                         onClick={() => {
-                            setLogin(false);
+                            quitLogin();
                             navigate("/");
                         }}
                     >
