@@ -3,7 +3,7 @@ import LocationCard from "./LocationCard";
 import { MapContext } from "../../context/MapContextProvider";
 
 export default function NavSelector() {
-    const { mode, allNodes, navPoints, selectedNav, setSelected } =
+    const { mode, navPoints, selectedNav, setSelected } =
         useContext(MapContext);
     const renderNavCard = () => {
         return navPoints
@@ -16,7 +16,7 @@ export default function NavSelector() {
                     >
                         <LocationCard
                             id={pid}
-                            deletable={allNodes.length > 2}
+                            deletable={navPoints.length > 2}
                             selected={selectedNav === index}
                             toggleSelected={() => {
                                 setSelected(selectedNav === index ? -1 : index);

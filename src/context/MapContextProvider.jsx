@@ -1,14 +1,12 @@
 import React, { createContext } from "react";
 import { useEffect, useState } from "react";
 import { findPathApi, getNodesApi, getRoutesApi } from "../api/mapApi";
+import { maps } from "../map";
 
 export const MapContext = createContext();
 export default function MapContextProvider({ children }) {
-    const imgWidth = 1421;
-    const imgHeight = 2002;
-    const scaleX = imgWidth / 26.4372;
-    const scaleY = imgHeight / 36.3141;
     const [allNodes, setAllNodes] = useState([]);
+    const [nodes, setNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
 
     const [showAllNodes, setShowAllNodes] = useState(false);
@@ -19,6 +17,9 @@ export default function MapContextProvider({ children }) {
     const [navPoints, setNavPoints] = useState([]);
     // mode: single dest route finding(0) or multi-dest route finding(1)
     const [mode, setMode] = useState(0);
+    // view: which map should be shown
+    const [view, setView] = useState(0);
+    const [map, setMap] = useState(maps[view]);
 
     useEffect(() => {
         // mount node and route data
@@ -29,8 +30,22 @@ export default function MapContextProvider({ children }) {
     }, []);
 
     useEffect(() => {
+        setNodes(distrubeNodes());
+    }, [view]);
+
+    useEffect(() => {
         setShowAllNodes(selectedNav === -1 ? false : true);
     }, [selectedNav]);
+
+    const distrubeNodes = () => {
+        const distNodes = [];
+        const [minIndex, maxIndex] = [...map.nodeRange];
+        allNodes.map((node) => {
+            if (minIndex <= node.id && node.id <= maxIndex)
+                distNodes.push(node);
+        });
+        return distNodes;
+    };
 
     const fetchNodes = async () => {
         const { data } = await getNodesApi();
@@ -39,13 +54,6 @@ export default function MapContextProvider({ children }) {
     const fetchRoutes = async () => {
         const { data } = await getRoutesApi();
         setRoutes(data);
-    };
-    const fixedX = (x) => {
-        return x * scaleX;
-    };
-
-    const fixedY = (y) => {
-        return imgHeight - y * scaleY;
     };
 
     const addNavPoint = (id) => {
@@ -97,15 +105,14 @@ export default function MapContextProvider({ children }) {
     return (
         <MapContext.Provider
             value={{
-                // Assets
-                imgWidth,
-                imgHeight,
-                allNodes,
-                routes,
+                // utils
                 getLocationName,
+                allNodes,
+                // Map Props
+                map,
+                nodes,
+                routes,
                 // Transformation
-                fixedX,
-                fixedY,
                 showAllNodes,
                 showRoutes,
                 setShowRoutes,
@@ -121,6 +128,9 @@ export default function MapContextProvider({ children }) {
                 // view mode
                 mode,
                 setMode,
+                view,
+                setView,
+                setMap,
             }}
         >
             {children}

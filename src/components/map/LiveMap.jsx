@@ -3,23 +3,15 @@ import NodeLayer from "./NodeLayer";
 import { MapContext } from "../../context/MapContextProvider";
 import "/src/styles/LiveMap.css";
 
-function LiveMap() {
-    const {
-        imgWidth,
-        imgHeight,
-        routes,
-        allNodes,
-        fixedX,
-        fixedY,
-        showRoutes,
-    } = useContext(MapContext);
+function LiveMap({}) {
+    const { map, routes, nodes } = useContext(MapContext);
+    const { imgWidth, imgHeight, fixedX, fixedY, showRoutes, scaleRange } = map;
 
     const [scale, setScale] = useState(1);
     const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
     const [translate, setTranslate] = useState({ x: 0, y: 0 });
     const [lastTranslate, setLastTranslate] = useState({ x: 0, y: 0 });
-    const scaleMin = 0.4;
-    const scaleMax = 1.8;
+    const [scaleMin, scaleMax] = [...scaleRange];
 
     const imageDivRef = useRef();
     const canvasRef = useRef();
@@ -34,8 +26,8 @@ function LiveMap() {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             routes.map((route) => {
-                const { x: x1, y: y1 } = allNodes[route[0]];
-                const { x: x2, y: y2 } = allNodes[route[1]];
+                const { x: x1, y: y1 } = nodes[route[0]];
+                const { x: x2, y: y2 } = nodes[route[1]];
                 drawLine(context, x1, y1, x2, y2, 5);
             });
         }
@@ -59,7 +51,6 @@ function LiveMap() {
     const onWheel = (event) => {
         let newScale = scale + event.deltaY * -0.001;
         newScale = Math.min(Math.max(scaleMin, newScale), scaleMax);
-        console.log(newScale);
         setScale(newScale);
     };
 
@@ -109,7 +100,7 @@ function LiveMap() {
             >
                 <img
                     ref={imageRef}
-                    src="/src/assets/map.jpg"
+                    src="/src/assets/maps/base.jpg"
                     width={`${imgWidth}px`}
                     height={`${imgHeight}px`}
                     style={{
@@ -123,7 +114,12 @@ function LiveMap() {
                     height={`${imgHeight}px`}
                     ref={canvasRef}
                 ></canvas>
-                <NodeLayer />
+                <NodeLayer
+                    nodes={nodes}
+                    scale={scale}
+                    fixedX={fixedX}
+                    fixedY={fixedY}
+                />
             </div>
         </div>
     );

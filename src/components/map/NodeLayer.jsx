@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import MapNode from "./MapNode";
 import { MapContext } from "../../context/MapContextProvider";
 
-function NodeLayer() {
-    const { allNodes, navPoints, showAllNodes } = useContext(MapContext);
+function NodeLayer({ nodes, scale, fixedX, fixedY }) {
+    const { navPoints, showAllNodes } = useContext(MapContext);
     const renderNodes = () => {
-        return allNodes
+        return nodes
             .filter((node) => showAllNodes || navPoints.includes(node.id))
             .map((node, index) => {
                 return (
@@ -13,6 +13,9 @@ function NodeLayer() {
                         key={index}
                         node={node}
                         selected={navPoints.includes(node.id)}
+                        scale={scale}
+                        fixedX={fixedX}
+                        fixedY={fixedY}
                     />
                 );
             });

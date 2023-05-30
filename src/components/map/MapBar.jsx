@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import NavSelector from "./NavSelector";
 import SelectButtonGroup from "../forms/SelectButtonGroup";
+import MapToggler from "./MapToggler";
 
 import "/src/styles/MapBar.css";
 import { MapContext } from "../../context/MapContextProvider";
@@ -20,6 +21,7 @@ export default function MapBar() {
     const shouldHidden = () => {
         return navPoints.some((pid) => pid === -1);
     };
+    const renderMapToggler = () => {};
     return (
         <>
             <div className="map-bar border shadow shadow-lg">
@@ -70,13 +72,7 @@ export default function MapBar() {
                         </button>
                     </div>
                 </div>
-                <div className="position-absolute top-0 end-0 mt-1">
-                    <div className="d-flex flex-column align-items-end gap-2">
-                        <div className="fs-5 view">西土城</div>
-                        <div className="fs-5 view">西土城</div>
-                        <div className="fs-5 view">西土城</div>
-                    </div>
-                </div>
+                <MapToggler />
             </div>
         </>
     );

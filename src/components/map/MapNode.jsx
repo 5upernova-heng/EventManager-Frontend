@@ -4,8 +4,8 @@ import PropTypes from "prop-types";
 import "/src/styles/MapNode.css";
 import { MapContext } from "../../context/MapContextProvider";
 
-function MapNode({ node, selected }) {
-    const { fixedX, fixedY, scale, setNavPoint } = useContext(MapContext);
+function MapNode({ node, scale, selected, fixedX, fixedY }) {
+    const { setNavPoint } = useContext(MapContext);
     const { id, x, y, name } = node;
 
     const [hover, setHover] = useState(false);
