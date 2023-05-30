@@ -17,7 +17,11 @@
     border: 1px solid #dee2e6;
 }
 
-.active {
+.view:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)
+}
+
+.map-active {
     background: #def6fa;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)
 }

@@ -8,7 +8,7 @@ export default function MapToggler() {
         return maps.map((map, index) => {
             return (
                 <div
-                    className={`fs-5 view ${index === view && "active"}`}
+                    className={`fs-5 view ${index === view && "map-active"}`}
                     onClick={() => {
                         setView(index);
                         setMap(map);
