@@ -9,7 +9,8 @@ export default function MapContextProvider({ children }) {
     const [nodes, setNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
 
-    const [showAllNodes, setShowAllNodes] = useState(false);
+    const [showAllNodes, setShowAllNodes] = useState(true);
+    const [showAllTips, setShowAllTips] = useState(false);
     const [showRoutes, setShowRoutes] = useState(false);
     // selected nav point (-1 for not selected)
     const [selectedNav, setSelected] = useState(0);
@@ -27,11 +28,12 @@ export default function MapContextProvider({ children }) {
         // fetchRoutes();
         // init navPoints
         setNavPoints(initNavpoints());
+        setNodes(distrubeNodes());
     }, []);
 
     useEffect(() => {
         setNodes(distrubeNodes());
-    }, [view]);
+    }, [view, map]);
 
     useEffect(() => {
         setShowAllNodes(selectedNav === -1 ? false : true);
@@ -131,6 +133,8 @@ export default function MapContextProvider({ children }) {
                 view,
                 setView,
                 setMap,
+                showAllTips,
+                setShowAllTips,
             }}
         >
             {children}

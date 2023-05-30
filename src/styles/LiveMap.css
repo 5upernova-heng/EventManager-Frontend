@@ -15,3 +15,15 @@
     top: 0px;
     border: 7px #dee2e6 solid;
 }
+
+.map-label {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.float-button-group {
+    position: absolute;
+    z-index: 1;
+}

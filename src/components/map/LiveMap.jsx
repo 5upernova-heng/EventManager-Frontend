@@ -4,8 +4,18 @@ import { MapContext } from "../../context/MapContextProvider";
 import "/src/styles/LiveMap.css";
 
 function LiveMap({}) {
-    const { map, routes, nodes } = useContext(MapContext);
-    const { imgWidth, imgHeight, fixedX, fixedY, showRoutes, scaleRange } = map;
+    const { map, routes, nodes, showAllTips, setShowAllTips } =
+        useContext(MapContext);
+    const {
+        name,
+        imgWidth,
+        imgHeight,
+        src,
+        fixedX,
+        fixedY,
+        showRoutes,
+        scaleRange,
+    } = map;
 
     const [scale, setScale] = useState(1);
     const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
@@ -77,6 +87,10 @@ function LiveMap({}) {
         setLastTranslate({ x: 0, y: 0 });
     };
 
+    const toggleTipsShow = () => {
+        setShowAllTips(!showAllTips);
+    };
+
     return (
         <div
             draggable
@@ -87,12 +101,25 @@ function LiveMap({}) {
             onDragOver={onDragOver}
             onDragEnd={onDragEnd}
         >
-            <button
-                onClick={reset}
-                className="btn btn-lg btn-light m-2 position-absolute z-0"
-            >
-                <i className="fa fa-arrows-alt" aria-hidden="true"></i>
-            </button>
+            <div className="d-flex float-button-group gap-2 m-2">
+                <button
+                    onClick={reset}
+                    type="button"
+                    className="btn btn-lg btn-light"
+                >
+                    <i className="fa fa-arrows-alt" aria-hidden="true"></i>
+                </button>
+                <button
+                    onClick={toggleTipsShow}
+                    type="button"
+                    className={`btn btn-lg btn-light ${
+                        showAllTips ? "active" : ""
+                    }`}
+                >
+                    <i className="fa fa-info-circle" aria-hidden="true"></i>
+                </button>
+            </div>
+            <h1 className="map-label m-2">{name}</h1>
             <div
                 style={{
                     transform: `scale(${scale}) translate(${translate.x}px, ${translate.y}px)`,
@@ -100,7 +127,7 @@ function LiveMap({}) {
             >
                 <img
                     ref={imageRef}
-                    src="/src/assets/maps/base.jpg"
+                    src={src}
                     width={`${imgWidth}px`}
                     height={`${imgHeight}px`}
                     style={{

@@ -5,7 +5,7 @@ import "/src/styles/MapNode.css";
 import { MapContext } from "../../context/MapContextProvider";
 
 function MapNode({ node, scale, selected, fixedX, fixedY }) {
-    const { setNavPoint } = useContext(MapContext);
+    const { showAllTips, setNavPoint } = useContext(MapContext);
     const { id, x, y, name } = node;
 
     const [hover, setHover] = useState(false);
@@ -29,7 +29,7 @@ function MapNode({ node, scale, selected, fixedX, fixedY }) {
                     top: "-.25rem",
                     left: "50%",
                     transform: `translateX(-50%) translateY(-100%) scale(${
-                        selected || hover ? 1 : 0
+                        showAllTips || selected || hover ? 1 : 0
                     })`,
                     transition: "150ms",
                     transformOrigin: "bottom",

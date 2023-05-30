@@ -21,7 +21,6 @@ export default function MapBar() {
     const shouldHidden = () => {
         return navPoints.some((pid) => pid === -1);
     };
-    const renderMapToggler = () => {};
     return (
         <>
             <div className="map-bar border shadow shadow-lg">

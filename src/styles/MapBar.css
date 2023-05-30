@@ -21,6 +21,13 @@
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)
 }
 
+.dropend:hover .dropdown-menu {
+    display: block;
+    transform: translate(45px, 0px);
+    inset: 0px auto auto 0px;
+    margin-left: 0;
+}
+
 .map-active {
     background: #def6fa;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15)
