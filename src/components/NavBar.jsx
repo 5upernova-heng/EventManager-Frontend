@@ -5,11 +5,10 @@ import RefreshTime from "./forms/RefreshTime";
 import UserDropdown from "./UserDropdown";
 import routes from "../routes";
 import { LoginContext } from "../context/LoginContextProvider";
-import { AuthContext } from "../context/AuthContextProvider";
 
 function NavBar() {
     const { quitLogin } = useContext(LoginContext);
-    const { auth } = useContext(AuthContext);
+    const { auth } = useContext(LoginContext);
     const [currentPath, setCurrentPath] = useState(location.pathname);
     useEffect(() => {
         setCurrentPath(location.pathname);

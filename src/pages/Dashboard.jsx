@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useContext } from "react";
-import { AuthContext } from "../context/AuthContextProvider";
 import { LoginContext } from "../context/LoginContextProvider";
 import { TimeContext } from "../context/TimeContextProvider";
 import {
@@ -16,7 +15,7 @@ import { getEventsApi } from "../api/eventApi";
 import { toast } from "react-toastify";
 
 function Dashboard() {
-    const { auth } = useContext(AuthContext);
+    const { auth } = useContext(LoginContext);
     const { isLogin, loginAccount } = useContext(LoginContext);
     const { date } = useContext(TimeContext);
     const greetingSuffix = ["同学", "老师", "管理员"];

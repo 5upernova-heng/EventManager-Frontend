@@ -1,7 +1,7 @@
 import { Modal } from "bootstrap";
 import { useContext, useEffect, useRef, useState } from "react";
 import { EventContext } from "../../../context/EventContextProvider";
-import { AuthContext } from "../../../context/AuthContextProvider";
+import { LoginContext } from "../../../context/LoginContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "../../../context/MapContextProvider";
 import { minutesToString, stampTo5Minutes } from "../../../utils/calDate";
@@ -19,7 +19,7 @@ const EventCell = ({ event }) => {
     const startMinute = stampTo5Minutes(startTime);
     const endMinute = stampTo5Minutes(endTime);
     // auth
-    const { auth } = useContext(AuthContext);
+    const { auth } = useContext(LoginContext);
     const editable = category > 1 || auth;
 
     const categoryLabel = STYLE.getCategoryLabel(category);

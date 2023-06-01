@@ -3,7 +3,6 @@ import NavBar from "./components/NavBar";
 import routes from "./routes";
 import TimeContextProvider from "./context/TimeContextProvider";
 import AlarmContextProvider from "./context/AlarmContextProvider";
-import AuthContextProvider from "./context/AuthContextProvider";
 import LoginContextProvider from "./context/LoginContextProvider";
 import MapContextProvider from "./context/MapContextProvider";
 import { useState } from "react";
@@ -49,17 +48,15 @@ function App() {
             <div className="background"></div>
             <TimeContextProvider>
                 <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
-                    <AuthContextProvider>
-                        <EventContextProvider>
-                            <MapContextProvider>
-                                <GroupContextProvider>
-                                    <SearchContextProvider>
-                                        {renderRoutes()};
-                                    </SearchContextProvider>
-                                </GroupContextProvider>
-                            </MapContextProvider>
-                        </EventContextProvider>
-                    </AuthContextProvider>
+                    <EventContextProvider>
+                        <MapContextProvider>
+                            <GroupContextProvider>
+                                <SearchContextProvider>
+                                    {renderRoutes()};
+                                </SearchContextProvider>
+                            </GroupContextProvider>
+                        </MapContextProvider>
+                    </EventContextProvider>
                 </LoginContextProvider>
             </TimeContextProvider>
         </>

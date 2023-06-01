@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContextProvider";
+import { LoginContext } from "../context/LoginContextProvider";
 
 function UserDropdown() {
-    const { auth, setAuth } = useContext(AuthContext);
+    const { auth, setAuth } = useContext(LoginContext);
     const authLabel = ["Normal", "Admin", "Root"];
     const renderNavItems = () => {
         return authLabel.map((label, index) => (

@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { AuthContext } from "./AuthContextProvider";
+import { LoginContext } from "./LoginContextProvider";
 import {
     getGroupApi,
     addGroupApi,
@@ -12,13 +12,12 @@ import {
     deleteUserApi,
     updateUserApi,
 } from "../api/userApi";
-import { LoginContext } from "./LoginContextProvider";
 
 export const GroupContext = createContext();
 
 export default function GroupContextProvider({ children }) {
     const { isLogin } = useContext(LoginContext);
-    const { auth } = useContext(AuthContext);
+    const { auth } = useContext(LoginContext);
     // data
     const [users, setUsers] = useState([]);
     const [groups, setGroups] = useState([]);

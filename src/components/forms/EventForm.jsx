@@ -4,7 +4,7 @@ import Input from "./Input";
 import Range from "./Range";
 import SelectButtonGroup from "./SelectButtonGroup";
 import { EventContext } from "../../context/EventContextProvider";
-import { AuthContext } from "../../context/AuthContextProvider";
+import { LoginContext } from "../../context/LoginContextProvider";
 import { MapContext } from "../../context/MapContextProvider";
 import LocationSelector from "./LocationSelector";
 import STYLE from "../../style";
@@ -35,7 +35,7 @@ const EventForm = ({ id }) => {
     const [endKey, setEndKey] = useState(`end-${endMinute}`);
     const rangeKey = `${startTime}-${id}`;
 
-    const { auth } = useContext(AuthContext);
+    const { auth } = useContext(LoginContext);
     const categoryLabel = STYLE.getCategoryLabel(category);
     const intervalLabel = STYLE.getLoopLabel(doLoop);
 
