@@ -105,3 +105,15 @@ export const hourDiff = (timeStamp, nowDate) => {
     const hourDiff = Math.round(timeDiff / 60 / 60 / 1000);
     return hourDiff;
 };
+
+/**Start from now, cal the date of the end of the next day
+ * Used in coming date fetching.
+ */
+export const getNextDayEndStamp = (date) => {
+    const nextDay = new Date(date);
+    nextDay.setDate(date.getDate() + 2);
+    nextDay.setHours(0);
+    nextDay.setMinutes(0);
+    nextDay.setSeconds(0);
+    return nextDay.getTime();
+};

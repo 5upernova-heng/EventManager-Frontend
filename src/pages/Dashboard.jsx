@@ -7,15 +7,17 @@ import {
     getDateString,
     getDayString,
     getGreetings,
+    getNextDayEndStamp,
     getTimeString,
 } from "../utils/calDate";
 import EventCard from "../components/EventCard";
 import { Link } from "react-router-dom";
-import { getComingEventApi } from "../api/eventApi";
+import { getEventsApi } from "../api/eventApi";
+import { toast } from "react-toastify";
 
 function Dashboard() {
     const { auth } = useContext(AuthContext);
-    const { loginAccount } = useContext(LoginContext);
+    const { isLogin, loginAccount } = useContext(LoginContext);
     const { date } = useContext(TimeContext);
     const greetingSuffix = ["同学", "老师", "管理员"];
 
@@ -23,12 +25,22 @@ function Dashboard() {
 
     useEffect(() => {
         // fetch coming event
-        const getComingEvents = async () => {
-            const { data } = await getComingEventApi();
-            setEvents(data);
-        };
         getComingEvents();
-    }, []);
+    }, [isLogin]);
+    const getComingEvents = async () => {
+        const { userId } = loginAccount;
+        const time = date.getTime();
+        const nextDayEnd = getNextDayEndStamp(date);
+        const { data } = await getEventsApi(
+            userId,
+            time,
+            userId,
+            time,
+            nextDayEnd
+        );
+        if (typeof data.response === -1) toast(`找不到该用户: ${username}`);
+        else setEvents(data.response);
+    };
 
     const renderEventCards = () => {
         if (events.length > 0) {
