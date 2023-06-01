@@ -16,13 +16,13 @@ export async function getEventsApi(uid, time, targetId, ltime, rtime) {
 }
 
 export async function addEventApi(event, uid, time) {
-    await request.post(`${apiRoot}/events`, event, {
+    const { data } = await request.post(`${apiRoot}/events`, event, {
         params: {
             uid,
             time,
         },
     });
-    return getEventsApi(uid, time, uid);
+    return data;
 }
 
 export async function deleteEventApi(uid, time, id) {
@@ -38,7 +38,13 @@ export async function deleteEventApi(uid, time, id) {
 }
 
 export async function updateEventApi(uid, time, targetId, event) {
-    console.log("Sending request: updateEventApi |", uid, time, targetId, event);
+    console.log(
+        "Sending request: updateEventApi |",
+        uid,
+        time,
+        targetId,
+        event
+    );
     await request.put(`${apiRoot}/events`, event, {
         params: {
             uid,
@@ -57,4 +63,19 @@ export async function getComingEventApi() {
 export async function searchEventsApi() {
     const response = await request.get(`${apiRoot}/events`);
     return response;
+}
+
+export async function impartMatter(userId, targetId, time, eventId) {
+    return await request.post(
+        `${apiRoot}/user/matter`,
+        {},
+        {
+            params: {
+                uid: userId,
+                time,
+                targetId,
+                matterId: eventId,
+            },
+        }
+    );
 }

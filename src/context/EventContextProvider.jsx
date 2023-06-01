@@ -5,6 +5,7 @@ import {
     deleteEventApi,
     updateEventApi,
     searchEventsApi,
+    impartMatter,
 } from "../api/eventApi";
 import { TimeContext } from "./TimeContextProvider";
 import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
@@ -70,9 +71,15 @@ export default function EventContextProvider({ children }) {
     };
 
     const addEvent = async (event) => {
-        const { data: newEvents } = await addEventApi(event, uid, time);
-        console.log(newEvents.response);
-        setEvents(newEvents.response);
+        // add event
+        const { response } = await addEventApi(event, uid, time);
+        // impart owner
+        if (response.state !== 0) toast("添加失败");
+        else {
+            addOneParticipant(uid, response.id).then(() => {
+                getEvents();
+            });
+        }
     };
 
     const updateEvent = async (newEvent) => {
@@ -125,7 +132,15 @@ export default function EventContextProvider({ children }) {
     };
 
     const dataToEvent = (data) => {
-        const { doLoop, month, date, day, startMinute, endMinute } = data;
+        const {
+            doLoop,
+            month,
+            date,
+            day,
+            startMinute,
+            endMinute,
+            participants,
+        } = data;
         const event = structuredClone(data);
         const startDate = new Date(minutesToStamp(startMinute));
         const endDate = new Date(minutesToStamp(endMinute));
@@ -136,8 +151,40 @@ export default function EventContextProvider({ children }) {
         endDate.setDate(startDate.getDate());
         event.startTime = startDate.getTime();
         event.endTime = endDate.getTime();
-        event.participants.push(event.owner);
-        return event;
+        if (participants.length !== 0) {
+            const newParticipants = participants.filter((participant) =>
+                event.participants.includes(participant)
+            );
+            console.log(newParticipants);
+            addParticipants(newParticipants, event).then(() => {
+                return event;
+            });
+        } else {
+            return event;
+        }
+    };
+
+    /**Add one participant for a matter*/
+    const addOneParticipant = async (userId, eventId) => {
+        const { data } = await impartMatter(uid, userId, time, eventId);
+        if (data.response === -2)
+            toast("该事件与该用户的已有事件存在冲突，且优先级不足无法覆盖");
+        if (data.response === -1) toast("用户不存在或已经参加");
+        if (data.response === 1) toast("权限不足");
+        if (data.response === 2)
+            toast(
+                "该事件与该用户的已有事件存在冲突，本事件优先级更高，可以覆盖"
+            );
+        return data.response;
+    };
+
+    const addParticipants = async (userIdList, event) => {
+        userIdList.map((userId) => {
+            const result = addOneParticipant(userId, event.id);
+            if (result === 0 || result === 2) {
+                event.participants.push(userId);
+            }
+        });
     };
 
     const emptyData = eventToData(emptyEvent);

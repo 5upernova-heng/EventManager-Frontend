@@ -14,11 +14,6 @@ const ModelGroup = () => {
         deleteEvent,
     } = useContext(EventContext);
 
-    const assignId = () => {
-        if (events.length === 0) return 0;
-        return events[events.length - 1].id + 1;
-    };
-
     return (
         <>
             <Modal
@@ -41,7 +36,6 @@ const ModelGroup = () => {
                             data-bs-dismiss="modal"
                             onClick={() => {
                                 const submitEvent = dataToEvent(submitData);
-                                submitEvent.id = assignId();
                                 addEvent(submitEvent);
                             }}
                         >

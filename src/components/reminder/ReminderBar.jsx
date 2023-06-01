@@ -22,7 +22,7 @@ export default function ReminderBar() {
 
     useEffect(() => {
         if (isLogin) {
-            fetchMessage();
+            // fetchMessage();
         }
     }, [isLogin, tick]);
 
