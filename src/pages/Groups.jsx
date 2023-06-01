@@ -38,7 +38,7 @@ export default function Groups() {
                 }}
             >
                 <div className="d-flex align-items-center">
-                    <p className={`ps-1 ${fontStyle}`}>{user.name}</p>
+                    <p className={`ps-1 ${fontStyle}`}>{user}</p>
                 </div>
             </div>
         );
@@ -79,7 +79,7 @@ export default function Groups() {
             </div>
             <div className="col-1"></div>
             <div className="col mt-5">
-                <List title="学生" data={users} renderMethod={renderUser} />
+                <List title="用户" data={users} renderMethod={renderUser} />
             </div>
             <div className="col-2"></div>
             <Modal

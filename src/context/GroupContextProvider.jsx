@@ -45,7 +45,7 @@ export default function GroupContextProvider({ children }) {
         if (isLogin) {
             if (auth > 1) {
                 fetchGroup();
-                fetchsers();
+                fetchUsers();
             }
         }
     }, [auth, isLogin]);
