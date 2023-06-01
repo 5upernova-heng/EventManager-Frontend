@@ -15,7 +15,9 @@ export default function ReminderBar() {
 
     const fetchMessage = async () => {
         const { response } = await getAllRemindsApi(userId, time);
-        setMessages(response);
+        const newMessages = messages.concat(response);
+        console.log(newMessages);
+        setMessages(newMessages);
     };
 
     useEffect(() => {
@@ -24,9 +26,21 @@ export default function ReminderBar() {
         }
     }, [isLogin, tick]);
 
+    const deleteMessage = (index) => {
+        const newMessages = [...messages];
+        newMessages.splice(index, 1);
+        setMessages(newMessages);
+    };
+
     const renderMessage = () => {
         if (messages.length > 0) {
-            return messages.map((message) => <MessageCard message={message} />);
+            return messages.map((message, index) => (
+                <MessageCard
+                    key={index}
+                    message={message}
+                    deleteHandler={(index) => deleteMessage(index)}
+                />
+            ));
         } else {
             return <h5 className="text-center">暂无新的消息</h5>;
         }
@@ -34,7 +48,9 @@ export default function ReminderBar() {
     return (
         <div>
             <h4 className="fw-bold text-center p-1">消息提醒</h4>
-            {renderMessage()}
+            <div style={{ maxHeight: "calc(100vh - 250px)", overflow: "auto" }}>
+                {renderMessage()}
+            </div>
         </div>
     );
 }
