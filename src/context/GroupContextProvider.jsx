@@ -32,8 +32,10 @@ export default function GroupContextProvider({ children }) {
     const [selectedGroup, setSelectedGroup] = useState(-1);
     // submit
     const emptyUser = {
+        id: "",
         username: "",
         password: "",
+        class: "",
         authLevel: 0,
     };
     const emptyGroups = {
@@ -86,18 +88,32 @@ export default function GroupContextProvider({ children }) {
 
     // api
     const addUser = async (user) => {
-        const { data: newUsers } = await addUserApi(user);
-        setUsers(newUsers);
+        user.id = user.username;
+        const { response } = await addUserApi(uid, time, user);
+        if (response === -1) {
+            toast("删除失败：用户名已经存在/班级不存在");
+            return;
+        }
+        fetchUsers();
     };
 
     const updateUser = async (newUser) => {
-        const { data: newUsers } = await updateUserApi(newUser.id, newUser);
-        setUsers(newUsers);
+        const { response } = await updateUserApi(
+            uid,
+            time,
+            newUser.id,
+            newUser
+        );
+        if (response === -1) {
+            toast("删除失败：用户/组织不存在");
+            return;
+        }
+        fetchUsers();
     };
 
     const deleteUser = async (id) => {
-        const { data: newUsers } = await deleteUserApi(id);
-        setUsers(newUsers);
+        const { response } = await deleteUserApi(uid, time, id);
+        fetchUsers();
     };
 
     const addGroup = async (group) => {
@@ -146,7 +162,6 @@ export default function GroupContextProvider({ children }) {
                 // sumbmit
                 submitUser,
                 submitGroup,
-                setSubmitUser,
                 setSubmitGroup,
                 changeSubmitUser,
                 changeSubmitGroup,

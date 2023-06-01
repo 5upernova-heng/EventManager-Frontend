@@ -20,12 +20,12 @@ export default function LoginContextProvider({ children, isLogin, setLogin }) {
                 username: username,
                 userId: username,
             });
-            const { data } = await getOneUserApi(
+            const { response } = await getOneUserApi(
                 username,
                 date.getTime(),
                 username
             );
-            const { authority } = data.response;
+            const { authority } = response;
             setAuth(authority - 1);
             setLogin(true);
             toast("登录成功", {

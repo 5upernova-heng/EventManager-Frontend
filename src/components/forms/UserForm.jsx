@@ -19,6 +19,10 @@ export default function UserForm({}) {
         changeSubmitUser({ password });
     };
 
+    const changeClassName = (className) => {
+        changeSubmitUser({ class: className });
+    };
+
     return (
         <div>
             <Input
@@ -35,6 +39,14 @@ export default function UserForm({}) {
                 type={"text"}
                 onChange={(e) => {
                     changePassword(e.target.value);
+                }}
+            />
+            <Input
+                label="班级"
+                name="class"
+                type={"text"}
+                onChange={(e) => {
+                    changeClassName(e.target.value);
                 }}
             />
             <p className="my-1 fw-bold">权限等级</p>
