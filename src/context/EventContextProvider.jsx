@@ -55,8 +55,9 @@ export default function EventContextProvider({ children }) {
             const date = new Date(event.startTime);
             if (event.category != 4) {
                 if (event.doLoop == 1) {
-                    for (let day = 0; day < 7; day++)
+                    for (let day = 0; day < 7; day++) {
                         normalEvents[day].push(event);
+                    }
                 } else {
                     const day = date.getDay();
                     normalEvents[day].push(event);

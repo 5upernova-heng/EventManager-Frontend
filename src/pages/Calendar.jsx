@@ -6,6 +6,7 @@ import { EventContext } from "../context/EventContextProvider";
 import WeekCalendar from "../components/calendar/WeekCalendar";
 import TempEvents from "../components/calendar/TempEvents";
 import SearchResult from "../components/calendar/SearchResult";
+import ReminderBar from "../components/reminder/ReminderBar";
 
 function Calendar() {
     const { view } = useContext(EventContext);
@@ -21,7 +22,10 @@ function Calendar() {
                 <div className="col-2">
                     <CalendarSideBar />
                 </div>
-                <div className="col ms-0 me-4">{renderView()}</div>
+                <div className="col ms-0">{renderView()}</div>
+                <div className="col-2 px-0">
+                    <ReminderBar />
+                </div>
             </div>
         </>
     );

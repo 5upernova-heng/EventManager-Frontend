@@ -36,10 +36,11 @@ yarn dev
 
 Essiencial
 
-1. Search
+1. Remind
+2. Search
    1. Time selector
    2. Choose Category
-2. With backend:
+3. With backend:
    1. Remind Fetcher
    1. When events are empty
    1. toast all the errors
