@@ -14,7 +14,7 @@ import "/src/styles/App.css";
 
 function App() {
     // Login
-    const [isLogin, setLogin] = useState(true);
+    const [isLogin, setLogin] = useState(false);
     const defaultPage = <Navigate to={isLogin ? "/dashboard" : "/login"} />;
     const rootPageRoute = <Route path="/" element={defaultPage} />;
     const renderRoutes = () => {
@@ -42,9 +42,9 @@ function App() {
     return (
         <>
             <div className="background"></div>
-            <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
-                <AuthContextProvider>
-                    <TimeContextProvider>
+            <TimeContextProvider>
+                <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
+                    <AuthContextProvider>
                         <EventContextProvider>
                             <AlarmContextProvider>
                                 <MapContextProvider>
@@ -56,9 +56,9 @@ function App() {
                                 </MapContextProvider>
                             </AlarmContextProvider>
                         </EventContextProvider>
-                    </TimeContextProvider>
-                </AuthContextProvider>
-            </LoginContextProvider>
+                    </AuthContextProvider>
+                </LoginContextProvider>
+            </TimeContextProvider>
         </>
     );
 }

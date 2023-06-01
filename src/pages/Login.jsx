@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import LoginFormGroup from "../components/forms/LoginFormGroup";
 
 function Login() {

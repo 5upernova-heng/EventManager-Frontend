@@ -6,7 +6,6 @@ import Input from "./Input";
 import { LoginContext } from "../../context/LoginContextProvider";
 
 function LoginFormGroup() {
-    const navigate = useNavigate();
     const [account, setAccount] = useState({ username: "", password: "" });
     const [errors, setErrors] = useState({});
     const { tryLogin } = useContext(LoginContext);
@@ -33,7 +32,6 @@ function LoginFormGroup() {
             : {};
         setErrors(newErrors);
         if (error) return;
-        navigate("/");
         tryLogin(account);
     };
     return (
@@ -58,6 +56,12 @@ function LoginFormGroup() {
                 <button
                     className="btn btn-primary shadow"
                     onClick={() => handleSubmit()}
+                    onKeyDown={(e) => {
+                        if (e.key === "enter") {
+                            console.log("T");
+                            handleSubmit();
+                        }
+                    }}
                 >
                     登录
                 </button>
