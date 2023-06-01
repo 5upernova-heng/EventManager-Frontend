@@ -12,12 +12,17 @@ import {
     deleteUserApi,
     updateUserApi,
 } from "../api/userApi";
+import { TimeContext } from "./TimeContextProvider";
 
 export const GroupContext = createContext();
 
 export default function GroupContextProvider({ children }) {
-    const { isLogin } = useContext(LoginContext);
+    const { date } = useContext(TimeContext);
+    const { isLogin, loginAccount } = useContext(LoginContext);
     const { auth } = useContext(LoginContext);
+
+    const time = date.getTime();
+    const { userId } = loginAccount;
     // data
     const [users, setUsers] = useState([]);
     const [groups, setGroups] = useState([]);
@@ -40,14 +45,14 @@ export default function GroupContextProvider({ children }) {
         if (isLogin) {
             if (auth > 1) {
                 fetchGroup();
-                fetchUsers();
+                fetchsers();
             }
         }
     }, [auth, isLogin]);
 
     const fetchUsers = async () => {
-        const { data } = await getUsersApi();
-        setUsers(data);
+        const { response } = await getUsersApi(userId, time);
+        setUsers(response);
     };
 
     const fetchGroup = async () => {

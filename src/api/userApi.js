@@ -12,9 +12,15 @@ export async function getOneUserApi(uid, time, targetId) {
     return response;
 }
 
-export async function getUsersApi() {
-    const response = await request.get(`${apiRoot}/users`);
-    return response;
+/**Get all user, id only */
+export async function getUsersApi(uid, time) {
+    const { data } = await request.get(`http://localhost:5000/user`, {
+        params: {
+            uid,
+            time,
+        },
+    });
+    return data;
 }
 
 export async function addUserApi(user) {
