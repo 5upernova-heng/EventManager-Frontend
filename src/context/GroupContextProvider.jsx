@@ -12,10 +12,12 @@ import {
     deleteUserApi,
     updateUserApi,
 } from "../api/userApi";
+import { LoginContext } from "./LoginContextProvider";
 
 export const GroupContext = createContext();
 
 export default function GroupContextProvider({ children }) {
+    const { isLogin } = useContext(LoginContext);
     const { auth } = useContext(AuthContext);
     // data
     const [users, setUsers] = useState([]);
@@ -36,11 +38,13 @@ export default function GroupContextProvider({ children }) {
     const [submitUser, setSubmitUser] = useState(emptyUser);
     const [submitGroup, setSubmitGroup] = useState(emptyGroups);
     useEffect(() => {
-        if (auth > 1) {
-            fetchGroup();
-            fetchUsers();
+        if (isLogin) {
+            if (auth > 1) {
+                fetchGroup();
+                fetchUsers();
+            }
         }
-    }, []);
+    }, [auth, isLogin]);
 
     const fetchUsers = async () => {
         const { data } = await getUsersApi();

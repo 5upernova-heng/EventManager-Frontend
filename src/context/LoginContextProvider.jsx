@@ -6,14 +6,18 @@ import { useNavigate } from "react-router-dom";
 
 export const LoginContext = createContext();
 export default function LoginContextProvider({ children, isLogin, setLogin }) {
-    const emptyAccount = { username: "admin", userId: "admin" };
+    const emptyAccount = { username: "", userId: "" };
     const { date } = useContext(TimeContext);
     const [loginAccount, setAccount] = useState(emptyAccount);
     const navigate = useNavigate();
     const tryLogin = async (account) => {
         const { response } = await login(account, date.getTime());
         if (response) {
-            setAccount(account);
+            const { username } = account;
+            setAccount({
+                username: username,
+                userId: username,
+            });
             setLogin(true);
             toast("登录成功");
             navigate("/calendar");

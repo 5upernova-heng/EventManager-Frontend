@@ -12,6 +12,7 @@ export default function GroupForm() {
         <div>
             <Input
                 label="组织名"
+                name="groupNameInput"
                 type={"text"}
                 value={submitGroup.name}
                 onChange={(e) => {

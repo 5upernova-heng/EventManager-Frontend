@@ -58,7 +58,6 @@ function LoginFormGroup() {
                     onClick={() => handleSubmit()}
                     onKeyDown={(e) => {
                         if (e.key === "enter") {
-                            console.log("T");
                             handleSubmit();
                         }
                     }}

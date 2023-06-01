@@ -1,10 +1,12 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 import { useEffect, useState } from "react";
 import { findPathApi, getNodesApi, getRoutesApi } from "../api/mapApi";
 import { maps } from "../map";
+import { LoginContext } from "./LoginContextProvider";
 
 export const MapContext = createContext();
 export default function MapContextProvider({ children }) {
+    const { isLogin } = useContext(LoginContext);
     const [allNodes, setAllNodes] = useState([]);
     const [nodes, setNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
@@ -24,12 +26,14 @@ export default function MapContextProvider({ children }) {
 
     useEffect(() => {
         // mount node and route data
-        fetchNodes();
-        // fetchRoutes();
-        // init navPoints
-        setNavPoints(initNavpoints());
-        setNodes(distrubeNodes());
-    }, []);
+        if (isLogin) {
+            fetchNodes();
+            // fetchRoutes();
+            // init navPoints
+            setNavPoints(initNavpoints());
+            setNodes(distrubeNodes());
+        }
+    }, [isLogin]);
 
     useEffect(() => {
         setNodes(distrubeNodes());

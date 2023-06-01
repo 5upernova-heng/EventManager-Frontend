@@ -11,6 +11,7 @@ import EventContextProvider from "./context/EventContextProvider";
 import GroupContextProvider from "./context/GroupContextProvider";
 import SearchContextProvider from "./context/SearchContextProvider";
 import "/src/styles/App.css";
+import Login from "./pages/Login";
 
 function App() {
     // Login
@@ -18,26 +19,30 @@ function App() {
     const defaultPage = <Navigate to={isLogin ? "/dashboard" : "/login"} />;
     const rootPageRoute = <Route path="/" element={defaultPage} />;
     const renderRoutes = () => {
-        return (
-            <Routes>
-                {rootPageRoute}
-                {routes.map((route) => (
-                    <Route
-                        key={route.path}
-                        path={route.path}
-                        element={
-                            route.showBar ? (
-                                <>
-                                    <NavBar /> {route.element}
-                                </>
-                            ) : (
-                                route.element
-                            )
-                        }
-                    />
-                ))}
-            </Routes>
-        );
+        if (isLogin) {
+            return (
+                <Routes>
+                    {rootPageRoute}
+                    {routes.map((route) => (
+                        <Route
+                            key={route.path}
+                            path={route.path}
+                            element={
+                                route.showBar ? (
+                                    <>
+                                        <NavBar /> {route.element}
+                                    </>
+                                ) : (
+                                    route.element
+                                )
+                            }
+                        />
+                    ))}
+                </Routes>
+            );
+        } else {
+            return <Login />;
+        }
     };
     return (
         <>

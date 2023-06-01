@@ -9,7 +9,6 @@ export default function MapToggler() {
             const shouldRenderChildren = map.children.length > 0;
             const renderChildren = () => {
                 return map.children.map((childMap, childIndex) => {
-                    console.log(currentMap.name, childMap.name);
                     const isActive = currentMap.name === childMap.name;
                     return (
                         <li key={childIndex}>

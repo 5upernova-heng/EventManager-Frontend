@@ -40,7 +40,11 @@ export default function NavSelector() {
     };
     return (
         <div className="d-flex flex-column justify-content-center align-items-center px-3  pt-3">
-            <div className={mode === 1 && "border border-3 rounded rounded-4"}>
+            <div
+                className={
+                    mode === 1 ? "border border-3 rounded rounded-4" : ""
+                }
+            >
                 {renderNavCard()}
             </div>
         </div>
