@@ -111,7 +111,10 @@ export default function EventContextProvider({ children }) {
                         </button>
                         <button>否</button>
                     </div>
-                </>
+                </>,
+                {
+                    autoClose: false,
+                }
             );
         getEvents();
     };
