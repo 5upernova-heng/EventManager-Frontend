@@ -15,6 +15,7 @@ const ModelGroup = () => {
     } = useContext(EventContext);
 
     const assignId = () => {
+        if (events.length === 0) return 0;
         return events[events.length - 1].id + 1;
     };
 

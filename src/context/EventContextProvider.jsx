@@ -9,12 +9,15 @@ import {
 import { TimeContext } from "./TimeContextProvider";
 import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
 import { LoginContext } from "./LoginContextProvider";
+import { toast } from "react-toastify";
 
 export const EventContext = createContext();
 
 export default function EventContextProvider({ children }) {
     const { date } = useContext(TimeContext);
-    const { loginAccount } = useContext(LoginContext);
+    const time = date.getTime();
+    const { isLogin, loginAccount } = useContext(LoginContext);
+    const { username, userId: uid } = loginAccount;
     const emptyEvent = {
         title: "",
         startTime: 0,
@@ -23,7 +26,7 @@ export default function EventContextProvider({ children }) {
         category: 0,
         doLoop: 0,
         doRemind: false,
-        owner: loginAccount.username,
+        owner: username,
         participants: [],
     };
     /** All events in an array */
@@ -35,12 +38,13 @@ export default function EventContextProvider({ children }) {
 
     /** mount data */
     useEffect(() => {
-        getEvents();
-    }, []);
+        if (isLogin) getEvents();
+    }, [isLogin]);
 
     const getEvents = async () => {
-        const { data } = await getEventsApi();
-        setEvents(data);
+        const { data } = await getEventsApi(uid, time, uid);
+        if (typeof data.response === -1) toast(`找不到该用户: ${username}`);
+        else setEvents(data.response);
     };
 
     /**  Distrube events to a 2D array*/
@@ -65,18 +69,26 @@ export default function EventContextProvider({ children }) {
     };
 
     const addEvent = async (event) => {
-        const { data: newEvents } = await addEventApi(event);
-        setEvents(newEvents);
+        const { data: newEvents } = await addEventApi(event, uid, time);
+        console.log(newEvents.response);
+        setEvents(newEvents.response);
     };
 
     const updateEvent = async (newEvent) => {
-        const { data: newEvents } = await updateEventApi(newEvent.id, newEvent);
-        setEvents(newEvents);
+        const { data: newEvents } = await updateEventApi(
+            uid,
+            time,
+            newEvent.id,
+            newEvent
+        );
+        console.log(newEvents.response);
+        setEvents(newEvents.response);
     };
 
     const deleteEvent = async (id) => {
-        const { data: newEvents } = await deleteEventApi(id);
-        setEvents(newEvents);
+        const { data: newEvents } = await deleteEventApi(uid, time, id);
+        console.log(newEvents.response);
+        setEvents(newEvents.response);
     };
 
     /** Called when clicking the cell */
@@ -123,6 +135,7 @@ export default function EventContextProvider({ children }) {
         endDate.setDate(startDate.getDate());
         event.startTime = startDate.getTime();
         event.endTime = endDate.getTime();
+        event.participants.push(event.owner);
         return event;
     };
 
