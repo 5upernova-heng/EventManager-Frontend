@@ -48,7 +48,10 @@ export default function TimeContextProvider({ children }) {
         setSync(!sync);
     };
     const changeInterval = (interval) => {
-        if (interval > 60) date.setSeconds(0);
+        if (interval > 60) {
+            date.setSeconds(0);
+            date.setMinutes(date.getMinutes() - (date.getMinutes() % 5));
+        }
         if (interval > 60 * 60) date.setMinutes(0);
         setDate(date);
         setTimeInterval(interval);

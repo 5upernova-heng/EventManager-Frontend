@@ -23,6 +23,7 @@ export default function UserForm({}) {
         <div>
             <Input
                 label="用户名"
+                name="username"
                 type={"text"}
                 value={submitUser.name}
                 onChange={(e) => {
@@ -31,6 +32,7 @@ export default function UserForm({}) {
             />
             <Input
                 label="密码"
+                name="password"
                 type={"text"}
                 value={submitUser.password}
                 onChange={(e) => {
