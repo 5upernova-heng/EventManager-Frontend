@@ -20,10 +20,6 @@ export default function LoginContextProvider({ children, isLogin, setLogin }) {
                 username: username,
                 userId: username,
             });
-            setLogin(true);
-            toast("登录成功", {
-                autoClose: 3000,
-            });
             const { data } = await getOneUserApi(
                 username,
                 date.getTime(),
@@ -31,6 +27,10 @@ export default function LoginContextProvider({ children, isLogin, setLogin }) {
             );
             const { authority } = data.response;
             setAuth(authority - 1);
+            setLogin(true);
+            toast("登录成功", {
+                autoClose: 3000,
+            });
             navigate("/calendar");
         } else {
             toast("登录失败，请检查用户名和密码是否正确");

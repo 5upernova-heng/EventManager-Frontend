@@ -1,8 +1,9 @@
-const colorSet = ["primary", "danger", "success", "info", "secondary"];
+const colorSet = ["secondary", "success", "info", "danger", "primary"];
+
 const modeColorSet = ["primary", "warning"];
 // label
 // category should be two characters long
-const categoryLabel = ["课程", "考试", "个人", "团体", "临时"];
+const categoryLabel = ["临时", "个人", "团体", "考试", "课程"];
 const dayLabel = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
 const timeLabel = ["每周", "每日", "单次"];
 const viewLabel = ["非临时事件", "临时事件", "搜索"];

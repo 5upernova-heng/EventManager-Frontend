@@ -3,7 +3,8 @@ import request from "./request";
 const apiRoot = "http://localhost:5000";
 
 export async function getEventsApi(uid, time, targetId, ltime, rtime) {
-    const response = await request.get(`${apiRoot}/events`, {
+    console.log("Sending request: getEventsApi |", uid);
+    const { data } = await request.get(`${apiRoot}/events`, {
         params: {
             uid,
             time,
@@ -12,29 +13,33 @@ export async function getEventsApi(uid, time, targetId, ltime, rtime) {
             rtime,
         },
     });
-    return response;
+    console.log("Result: ", data);
+    return data;
 }
 
 export async function addEventApi(event, uid, time) {
+    console.log("Sending request: addEventApi |", uid, event);
     const { data } = await request.post(`${apiRoot}/events`, event, {
         params: {
             uid,
             time,
         },
     });
+    console.log("Result: ", data);
     return data;
 }
 
 export async function deleteEventApi(uid, time, id) {
     console.log("Sending request: deleteEventApi |", uid, time, id);
-    await request.delete(`${apiRoot}/events`, {
+    const { data } = await request.delete(`${apiRoot}/events`, {
         params: {
             uid,
             time,
             targetId: id,
         },
     });
-    return getEventsApi(uid, time, uid);
+    console.log("Result: ", data);
+    return data;
 }
 
 export async function updateEventApi(uid, time, targetId, event) {
@@ -45,14 +50,15 @@ export async function updateEventApi(uid, time, targetId, event) {
         targetId,
         event
     );
-    await request.put(`${apiRoot}/events`, event, {
+    const { data } = await request.put(`${apiRoot}/events`, event, {
         params: {
             uid,
             time,
             targetId,
         },
     });
-    return getEventsApi(uid, time, uid);
+    console.log("Result: ", data);
+    return data;
 }
 
 export async function getComingEventApi() {
@@ -66,7 +72,7 @@ export async function searchEventsApi() {
 }
 
 export async function impartMatter(userId, targetId, time, eventId) {
-    return await request.post(
+    const { data } = await request.post(
         `${apiRoot}/user/matter`,
         {},
         {
@@ -78,4 +84,31 @@ export async function impartMatter(userId, targetId, time, eventId) {
             },
         }
     );
+    console.log("Result: ", data);
+    return data;
+}
+
+export async function coverEventApi(uid, time, targetId, eventId) {
+    console.log(
+        "Sending request: coverEventApi |",
+        uid,
+        time,
+        targetId,
+        eventId
+    );
+
+    const { data } = await request.put(
+        `${apiRoot}/collide`,
+        {},
+        {
+            params: {
+                uid,
+                time,
+                targetId,
+                matterId: eventId,
+            },
+        }
+    );
+    console.log("Result: ", data);
+    return data;
 }

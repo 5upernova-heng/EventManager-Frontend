@@ -16,7 +16,7 @@ export default function TempEvents() {
                         key={index}
                         data-bs-toggle="modal"
                         data-bs-target="#modifyEvent"
-                        onClick={setEventEvent(event)}
+                        onClick={() => setEventEvent(event)}
                     >
                         <EventCard event={event} />
                     </div>

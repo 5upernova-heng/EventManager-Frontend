@@ -109,12 +109,11 @@ const EventForm = ({ id }) => {
 
     /**Render according to the auth level */
     const renderCategoryButton = () => {
-        return STYLE.categoryStyle.map((category, index) => {
-            if (auth == 0 && index < 2) {
-                category.style += " disabled";
-            }
-            return category;
-        });
+        return STYLE.categoryStyle
+            .filter((_, index) => !(auth === 0 && index < 2))
+            .map((category) => {
+                return category;
+            });
     };
 
     const renderBasicInfo = () => {

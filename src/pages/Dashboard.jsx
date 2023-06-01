@@ -25,20 +25,20 @@ function Dashboard() {
     useEffect(() => {
         // fetch coming event
         getComingEvents();
-    }, [isLogin]);
+    }, [isLogin, window.location.pathname === "/dashboard"]);
     const getComingEvents = async () => {
         const { userId } = loginAccount;
         const time = date.getTime();
         const nextDayEnd = getNextDayEndStamp(date);
-        const { data } = await getEventsApi(
+        const { response } = await getEventsApi(
             userId,
             time,
             userId,
             time,
             nextDayEnd
         );
-        if (typeof data.response === -1) toast(`找不到该用户: ${username}`);
-        else setEvents(data.response);
+        if (typeof response === -1) toast(`找不到该用户: ${username}`);
+        else setEvents(response);
     };
 
     const renderEventCards = () => {

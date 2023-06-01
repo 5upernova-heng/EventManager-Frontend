@@ -6,6 +6,7 @@ import {
     updateEventApi,
     searchEventsApi,
     impartMatter,
+    coverEventApi,
 } from "../api/eventApi";
 import { TimeContext } from "./TimeContextProvider";
 import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
@@ -44,19 +45,13 @@ export default function EventContextProvider({ children }) {
         if (isLogin) getEvents();
     }, [isLogin]);
 
-    const getEvents = async () => {
-        const { data } = await getEventsApi(uid, time, uid);
-        if (typeof data.response === -1) toast(`找不到该用户: ${username}`);
-        else setEvents(data.response);
-    };
-
     /**  Distrube events to a 2D array*/
     const distrube = () => {
         const normalEvents = [[], [], [], [], [], [], []];
         const tempEvents = [];
         events.map((event) => {
             const date = new Date(event.startTime);
-            if (event.category != 4) {
+            if (event.category != 0) {
                 if (event.doLoop == 1) {
                     for (let day = 0; day < 7; day++) {
                         normalEvents[day].push(event);
@@ -72,6 +67,12 @@ export default function EventContextProvider({ children }) {
         return { normalEvents, tempEvents };
     };
 
+    const getEvents = async () => {
+        const { response } = await getEventsApi(uid, time, uid);
+        if (response === -1) toast(`找不到该用户: ${username}`);
+        else setEvents(response);
+    };
+
     const addEvent = async (event) => {
         // add event
         const { response } = await addEventApi(event, uid, time);
@@ -85,20 +86,53 @@ export default function EventContextProvider({ children }) {
     };
 
     const updateEvent = async (newEvent) => {
-        const { data: newEvents } = await updateEventApi(
-            uid,
-            time,
-            newEvent.id,
-            newEvent
-        );
-        console.log(newEvents.response);
-        setEvents(newEvents.response);
+        const { id } = newEvent;
+        const { response } = await updateEventApi(uid, time, id, newEvent);
+        if (response === -2) {
+            toast("修改失败：与已有事件发生冲突");
+            return;
+        }
+        if (response === -1) {
+            toast("修改失败：用户不存在或权限等级不足");
+            return;
+        }
+        if (response === 2)
+            toast(
+                <>
+                    <p>"[警告]发生高权限覆盖低权限事件"</p>
+                    <p>"是否继续修改？"</p>
+                    <div className="d-flex justify-content-evenly">
+                        <button
+                            onClick={() => {
+                                coverEvent(id);
+                            }}
+                        >
+                            是
+                        </button>
+                        <button>否</button>
+                    </div>
+                </>
+            );
+        getEvents();
     };
 
     const deleteEvent = async (id) => {
-        const { data: newEvents } = await deleteEventApi(uid, time, id);
-        console.log(newEvents.response);
-        setEvents(newEvents.response);
+        const { response } = await deleteEventApi(uid, time, id);
+        if (response === 1) {
+            toast("删除失败：权限不足");
+            return;
+        }
+        if (response === -1) {
+            toast("删除失败：用户不存在");
+            return;
+        }
+        getEvents();
+    };
+
+    /**Apply event cover */
+    const coverEvent = async (eventId) => {
+        const { response } = await coverEventApi(uid, time, uid, eventId);
+        return;
     };
 
     /** Called when clicking the cell */
@@ -161,7 +195,7 @@ export default function EventContextProvider({ children }) {
         const newParticipants = participants.filter(
             (participant) => !event.participants.includes(participant)
         );
-        console.log(newParticipants);
+        console.log("new", newParticipants);
         if (newParticipants.length !== 0) {
             addParticipants(newParticipants, event).then(() => {
                 return event;
@@ -173,16 +207,16 @@ export default function EventContextProvider({ children }) {
 
     /**Add one participant for a matter*/
     const addOneParticipant = async (userId, eventId) => {
-        const { data } = await impartMatter(uid, userId, time, eventId);
-        if (data.response === -2)
+        const { response } = await impartMatter(uid, userId, time, eventId);
+        if (response === -2)
             toast("该事件与该用户的已有事件存在冲突，且优先级不足无法覆盖");
-        if (data.response === -1) toast("用户不存在或已经参加");
-        if (data.response === 1) toast("权限不足");
-        if (data.response === 2)
+        if (response === -1) toast("用户不存在或已经参加");
+        if (response === 1) toast("权限不足");
+        if (response === 2)
             toast(
                 "该事件与该用户的已有事件存在冲突，本事件优先级更高，可以覆盖"
             );
-        return data.response;
+        return response;
     };
 
     const addParticipants = async (userIdList, event) => {

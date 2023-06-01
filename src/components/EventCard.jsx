@@ -57,7 +57,7 @@ function EventCard({ event }) {
                 </div>
             </div>
             <div className="d-flex align-items-center">
-                <p className="fs-4">{`约 ${hourDiff(
+                <p className="fs-4">{`约 ${-hourDiff(
                     startTime,
                     date
                 )} 小时后`}</p>
