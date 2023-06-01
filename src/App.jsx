@@ -48,15 +48,15 @@ function App() {
             <div className="background"></div>
             <TimeContextProvider>
                 <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
-                    <EventContextProvider>
-                        <MapContextProvider>
+                    <MapContextProvider>
+                        <EventContextProvider>
                             <GroupContextProvider>
                                 <SearchContextProvider>
                                     {renderRoutes()};
                                 </SearchContextProvider>
                             </GroupContextProvider>
-                        </MapContextProvider>
-                    </EventContextProvider>
+                        </EventContextProvider>
+                    </MapContextProvider>
                 </LoginContextProvider>
             </TimeContextProvider>
         </>

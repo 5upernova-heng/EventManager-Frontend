@@ -11,11 +11,13 @@ import { TimeContext } from "./TimeContextProvider";
 import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
 import { LoginContext } from "./LoginContextProvider";
 import { toast } from "react-toastify";
+import { MapContext } from "./MapContextProvider";
 
 export const EventContext = createContext();
 
 export default function EventContextProvider({ children }) {
     const { date } = useContext(TimeContext);
+    const { getLocationName } = useContext(MapContext);
     const time = date.getTime();
     const { isLogin, loginAccount } = useContext(LoginContext);
     const { username, userId: uid } = loginAccount;
@@ -23,7 +25,7 @@ export default function EventContextProvider({ children }) {
         title: "",
         startTime: 0,
         endTime: 0,
-        location: -1,
+        locationId: -1,
         category: 0,
         doLoop: 0,
         doRemind: false,
@@ -140,8 +142,10 @@ export default function EventContextProvider({ children }) {
             startMinute,
             endMinute,
             participants,
+            locationId,
         } = data;
         const event = structuredClone(data);
+        // time
         const startDate = new Date(minutesToStamp(startMinute));
         const endDate = new Date(minutesToStamp(endMinute));
         startDate.setMonth(month);
@@ -151,11 +155,14 @@ export default function EventContextProvider({ children }) {
         endDate.setDate(startDate.getDate());
         event.startTime = startDate.getTime();
         event.endTime = endDate.getTime();
-        if (participants.length !== 0) {
-            const newParticipants = participants.filter((participant) =>
-                event.participants.includes(participant)
-            );
-            console.log(newParticipants);
+        // location
+        event.locationName = getLocationName(locationId);
+        // participants
+        const newParticipants = participants.filter(
+            (participant) => !event.participants.includes(participant)
+        );
+        console.log(newParticipants);
+        if (newParticipants.length !== 0) {
             addParticipants(newParticipants, event).then(() => {
                 return event;
             });
