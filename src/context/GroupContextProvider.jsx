@@ -13,6 +13,7 @@ import {
     updateUserApi,
 } from "../api/userApi";
 import { TimeContext } from "./TimeContextProvider";
+import { toast } from "react-toastify";
 
 export const GroupContext = createContext();
 
@@ -22,7 +23,7 @@ export default function GroupContextProvider({ children }) {
     const { auth } = useContext(LoginContext);
 
     const time = date.getTime();
-    const { userId } = loginAccount;
+    const { username: uid } = loginAccount;
     // data
     const [users, setUsers] = useState([]);
     const [groups, setGroups] = useState([]);
@@ -50,16 +51,6 @@ export default function GroupContextProvider({ children }) {
         }
     }, [auth, isLogin]);
 
-    const fetchUsers = async () => {
-        const { response } = await getUsersApi(userId, time);
-        setUsers(response);
-    };
-
-    const fetchGroup = async () => {
-        const { data } = await getGroupApi();
-        setGroups(data);
-    };
-
     /**Distrube users according to groups */
     const distrubeUser = () => {
         return groups.map((group) => {
@@ -83,6 +74,16 @@ export default function GroupContextProvider({ children }) {
         setSubmitGroup(newData);
     };
 
+    const fetchUsers = async () => {
+        const { response } = await getUsersApi(uid, time);
+        setUsers(response);
+    };
+
+    const fetchGroup = async () => {
+        const { response } = await getGroupApi(uid, time);
+        setGroups(response);
+    };
+
     // api
     const addUser = async (user) => {
         const { data: newUsers } = await addUserApi(user);
@@ -100,18 +101,35 @@ export default function GroupContextProvider({ children }) {
     };
 
     const addGroup = async (group) => {
-        const { data: newGroups } = await addGroupApi(group);
-        setGroups(newGroups);
+        const { name, members } = group;
+        const { response } = await addGroupApi(uid, time, name, members);
+        if (response === 1) {
+            toast("创建失败：权限不足");
+            return;
+        }
+        if (response === -2) {
+            toast("创建失败：存在已有组织的用户");
+            return;
+        }
+        fetchGroup();
     };
 
     const updateGroup = async (newGroup) => {
-        const { data: newGroups } = await updateGroupApi(newGroup.id, newGroup);
-        setGroups(newGroups);
+        const { response } = await updateGroupApi(newGroup.id, newGroup);
+        fetchGroup();
     };
 
     const deleteGroup = async (id) => {
-        const { data: newGroups } = await deleteGroupApi(id);
-        setGroups(newGroups);
+        const { response } = await deleteGroupApi(uid, time, id);
+        if (response === 1) {
+            toast("删除失败：权限不足");
+            return;
+        }
+        if (response === -1) {
+            toast("删除失败：用户/组织不存在");
+            return;
+        }
+        fetchGroup();
     };
 
     return (

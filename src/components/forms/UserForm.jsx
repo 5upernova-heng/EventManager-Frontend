@@ -25,7 +25,6 @@ export default function UserForm({}) {
                 label="用户名"
                 name="username"
                 type={"text"}
-                value={submitUser.name}
                 onChange={(e) => {
                     changeName(e.target.value);
                 }}
@@ -34,7 +33,6 @@ export default function UserForm({}) {
                 label="密码"
                 name="password"
                 type={"text"}
-                value={submitUser.password}
                 onChange={(e) => {
                     changePassword(e.target.value);
                 }}

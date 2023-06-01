@@ -44,6 +44,8 @@ export default function Groups() {
         );
     };
     const renderGroup = (group, index) => {
+        group.name = group.classId;
+        group.members = group.member;
         return (
             <div
                 key={index}
@@ -60,12 +62,6 @@ export default function Groups() {
             </div>
         );
     };
-    const assignUserId = () => {
-        return users[users.length - 1].id + 1;
-    };
-    const assignGroupId = () => {
-        return groups[groups.length - 1].id + 1;
-    };
     return (
         <div className="row">
             <div className="col-2"></div>
@@ -79,7 +75,12 @@ export default function Groups() {
             </div>
             <div className="col-1"></div>
             <div className="col mt-5">
-                <List title="用户" data={users} renderMethod={renderUser} />
+                <List
+                    title="用户"
+                    data={users}
+                    renderMethod={renderUser}
+                    addModalId="addUser"
+                />
             </div>
             <div className="col-2"></div>
             <Modal
@@ -91,7 +92,6 @@ export default function Groups() {
                         className="btn btn-success"
                         data-bs-dismiss="modal"
                         onClick={() => {
-                            submitGroup.id = assignGroupId();
                             addGroup(submitGroup);
                         }}
                     >
@@ -109,7 +109,7 @@ export default function Groups() {
                             className="btn btn-danger"
                             data-bs-dismiss="modal"
                             onClick={() => {
-                                deleteGroup(submitGroup.id);
+                                deleteGroup(submitGroup.name);
                             }}
                         >
                             删除
@@ -135,7 +135,6 @@ export default function Groups() {
                         className="btn btn-success"
                         data-bs-dismiss="modal"
                         onClick={() => {
-                            submitUser.id = assignUserId();
                             addUser(submitUser);
                         }}
                     >

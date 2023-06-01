@@ -8,8 +8,10 @@ function List({ title, data, renderMethod, addModalId }) {
     const renderData = () => {
         if (data === undefined || data.length === 0)
             return (
-                <div className="border rounded rounded-4 p-2 item-card">
-                    <p className={`${fontStyle}`}>{`暂无${title}`}</p>
+                <div className="border rounded rounded-4 p-2 ">
+                    <p
+                        className={`${fontStyle} text-center`}
+                    >{`暂无${title}`}</p>
                 </div>
             );
         return data.map(renderMethod);
@@ -22,7 +24,7 @@ function List({ title, data, renderMethod, addModalId }) {
                 <button
                     className="btn btn-success"
                     data-bs-toggle="modal"
-                    data-bs-target="#addGroup"
+                    data-bs-target={`#${addModalId}`}
                 >
                     {`添加${title}`}
                 </button>
