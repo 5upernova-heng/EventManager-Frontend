@@ -46,15 +46,13 @@ function App() {
                 <LoginContextProvider isLogin={isLogin} setLogin={setLogin}>
                     <AuthContextProvider>
                         <EventContextProvider>
-                            <AlarmContextProvider>
-                                <MapContextProvider>
-                                    <GroupContextProvider>
-                                        <SearchContextProvider>
-                                            {renderRoutes()};
-                                        </SearchContextProvider>
-                                    </GroupContextProvider>
-                                </MapContextProvider>
-                            </AlarmContextProvider>
+                            <MapContextProvider>
+                                <GroupContextProvider>
+                                    <SearchContextProvider>
+                                        {renderRoutes()};
+                                    </SearchContextProvider>
+                                </GroupContextProvider>
+                            </MapContextProvider>
                         </EventContextProvider>
                     </AuthContextProvider>
                 </LoginContextProvider>

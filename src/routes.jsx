@@ -30,14 +30,14 @@ export default [
         showBar: true,
         authLevel: 0,
     },
-    {
-        path: "/alarms",
-        label: "闹钟管理",
-        element: <Alarms />,
-        showOnTab: true,
-        showBar: true,
-        authLevel: 0,
-    },
+    // {
+    //     path: "/alarms",
+    //     label: "闹钟管理",
+    //     element: <Alarms />,
+    //     showOnTab: true,
+    //     showBar: true,
+    //     authLevel: 0,
+    // },
     {
         path: "/groups",
         label: "班级管理",
