@@ -14,7 +14,7 @@ export default function Groups() {
         // submit
         submitUser,
         submitGroup,
-        changeSubmitUser,
+        setSubmitUser,
         setSubmitGroup,
         // api
         addUser,
@@ -33,8 +33,7 @@ export default function Groups() {
                 data-bs-toggle="modal"
                 data-bs-target="#modifyUser"
                 onClick={() => {
-                    changeSubmitUser({ id: user });
-                    changeSubmitUser({ username: user });
+                    setSubmitUser(user);
                 }}
             >
                 <div className="d-flex align-items-center">

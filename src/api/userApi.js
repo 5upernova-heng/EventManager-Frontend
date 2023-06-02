@@ -43,7 +43,7 @@ export async function deleteUserApi(uid, time, id) {
         params: {
             uid,
             time,
-            id,
+            targetId: id,
         },
     });
     console.log("Response data of deleteUserApi:", data);

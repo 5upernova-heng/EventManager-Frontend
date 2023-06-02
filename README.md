@@ -41,9 +41,12 @@ Essiencial
    1. Time selector
    2. Choose Category
 3. With backend:
-   1. Remind Fetcher
-   1. When events are empty
-   1. toast all the errors
+   1. event 中不应该包含 start/endMinute
+   1. 添加用户时，使用 class=null 而不是空串
+   1. 添加班级时，通过 response 得到冲突的用户列表
+   1. 修改班级时，将原班级名显示出来
+   1. 修改用户时，将原用户信息显示出来
+   1. getUserInfo
    1. Call route searching after remind
 
 More:

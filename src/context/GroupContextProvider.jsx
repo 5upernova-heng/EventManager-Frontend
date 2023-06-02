@@ -36,9 +36,10 @@ export default function GroupContextProvider({ children }) {
     const emptyUser = {
         id: "",
         userName: "",
-        password: "",
         class: "",
-        authLevel: 0,
+        pwd: "",
+        authority: 1,
+        matters: [],
     };
     const emptyGroups = {
         name: "",
@@ -95,11 +96,14 @@ export default function GroupContextProvider({ children }) {
 
     // api
     const addUser = async (user) => {
+        user.class = null;
+        user.id = user.userName;
         const { response } = await addUserApi(uid, time, user);
         if (response === -1) {
-            toast("删除失败：用户名已经存在/班级不存在");
+            toast("添加失败：用户名已经存在/班级不存在");
             return;
         }
+        toast("添加成功");
         fetchUsers();
     };
 
@@ -111,14 +115,24 @@ export default function GroupContextProvider({ children }) {
             newUser
         );
         if (response === -1) {
-            toast("删除失败：用户/组织不存在");
+            toast("更新失败：用户/组织不存在");
             return;
         }
+        toast("更新成功");
         fetchUsers();
     };
 
     const deleteUser = async (id) => {
         const { response } = await deleteUserApi(uid, time, id);
+        if (response === -1) {
+            toast("删除失败：用户/组织不存在");
+            return;
+        }
+        if (response === 1) {
+            toast("删除失败：权限不足");
+            return;
+        }
+        toast("删除成功");
         fetchUsers();
     };
 
@@ -220,6 +234,7 @@ export default function GroupContextProvider({ children }) {
                 // sumbmit
                 submitUser,
                 submitGroup,
+                setSubmitUser,
                 setSubmitGroup,
                 changeSubmitUser,
                 changeSubmitGroup,
