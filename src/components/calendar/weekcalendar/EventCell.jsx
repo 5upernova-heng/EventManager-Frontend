@@ -32,8 +32,8 @@ const EventCell = ({ event }) => {
     }, [event]);
 
     const calStyle = () => {
-        const top = `${(startMinute / 288) * 100}%`;
-        const bottom = `${(1 - endMinute / 288) * 100}%`;
+        const top = `${((startMinute - 72) / 192) * 100}%`;
+        const bottom = `${(1 - (endMinute - 72) / 192) * 100}%`;
         return hover
             ? {
                   top,

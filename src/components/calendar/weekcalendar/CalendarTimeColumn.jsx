@@ -3,15 +3,15 @@
 function createCells() {
     // set border to time cells is to make should the horizontal alignment with date cells
     const cells = [];
-    for (let i = 0; i < 24; i++) {
+    for (let i = 6; i < 22; i++) {
         cells.push(
             <div
                 key={i}
-                className="p-4 position-relative border-top border-bottom border-opacity-0"
+                className="p-5 position-relative border-top border-bottom border-opacity-0"
             >
                 <div className="position-absolute top-0 start-50 translate-middle border rounded rounded-pill bg-white">
                     <p className="mb-0 fs-6 px-4 text-secondary">
-                        {i === 0 || `${String(i).padStart(2, "0")}:00`}
+                        {i === 6 || `${String(i).padStart(2, "0")}:00`}
                     </p>
                 </div>
             </div>

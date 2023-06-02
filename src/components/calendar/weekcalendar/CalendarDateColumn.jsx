@@ -10,7 +10,7 @@ import EmptyCell from "./EmptyCell";
 const CalendarDateColumn = ({ events, row }) => {
     const createCells = () => {
         const cells = [];
-        for (let i = 0; i < 24; i++) {
+        for (let i = 6; i < 22; i++) {
             cells.push(<EmptyCell key={i} row={row} col={i} />);
         }
         return cells;

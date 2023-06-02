@@ -164,7 +164,13 @@ const EventForm = ({ id }) => {
                                 aria-hidden="true"
                             ></i>
                         </button>
-                        <button className="d-flex align-items-center btn btn-primary">
+                        <button
+                            className="d-flex align-items-center btn btn-primary"
+                            data-bs-dismiss="modal"
+                            // onClick={() => {
+                            //     viewNav()
+                            // }}
+                        >
                             <p className="mb-0 pe-2">查看导航</p>
                             <i
                                 className="fa fa-location-arrow"

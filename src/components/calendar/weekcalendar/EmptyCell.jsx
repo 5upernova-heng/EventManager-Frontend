@@ -4,7 +4,7 @@ import { EventContext } from "../../../context/EventContextProvider";
 const EmptyCell = ({ row, col }) => {
     const [hover, setHover] = useState(false);
     const renderStyle = () => {
-        return hover ? "p-4 border bg-light" : "p-4 border";
+        return hover ? "p-5 border bg-light" : "p-5 border";
     };
     const { setCellEvent } = useContext(EventContext);
     return (

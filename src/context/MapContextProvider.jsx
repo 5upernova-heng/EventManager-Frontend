@@ -1,12 +1,22 @@
 import React, { createContext, useContext } from "react";
 import { useEffect, useState } from "react";
-import { findPathApi, getNodesApi, getRoutesApi } from "../api/mapApi";
+import {
+    findPathApi,
+    findRouteApi,
+    getNodesApi,
+    getRoutesApi,
+} from "../api/mapApi";
 import { maps } from "../map";
 import { LoginContext } from "./LoginContextProvider";
+import { TimeContext } from "./TimeContextProvider";
 
 export const MapContext = createContext();
 export default function MapContextProvider({ children }) {
-    const { isLogin } = useContext(LoginContext);
+    const { isLogin, loginAccount } = useContext(LoginContext);
+    const { date } = useContext(TimeContext);
+    const { userId: uid } = loginAccount;
+    const time = date.getTime();
+
     const [allNodes, setAllNodes] = useState([]);
     const [nodes, setNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
@@ -23,6 +33,8 @@ export default function MapContextProvider({ children }) {
     // view: which map should be shown
     const [view, setView] = useState(0);
     const [map, setMap] = useState(maps[view]);
+    // ride: allow ride or not
+    const [ride, setRide] = useState(true);
 
     useEffect(() => {
         // mount node and route data
@@ -105,6 +117,12 @@ export default function MapContextProvider({ children }) {
         console.log(showRoutes);
     };
 
+    const fineRoute = async () => {
+        const passBy = [...navPoints];
+        const start = navPoints.splice(0, 1);
+        const { response } = await findRouteApi(uid, time, start, passBy, ride);
+    };
+
     const getLocationName = (id) => {
         if (id < allNodes.length && id >= 0) {
             if (allNodes.length !== 0) {
@@ -139,6 +157,9 @@ export default function MapContextProvider({ children }) {
                 deleteNavPoint,
                 clearNavPoints,
                 findPath,
+                // guide option
+                ride,
+                setRide,
                 // view mode
                 mode,
                 setMode,
