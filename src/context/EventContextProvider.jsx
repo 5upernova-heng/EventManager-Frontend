@@ -5,7 +5,7 @@ import {
     deleteEventApi,
     updateEventApi,
     searchEventsApi,
-    impartMatter,
+    impartMatterApi,
     coverEventApi,
 } from "../api/eventApi";
 import { TimeContext } from "./TimeContextProvider";
@@ -210,7 +210,7 @@ export default function EventContextProvider({ children }) {
 
     /**Add one participant for a matter*/
     const addOneParticipant = async (userId, eventId) => {
-        const { response } = await impartMatter(uid, userId, time, eventId);
+        const { response } = await impartMatterApi(uid, userId, time, eventId);
         if (response === -2)
             toast("该事件与该用户的已有事件存在冲突，且优先级不足无法覆盖");
         if (response === -1) toast("用户不存在或已经参加");

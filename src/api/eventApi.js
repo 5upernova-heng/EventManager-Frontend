@@ -13,7 +13,7 @@ export async function getEventsApi(uid, time, targetId, ltime, rtime) {
             rtime,
         },
     });
-    console.log("Result: ", data);
+    console.log("Response data of getEventsApi:", data);
     return data;
 }
 
@@ -25,7 +25,7 @@ export async function addEventApi(event, uid, time) {
             time,
         },
     });
-    console.log("Result: ", data);
+    console.log("Response data of addEventApi:", data);
     return data;
 }
 
@@ -38,7 +38,7 @@ export async function deleteEventApi(uid, time, id) {
             targetId: id,
         },
     });
-    console.log("Result: ", data);
+    console.log("Response data of deleteEventApi:", data);
     return data;
 }
 
@@ -57,21 +57,17 @@ export async function updateEventApi(uid, time, targetId, event) {
             targetId,
         },
     });
-    console.log("Result: ", data);
+    console.log("Response data of updateEventApi:", data);
     return data;
 }
 
-export async function getComingEventApi() {
-    // return request.get(`${apiRoot}/coming`);
-    return request.get(`http://localhost:3000/coming`);
-}
-
+/**TODO: */
 export async function searchEventsApi() {
     const response = await request.get(`${apiRoot}/events`);
     return response;
 }
 
-export async function impartMatter(userId, targetId, time, eventId) {
+export async function impartMatterApi(userId, targetId, time, eventId) {
     const { data } = await request.post(
         `${apiRoot}/user/matter`,
         {},
@@ -84,7 +80,7 @@ export async function impartMatter(userId, targetId, time, eventId) {
             },
         }
     );
-    console.log("Result: ", data);
+    console.log("Response data of impartMatterApi:", data);
     return data;
 }
 
@@ -109,6 +105,6 @@ export async function coverEventApi(uid, time, targetId, eventId) {
             },
         }
     );
-    console.log("Result: ", data);
+    console.log("Response data of coverEventApi:", data);
     return data;
 }

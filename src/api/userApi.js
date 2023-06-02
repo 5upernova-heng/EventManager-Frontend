@@ -3,7 +3,7 @@ import request from "./request";
 const apiRoot = "http://localhost:5000";
 
 export async function getOneUserApi(uid, time, targetId) {
-    console.log("Send request: getOneUserApi");
+    console.log("Send request: getOneUserApi |", uid, time, targetId);
     const { data } = await request.get(`${apiRoot}/user`, {
         params: {
             uid,
@@ -17,7 +17,7 @@ export async function getOneUserApi(uid, time, targetId) {
 
 /**Get all user, id only */
 export async function getUsersApi(uid, time) {
-    console.log("Send request: getUsersApi");
+    console.log("Send request: getUsersApi |", uid, time);
     const { data } = await request.get(`${apiRoot}/user`, {
         params: {
             uid,
@@ -29,7 +29,7 @@ export async function getUsersApi(uid, time) {
 }
 
 export async function addUserApi(uid, time, user) {
-    console.log("Send request: addUserApi");
+    console.log("Send request: addUserApi |", uid, time, user);
     const { data } = await request.post(`${apiRoot}/user`, user, {
         params: { uid, time },
     });
@@ -38,7 +38,7 @@ export async function addUserApi(uid, time, user) {
 }
 
 export async function deleteUserApi(uid, time, id) {
-    console.log("Send request: deleteUserApi");
+    console.log("Send request: deleteUserApi |", uid, time, id);
     const { data } = await request.delete(`${apiRoot}/user`, {
         params: {
             uid,
@@ -51,7 +51,7 @@ export async function deleteUserApi(uid, time, id) {
 }
 
 export async function updateUserApi(uid, time, targetId, user) {
-    console.log("Send request: editUsersApi");
+    console.log("Send request: editUsersApi |", uid, time, targetId, user);
     const { data } = await request.put(`${apiRoot}/user`, user, {
         params: {
             uid,
