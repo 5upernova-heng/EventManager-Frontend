@@ -34,8 +34,8 @@ export default function EventContextProvider({ children }) {
         locationId: -1,
         category: 0,
         doLoop: 0,
-        doRemind: false,
-        owner: username,
+        doRemind: true,
+        owner: uid,
         participants: [],
     };
     /** All events in an array */
@@ -223,6 +223,12 @@ export default function EventContextProvider({ children }) {
     const setEventEvent = (event) => {
         setChoosedEvent(event);
     };
+
+    /**1. set event startPoint and passby to nav
+     * 2. navigate to map page
+     * 3. find the route and show it
+     */
+    const eventToNav = (event) => {};
 
     /**Temp event that wait for submit
      * It will update when choosedEvent changes.
