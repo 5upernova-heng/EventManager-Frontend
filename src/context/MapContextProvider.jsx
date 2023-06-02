@@ -43,6 +43,10 @@ export default function MapContextProvider({ children }) {
         setShowAllNodes(selectedNav === -1 ? false : true);
     }, [selectedNav]);
 
+    const initNodes = () => {
+        setNodes(distrubeNodes());
+    };
+
     const distrubeNodes = () => {
         const distNodes = [];
         const [minIndex, maxIndex] = [...map.nodeRange];
@@ -114,6 +118,7 @@ export default function MapContextProvider({ children }) {
                 // utils
                 getLocationName,
                 allNodes,
+                initNodes,
                 // Map Props
                 map,
                 nodes,

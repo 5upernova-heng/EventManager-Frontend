@@ -4,7 +4,7 @@ import { MapContext } from "../../context/MapContextProvider";
 import "/src/styles/LiveMap.css";
 
 function LiveMap({}) {
-    const { map, routes, nodes, showAllTips, setShowAllTips } =
+    const { map, routes, nodes, showAllTips, setShowAllTips, initNodes } =
         useContext(MapContext);
     const {
         name,
@@ -29,6 +29,7 @@ function LiveMap({}) {
 
     useEffect(() => {
         imageDivRef.current.addEventListener("wheel", preventDefaultBehave);
+        initNodes();
     }, []);
 
     useEffect(() => {
