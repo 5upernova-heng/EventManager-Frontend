@@ -15,6 +15,7 @@ export default function MapContextProvider({ children }) {
     const [allNodes, setAllNodes] = useState([]);
     const [nodes, setNodes] = useState([]);
     const [routes, setRoutes] = useState([]);
+    const [allRoutes, setAllRoutes] = useState([]);
 
     const [showAllNodes, setShowAllNodes] = useState(true);
     const [showAllTips, setShowAllTips] = useState(false);
@@ -41,7 +42,8 @@ export default function MapContextProvider({ children }) {
 
     useEffect(() => {
         setNodes(distrubeNodes());
-    }, [view, map]);
+        setRoutes(distrubeRoutes());
+    }, [view, map, allRoutes]);
 
     useEffect(() => {
         setShowAllNodes(selectedNav === -1 ? false : true);
@@ -100,13 +102,19 @@ export default function MapContextProvider({ children }) {
         setSelected(-1);
     };
 
-    const findPath = async () => {
-        setRoutes([]);
-        const { data: path } = await findPathApi();
-        console.log("found");
-        setRoutes(path);
-        setShowRoutes(true);
-        console.log(showRoutes);
+    const distrubeRoutes = () => {
+        const distRoutes = [];
+        const [minIndex, maxIndex] = [...map.nodeRange];
+        allRoutes.map((route) => {
+            if (
+                minIndex <= route[0] &&
+                route[0] <= maxIndex &&
+                minIndex <= route[1] &&
+                route[1] <= maxIndex
+            )
+                distRoutes.push(route);
+        });
+        return distRoutes;
     };
 
     const findRoute = async () => {
@@ -116,7 +124,7 @@ export default function MapContextProvider({ children }) {
         const resultRoutes = response.map((route) => {
             return [route.start, route.end, route.bike];
         });
-        setRoutes(resultRoutes);
+        setAllRoutes(resultRoutes);
     };
 
     const getLocationName = (id) => {
@@ -152,7 +160,6 @@ export default function MapContextProvider({ children }) {
                 addNavPoint,
                 deleteNavPoint,
                 clearNavPoints,
-                findPath,
                 findRoute,
                 // guide option
                 ride,

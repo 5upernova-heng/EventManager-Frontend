@@ -12,6 +12,7 @@ function LiveMap({}) {
         showAllTips,
         setShowAllTips,
         initNodes,
+        allNodes,
     } = useContext(MapContext);
     const { name, imgWidth, imgHeight, src, fixedX, fixedY, scaleRange } = map;
 
@@ -39,8 +40,8 @@ function LiveMap({}) {
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             routes.map((route) => {
-                const { x: x1, y: y1 } = nodes[route[0]];
-                const { x: x2, y: y2 } = nodes[route[1]];
+                const { x: x1, y: y1 } = allNodes[route[0]];
+                const { x: x2, y: y2 } = allNodes[route[1]];
                 drawLine(context, x1, y1, x2, y2, 5);
             });
         }
