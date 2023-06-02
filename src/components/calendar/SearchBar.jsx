@@ -27,7 +27,8 @@ export default function SearchBar() {
                     if (searchLabels.every((value) => !value)) {
                         toast("最少选择一个搜索标签哦~");
                     } else {
-                        const keyWordList = inputStr.split(" ");
+                        const keyWordList =
+                            inputStr === "" ? [] : inputStr.split(" ");
                         searchEvent(keyWordList);
                         setView(2);
                     }

@@ -42,9 +42,6 @@ Essiencial
    2. Choose Category
 3. With backend:
    1. event 中不应该包含 start/endMinute
-   1. 不允许修改事件类型
-   1. 临时事件不允许 doLoop 强制为 0
-   1. 课程和考试强制 doRemind
    1. Call route searching after remind
 
 More:
