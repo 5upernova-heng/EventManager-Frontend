@@ -110,7 +110,9 @@ const EventForm = ({ id }) => {
     /**Render according to the auth level */
     const renderCategoryButton = () => {
         return STYLE.categoryStyle
-            .filter((_, index) => !(auth === 0 && index < 2))
+            .filter((_, index) => {
+                return !(auth === 0 && index < 2) && id !== "modify";
+            })
             .map((category) => {
                 return category;
             });
