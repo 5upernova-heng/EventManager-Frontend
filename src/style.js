@@ -5,7 +5,7 @@ const modeColorSet = ["primary", "warning"];
 // category should be two characters long
 const categoryLabel = ["临时", "个人", "团体", "考试", "课程"];
 const dayLabel = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
-const timeLabel = ["每周", "每日", "单次"];
+const timeLabel = ["单次", "每日", "每周"];
 const viewLabel = ["非临时事件", "临时事件", "搜索"];
 const authLabel = ["学生", "教师", "管理员"];
 const mapModeLabel = ["单点寻路", "多点寻路"];

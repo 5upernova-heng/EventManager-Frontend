@@ -79,14 +79,20 @@ export default function EventContextProvider({ children }) {
         const { response } = await addEventApi(event, uid, time);
         const { participants, owner } = data;
         // impart owner
-        if (response.state !== 0) toast("添加失败");
-        else {
-            // impart participants
-            event.id = response.id;
-            if (!participants.includes(owner)) participants.push(owner);
-            await syncParticipants(participants, event);
-            getEvents();
+        if (response.state === -1) {
+            toast("添加失败：操作者不存在");
+            return;
         }
+        if (response.state === 1) {
+            toast("添加失败：权限不足");
+            return;
+        }
+        toast("添加事件成功");
+        // impart participants
+        event.id = response.id;
+        if (!participants.includes(owner)) participants.push(owner);
+        await syncParticipants(participants, event);
+        getEvents();
     };
 
     const updateEvent = async (newEvent, data) => {
@@ -136,12 +142,17 @@ export default function EventContextProvider({ children }) {
             toast("删除失败：用户不存在");
             return;
         }
+        toast("删除成功");
         getEvents();
     };
 
     /**Apply event cover */
     const coverEvent = async (eventId) => {
         const { response } = await coverEventApi(uid, time, uid, eventId);
+        if (response === -1) toast("覆盖失败");
+        if (response === 1) toast("覆盖失败：权限不足");
+        toast("覆盖成功");
+        getEvents();
         return;
     };
 
@@ -205,17 +216,6 @@ export default function EventContextProvider({ children }) {
         event.locationName = getLocationName(locationId);
         // participants
         return event;
-        const newParticipants = participants.filter(
-            (participant) => !choosedEvent.participants.includes(participant)
-        );
-        console.log("new", newParticipants);
-        if (newParticipants.length !== 0) {
-            addParticipants(newParticipants, event).then(() => {
-                return event;
-            });
-        } else {
-            return event;
-        }
     };
 
     /**Add one participant for a matter*/
@@ -227,7 +227,26 @@ export default function EventContextProvider({ children }) {
         if (response === 1) toast("权限不足");
         if (response === 2)
             toast(
-                `事件与用户 ${userId} 的已有事件存在冲突，本事件优先级更高，可以覆盖`
+                <>
+                    <p>
+                        "[警告]该事件和用户 {userId}
+                        的已有事件存在冲突，但因为优先级更高，可以覆盖"
+                    </p>
+                    <p>"是否继续修改？"</p>
+                    <div className="d-flex justify-content-evenly">
+                        <button
+                            onClick={() => {
+                                coverEvent(eventId);
+                            }}
+                        >
+                            是
+                        </button>
+                        <button>否</button>
+                    </div>
+                </>,
+                {
+                    autoClose: false,
+                }
             );
         return response;
     };
