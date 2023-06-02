@@ -15,7 +15,7 @@ const EventCell = ({ event }) => {
     const { setEventEvent } = useContext(EventContext);
     // data
     const { getLocationName } = useContext(MapContext);
-    const { startTime, endTime, title, location, category, doLoop } = event;
+    const { startTime, endTime, title, locationId, category, doLoop } = event;
     const startMinute = stampTo5Minutes(startTime);
     const endMinute = stampTo5Minutes(endTime);
     // auth
@@ -79,7 +79,7 @@ const EventCell = ({ event }) => {
             <p
                 className="fs-6 mb-0 text-white"
                 style={{ whiteSpace: "pre-line" }}
-            >{`${getLocationName(location)}`}</p>
+            >{`${getLocationName(locationId)}`}</p>
         </div>
     );
 };

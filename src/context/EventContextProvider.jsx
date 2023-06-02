@@ -112,7 +112,7 @@ export default function EventContextProvider({ children }) {
             toast("修改失败：用户不存在或权限等级不足");
             return;
         }
-        if (response === 2)
+        if (response === 2) {
             toast(
                 <>
                     <p>"[警告]本次修改发生了高权限覆盖低权限事件"</p>
@@ -132,8 +132,11 @@ export default function EventContextProvider({ children }) {
                     autoClose: false,
                 }
             );
+            return;
+        }
         await syncParticipants(participants, newEvent);
         getEvents();
+        toast("事件修改成功");
     };
 
     const deleteEvent = async (id) => {

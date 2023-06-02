@@ -25,7 +25,7 @@ const EventForm = ({ id }) => {
         category,
         doLoop,
         doRemind,
-        location,
+        locationId,
         owner,
         participants,
     } = submitData;
@@ -87,8 +87,8 @@ const EventForm = ({ id }) => {
     const changeDay = (day) => {
         changeData({ day });
     };
-    const changeLocation = (location) => {
-        changeData({ location });
+    const changeLocation = (locationId) => {
+        changeData({ locationId });
     };
     const toggleMember = (id) => {
         if (participants.includes(id)) {
@@ -139,7 +139,7 @@ const EventForm = ({ id }) => {
                     />
                     <div className="mt-2">
                         <p className="mb-0">{`事件地点：${getLocationName(
-                            location
+                            locationId
                         )}`}</p>
                     </div>
                     <div className="d-flex justify-content-between align-items-center mt-2">
@@ -321,7 +321,7 @@ const EventForm = ({ id }) => {
                 id="mapCollapse"
             >
                 <LocationSelector
-                    selected={location}
+                    selected={locationId}
                     changeLocation={changeLocation}
                 />
             </div>

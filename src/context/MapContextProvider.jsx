@@ -99,7 +99,10 @@ export default function MapContextProvider({ children }) {
 
     const findPath = async () => {
         const { data: path } = await findPathApi();
+        console.log("found");
         setRoutes(path);
+        setShowRoutes(true);
+        console.log(showRoutes);
     };
 
     const getLocationName = (id) => {

@@ -4,18 +4,16 @@ import { MapContext } from "../../context/MapContextProvider";
 import "/src/styles/LiveMap.css";
 
 function LiveMap({}) {
-    const { map, routes, nodes, showAllTips, setShowAllTips, initNodes } =
-        useContext(MapContext);
     const {
-        name,
-        imgWidth,
-        imgHeight,
-        src,
-        fixedX,
-        fixedY,
+        map,
+        routes,
         showRoutes,
-        scaleRange,
-    } = map;
+        nodes,
+        showAllTips,
+        setShowAllTips,
+        initNodes,
+    } = useContext(MapContext);
+    const { name, imgWidth, imgHeight, src, fixedX, fixedY, scaleRange } = map;
 
     const [scale, setScale] = useState(1);
     const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
@@ -33,7 +31,9 @@ function LiveMap({}) {
     }, []);
 
     useEffect(() => {
+        console.log(showRoutes);
         if (showRoutes) {
+            console.log("T");
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             routes.map((route) => {
