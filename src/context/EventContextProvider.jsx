@@ -296,6 +296,7 @@ export default function EventContextProvider({ children }) {
                 toast(
                     `添加用户 ${userId} 到此事件失败：与已有事件发生冲突且无法覆盖`
                 );
+                await deleteEvent(event.id);
             }
         }
         if (response === -1) toast("用户不存在或已经参加");
