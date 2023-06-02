@@ -167,3 +167,23 @@ export async function coverEventApi(uid, time, targetId, eventId) {
     console.log("Response data of coverEventApi:", data);
     return data;
 }
+
+export async function getAvailableTimeApi(uid, time, length, loop) {
+    console.log(
+        "Sending request: getAvailableTimeApi |",
+        uid,
+        time,
+        length,
+        loop
+    );
+    const { data } = await request.get(`${apiRoot}/getavailable`, {
+        params: {
+            uid,
+            time,
+            length,
+            loop,
+        },
+    });
+    console.log("Response data of getAvailableTimeApi:", data);
+    return data;
+}

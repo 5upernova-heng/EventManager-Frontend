@@ -39,12 +39,23 @@ const EventForm = ({ id }) => {
     const categoryLabel = STYLE.getCategoryLabel(category);
     const intervalLabel = STYLE.getLoopLabel(doLoop);
 
+    /**up and down limit of a days' event */
+    const upLimit = category < 3 ? 6 : 8;
+    const downLimit = category < 3 ? 21 : 19;
+    const duration = category < 3 ? 1 : 3;
+
+    const renderStartRangeLabel = () => {
+        return category < 3
+            ? `${minutesToString(startMinute)} -- ${minutesToString(endMinute)}`
+            : `开始时间: ${minutesToString(startMinute)}`;
+    };
+
     const changeStartMinute = (startMinute) => {
         //
-        if (startMinute + 36 < endMinute) {
+        if (startMinute + duration * 12 < endMinute) {
             changeData({
                 startMinute,
-                endMinute: startMinute + 36,
+                endMinute: startMinute + duration * 12,
             });
             setEndKey(endMinute);
             return;
@@ -68,9 +79,9 @@ const EventForm = ({ id }) => {
             setStartKey(startMinute);
             return;
         }
-        if (startMinute < endMinute - 36) {
+        if (startMinute < endMinute - duration * 12) {
             changeData({
-                startMinute: endMinute - 36,
+                startMinute: endMinute - duration * 12,
                 endMinute,
             });
             setStartKey(startMinute);
@@ -239,14 +250,14 @@ const EventForm = ({ id }) => {
                             <Range
                                 id={`month-${id}`}
                                 key={`month-${rangeKey}`}
-                                label={`月: ${month}`}
+                                label={`月: ${parseInt(month) + 1}`}
                                 value={month}
                                 changeHandler={(event) => {
                                     changeData({
                                         month: event.target.value,
                                     });
                                 }}
-                                rangeAttrs={{ min: 1, max: 12, step: 1 }}
+                                rangeAttrs={{ min: 0, max: 11, step: 1 }}
                             />
                         </div>
                         <div className="col">
@@ -274,25 +285,35 @@ const EventForm = ({ id }) => {
                 <Range
                     key={`${startKey}-${rangeKey}`}
                     id={`startTime-${id}`}
-                    label={`开始时间: ${minutesToString(startMinute)}`}
+                    label={renderStartRangeLabel()}
                     value={startMinute}
                     changeHandler={(event) => {
                         const newStartMinute = Number(event.target.value);
                         changeStartMinute(newStartMinute);
                     }}
-                    rangeAttrs={{ min: 0, max: 288, step: 1 }}
-                />
-                <Range
-                    key={`${endKey}-${rangeKey}`}
-                    id={`endTime-${id}`}
-                    label={`结束时间: ${minutesToString(endMinute)}`}
-                    value={endMinute}
-                    changeHandler={(event) => {
-                        const newEndMinute = Number(event.target.value);
-                        changeEndMinute(newEndMinute);
+                    rangeAttrs={{
+                        min: upLimit * 12,
+                        max: downLimit * 12,
+                        step: 1,
                     }}
-                    rangeAttrs={{ min: 0, max: 288, step: 1 }}
                 />
+                {category > 2 && (
+                    <Range
+                        key={`${endKey}-${rangeKey}`}
+                        id={`endTime-${id}`}
+                        label={`结束时间: ${minutesToString(endMinute)}`}
+                        value={endMinute}
+                        changeHandler={(event) => {
+                            const newEndMinute = Number(event.target.value);
+                            changeEndMinute(newEndMinute);
+                        }}
+                        rangeAttrs={{
+                            min: upLimit * 12,
+                            max: downLimit * 12,
+                            step: 1,
+                        }}
+                    />
+                )}
             </>
         );
     };

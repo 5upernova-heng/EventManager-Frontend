@@ -37,11 +37,12 @@ yarn dev
 Essiencial
 
 1. Remind
-2. Search
-   1. Time selector
-   2. Choose Category
-3. With backend:
-   1. event 中不应该包含 start/endMinute
+   1. = 0 时不显示
+
+2. With backend:
+   1. 活动时间的上下限
+   1. 课外/临时活动最多一个小时
+   1. 只有课外活动才需要提醒可用时间
    1. Call route searching after remind
 
 More:

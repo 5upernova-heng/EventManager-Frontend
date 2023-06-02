@@ -7,9 +7,14 @@ import {
     impartMatterApi,
     coverEventApi,
     quitMatterApi,
+    getAvailableTimeApi,
 } from "../api/eventApi";
 import { TimeContext } from "./TimeContextProvider";
-import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
+import {
+    minutesToStamp,
+    stampTo5Minutes,
+    stampToString,
+} from "../utils/calDate";
 import { LoginContext } from "./LoginContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "./MapContextProvider";
@@ -95,7 +100,7 @@ export default function EventContextProvider({ children }) {
     };
 
     const updateEvent = async (newEvent, data, confirm) => {
-        const { id } = newEvent;
+        const { id, category } = newEvent;
         const { participants } = data;
         const { response } = await updateEventApi(
             uid,
@@ -105,7 +110,21 @@ export default function EventContextProvider({ children }) {
             confirm
         );
         if (response === -2) {
-            toast("修改失败：与已有事件发生冲突");
+            /**TODO: */
+            const availableTime = await getAvailableTime(newEvent);
+            if (category < 3) {
+                toast(
+                    <>
+                        <p className="mb-0 fw-bold">
+                            修改失败：与已有事件发生冲突
+                        </p>
+                        <p className="mb-0 fw-bold">可以选择以下时间段：</p>
+                        {availableTime}
+                    </>
+                );
+            } else {
+                toast("修改失败：与已有事件发生冲突且无法覆盖");
+            }
             return;
         }
         if (response === -1) {
@@ -172,6 +191,24 @@ export default function EventContextProvider({ children }) {
         getEvents();
         return;
     };
+
+    /**Return three available time */
+    const getAvailableTime = async (newEvent) => {
+        const { startTime, endTime, doLoop } = newEvent;
+        const duration = endTime - startTime;
+        const { response } = await getAvailableTimeApi(
+            uid,
+            time,
+            duration,
+            doLoop
+        );
+        return response.map((availableTime) => {
+            const startStr = stampToString(availableTime.startTime);
+            const endStr = stampToString(availableTime.endTime);
+            return <p className="mb-0">{`${startStr} -- ${endStr}`};</p>;
+        });
+    };
+
     /** Called when clicking the cell */
     const setCellEvent = (row, col) => {
         const startTime = new Date(date);
@@ -235,10 +272,27 @@ export default function EventContextProvider({ children }) {
     };
 
     /**Add one participant for a matter*/
-    const addOneParticipant = async (userId, eventId) => {
-        const { response } = await impartMatterApi(uid, userId, time, eventId);
-        if (response === -2)
-            toast("该事件与该用户的已有事件存在冲突，且优先级不足无法覆盖");
+    const addOneParticipant = async (userId, event) => {
+        const { id, category } = event;
+        const { response } = await impartMatterApi(uid, userId, time, id);
+        if (response === -2) {
+            const availableTime = await getAvailableTime(event);
+            if (category < 3) {
+                toast(
+                    <>
+                        <p className="mb-0 fw-bold">
+                            添加用户 {userId} 到此事件失败：与已有事件发生冲突
+                        </p>
+                        <p className="mb-0 fw-bold">可以选择以下时间段：</p>
+                        {availableTime}
+                    </>
+                );
+            } else {
+                toast(
+                    `添加用户 ${userId} 到此事件失败：与已有事件发生冲突且无法覆盖`
+                );
+            }
+        }
         if (response === -1) toast("用户不存在或已经参加");
         if (response === 1) toast("权限不足");
         if (response === 2)
@@ -252,7 +306,7 @@ export default function EventContextProvider({ children }) {
                     <div className="d-flex justify-content-evenly">
                         <button
                             onClick={() => {
-                                coverNewEvent(eventId);
+                                coverNewEvent(id);
                             }}
                         >
                             是
@@ -290,7 +344,7 @@ export default function EventContextProvider({ children }) {
                 newParticipants.map((participant) => {
                     if (!oldParticipants.includes(participant)) {
                         console.log("ADD");
-                        return addOneParticipant(participant, event.id);
+                        return addOneParticipant(participant, event);
                     }
                 })
             ),
