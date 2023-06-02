@@ -36,14 +36,10 @@ yarn dev
 
 Essiencial
 
-1. Calendar：
-   1. 单次时间不应该显示在每周的日历上
-   2. 切换视图
-
-2. Remind
+1. Remind
    1. 消息提醒应该为全局，而不是组件级别
 
-3. With backend:
+2. With backend:
    1. Call route searching after remind
 
 More:

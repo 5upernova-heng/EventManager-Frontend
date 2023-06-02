@@ -110,7 +110,6 @@ export default function EventContextProvider({ children }) {
             confirm
         );
         if (response === -2) {
-            /**TODO: */
             const availableTime = await getAvailableTime(newEvent);
             if (category < 3) {
                 toast(
