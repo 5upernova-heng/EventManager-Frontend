@@ -16,6 +16,10 @@ export default function ReminderBar() {
     const fetchMessage = async () => {
         const { response } = await getAllRemindsApi(userId, time);
         if (response.length > 0) {
+            console.log("Receive reminder:", time, response);
+            response.map((message) => {
+                message.time = time;
+            });
             const newMessages = messages.concat(response);
             setMessages(newMessages);
         }
