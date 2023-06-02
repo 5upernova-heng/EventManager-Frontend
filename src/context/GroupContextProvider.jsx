@@ -11,6 +11,8 @@ import {
     addUserApi,
     deleteUserApi,
     updateUserApi,
+    joinClassApi,
+    quitClassApi,
 } from "../api/userApi";
 import { TimeContext } from "./TimeContextProvider";
 import { toast } from "react-toastify";
@@ -33,7 +35,7 @@ export default function GroupContextProvider({ children }) {
     // submit
     const emptyUser = {
         id: "",
-        username: "",
+        userName: "",
         password: "",
         class: "",
         authLevel: 0,
@@ -76,6 +78,11 @@ export default function GroupContextProvider({ children }) {
         setSubmitGroup(newData);
     };
 
+    const getUserName = (id) => {
+        const index = users.indexOf(id);
+        return index === -1 ? "未知" : users[index].userName;
+    };
+
     const fetchUsers = async () => {
         const { response } = await getUsersApi(uid, time);
         setUsers(response);
@@ -88,7 +95,6 @@ export default function GroupContextProvider({ children }) {
 
     // api
     const addUser = async (user) => {
-        user.id = user.username;
         const { response } = await addUserApi(uid, time, user);
         if (response === -1) {
             toast("删除失败：用户名已经存在/班级不存在");
@@ -116,15 +122,64 @@ export default function GroupContextProvider({ children }) {
         fetchUsers();
     };
 
+    const joinClass = async (userId, classId) => {
+        const { response } = await joinClassApi(uid, time, userId, classId);
+        if (response === -1) {
+            toast("加入用户失败：找不到班级/用户，或该用户已有班级");
+            return response;
+        }
+        if (response === 1) {
+            toast("加入用户失败：权限不足");
+            return response;
+        }
+        if (response === -2) {
+            toast("加入用户失败：该用户已经加入其他班级");
+            return response;
+        }
+        toast("加入成功");
+        fetchUsers();
+        fetchGroup();
+        return 0;
+    };
+
+    const quitClass = async (userId) => {
+        const { response } = await quitClassApi(uid, time, userId);
+        if (response === -1) {
+            toast("删除用户失败：找不到班级/用户");
+            return response;
+        }
+        if (response === 1) {
+            toast("删除用户失败：权限不足");
+            return response;
+        }
+        toast("删除成功");
+        fetchUsers();
+        fetchGroup();
+        return response;
+    };
+
     const addGroup = async (group) => {
         const { name, members } = group;
         const { response } = await addGroupApi(uid, time, name, members);
+        if (response === -1) {
+            toast("创建失败：班级已存在 或 加入了未知用户");
+            return;
+        }
         if (response === 1) {
             toast("创建失败：权限不足");
             return;
         }
-        if (response === -2) {
-            toast("创建失败：存在已有组织的用户");
+        if (typeof response === "object") {
+            const duplicateMember = response.reduce(
+                (str, member) => `${str} ${member}`,
+                ""
+            );
+            toast(
+                <div>
+                    <p className="mb-0">{`创建失败：存在已有组织的用户`}</p>
+                    <p>{duplicateMember}</p>
+                </div>
+            );
             return;
         }
         fetchUsers();
@@ -156,6 +211,7 @@ export default function GroupContextProvider({ children }) {
                 // data
                 users,
                 distrubeUser,
+                getUserName,
                 // view
                 selectedUser,
                 setSelectedUser,
@@ -171,6 +227,8 @@ export default function GroupContextProvider({ children }) {
                 addUser,
                 deleteUser,
                 updateUser,
+                joinClass,
+                quitClass,
                 addGroup,
                 deleteGroup,
                 updateGroup,

@@ -62,3 +62,40 @@ export async function updateUserApi(uid, time, targetId, user) {
     console.log("Response data of editUserApi:", data);
     return data;
 }
+
+export async function joinClassApi(uid, time, targetUserId, classId) {
+    console.log(
+        "Send request: joinClassApi |",
+        uid,
+        time,
+        targetUserId,
+        classId
+    );
+    const { data } = await request.post(
+        `${apiRoot}/user/class`,
+        {},
+        {
+            params: {
+                uid: uid,
+                time,
+                targetId: targetUserId,
+                name: classId,
+            },
+        }
+    );
+    console.log("Response data of joinClassApi:", data);
+    return data;
+}
+
+export async function quitClassApi(uid, time, targetUserId) {
+    console.log("Send request: quitClassApi |", uid, time, targetUserId);
+    const { data } = await request.delete(`${apiRoot}/user/class`, {
+        params: {
+            uid,
+            time,
+            targetId: targetUserId,
+        },
+    });
+    console.log("Response data of quitClassApi:", data);
+    return data;
+}

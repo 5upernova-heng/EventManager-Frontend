@@ -4,7 +4,7 @@ import { GroupContext } from "../../context/GroupContextProvider";
 export default function MemberSelector({ members, toggleMember }) {
     const { users } = useContext(GroupContext);
     const renderUsers = (users) => {
-        return users.map((id, index) => {
+        return users.map((user, index) => {
             return (
                 <span
                     style={{
@@ -12,13 +12,15 @@ export default function MemberSelector({ members, toggleMember }) {
                     }}
                     key={index}
                     onClick={() => {
-                        toggleMember(id);
+                        toggleMember(user.id);
                     }}
                     className={`${
-                        members.includes(id) ? "bg-primary" : "bg-secondary"
+                        members.includes(user.id)
+                            ? "bg-primary"
+                            : "bg-secondary"
                     } d-inline-block mx-1 my-1 border px-2 py-1 rounded rounded-pill opacity-75`}
                 >
-                    <p className="mb-0 fs-6 text-white">{id}</p>
+                    <p className="mb-0 fs-6 text-white">{user.userName}</p>
                 </span>
             );
         });

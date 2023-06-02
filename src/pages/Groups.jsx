@@ -22,7 +22,6 @@ export default function Groups() {
         updateUser,
         addGroup,
         deleteGroup,
-        updateGroup,
     } = useContext(GroupContext);
     const groups = distrubeUser();
     const fontStyle = "fw-bold fs-5 mb-0";
@@ -39,7 +38,7 @@ export default function Groups() {
                 }}
             >
                 <div className="d-flex align-items-center">
-                    <p className={`ps-1 ${fontStyle}`}>{user}</p>
+                    <p className={`ps-1 ${fontStyle}`}>{user.userName}</p>
                 </div>
             </div>
         );
@@ -87,7 +86,7 @@ export default function Groups() {
             <Modal
                 id="addGroup"
                 headerLabel="添加组织"
-                bodyComponent={<GroupForm />}
+                bodyComponent={<GroupForm disableInput={false} />}
                 footerComponent={
                     <button
                         className="btn btn-success"
@@ -103,7 +102,7 @@ export default function Groups() {
             <Modal
                 id="modifyGroup"
                 headerLabel="修改组织"
-                bodyComponent={<GroupForm />}
+                bodyComponent={<GroupForm disableInput={true} />}
                 footerComponent={
                     <>
                         <button
@@ -114,15 +113,6 @@ export default function Groups() {
                             }}
                         >
                             删除
-                        </button>
-                        <button
-                            className="btn btn-primary"
-                            data-bs-dismiss="modal"
-                            onClick={() => {
-                                updateGroup(submitGroup);
-                            }}
-                        >
-                            确认提交
                         </button>
                     </>
                 }
