@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { getDayString, getTimeString, stampToDay } from "../utils/calDate";
+import { getDateString, getTimeString, stampToDay } from "../utils/calDate";
 import STYLE from "../style";
 import { MapContext } from "../context/MapContextProvider";
 import { TimeContext } from "../context/TimeContextProvider";
@@ -8,8 +8,13 @@ import { TimeContext } from "../context/TimeContextProvider";
 function EventCard({ event }) {
     const [hover, setHover] = useState(false);
     const { startTime, endTime, title, doLoop, category, location } = event;
-    const { date } = useContext(TimeContext);
     const { getLocationName } = useContext(MapContext);
+    const date = new Date(startTime);
+    const dateStr = getDateString(
+        date.getFullYear(),
+        date.getMonth(),
+        date.getDate()
+    );
 
     const parseTimeString = (timeStamp) => {
         const date = new Date(timeStamp);
@@ -50,6 +55,9 @@ function EventCard({ event }) {
                         STYLE.timeLabel[doLoop]
                     } ${dayStr} | ${getLocationName(location)}`}</p>
                 </div>
+            </div>
+            <div className="d-flex align-items-center">
+                <p className="fs-4">{`${dateStr}`}</p>
             </div>
         </div>
     );
