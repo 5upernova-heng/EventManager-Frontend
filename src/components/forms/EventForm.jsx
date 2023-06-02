@@ -118,6 +118,12 @@ const EventForm = ({ id }) => {
             });
     };
 
+    const renderDoLoopButton = () => {
+        return STYLE.parseButtonInfo(STYLE.timeStyle, doLoop).filter(
+            (_, index) => category > 0 || index === 0
+        );
+    };
+
     const renderBasicInfo = () => {
         return (
             <>
@@ -169,7 +175,7 @@ const EventForm = ({ id }) => {
                 </label>
                 <Switch
                     id={id}
-                    isOn={doRemind}
+                    isOn={doRemind || category > 2}
                     size="md"
                     toggleHandler={toggleRemind}
                 />
@@ -210,10 +216,7 @@ const EventForm = ({ id }) => {
                 <div className="my-2">{`周期性：${intervalLabel}`}</div>
                 <div className="d-flex flex-column justify-content-center align-items-center mb-2">
                     <SelectButtonGroup
-                        buttonsInfo={STYLE.parseButtonInfo(
-                            STYLE.timeStyle,
-                            doLoop
-                        )}
+                        buttonsInfo={renderDoLoopButton()}
                         changeSelect={changeInterval}
                     />
                     {doLoop != 0 ? (
@@ -230,7 +233,7 @@ const EventForm = ({ id }) => {
                         </div>
                     )}
                 </div>
-                {doLoop == 2 ? (
+                {doLoop == 0 ? (
                     <div className="row">
                         <div className="col">
                             <Range

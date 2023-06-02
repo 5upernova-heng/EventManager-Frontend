@@ -3,6 +3,7 @@ import { clearSearchApi, searchEventsApi } from "../api/eventApi";
 import { minutesToDate } from "../utils/calDate";
 import { LoginContext } from "./LoginContextProvider";
 import { TimeContext } from "./TimeContextProvider";
+import { toast } from "react-toastify";
 
 export const SearchContext = createContext();
 
@@ -75,7 +76,7 @@ export default function SearchContextProvider({ children }) {
         const searchLabel = [];
         if (searchLabels[0]) searchLabel.push("title");
         if (searchLabels[1]) searchLabel.push("locationName");
-        if (searchLabels[2]) searchLabel.push("participants");
+        if (searchLabels[2]) searchLabel.push("owner");
         const otherLabels = {};
         if (filterLabels[0])
             otherLabels.time = {
@@ -91,6 +92,8 @@ export default function SearchContextProvider({ children }) {
             otherLabels,
             keyWordList
         );
+        toast(`搜索完成。得到: ${response.length} 个结果`);
+        if (response.length === 0) await clearResult();
         setSearchResult(response);
     };
 
@@ -109,6 +112,7 @@ export default function SearchContextProvider({ children }) {
     const clearResult = async () => {
         setSearchResult([]);
         await clearSearchApi(uid, time);
+        toast("搜索结果已重置");
     };
 
     return (
