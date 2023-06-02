@@ -1,0 +1,9 @@
+.date-cell {
+    border: 1px solid #ffffff;
+    cursor: pointer;
+}
+
+.date-cell:hover {
+    border: 1px solid #dee2e6;
+    border-radius: .5rem;
+}

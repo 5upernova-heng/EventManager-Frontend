@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
+import "/src/styles/DateCell.css";
 
-const DateCell = ({ date, currentDate }) => {
+const DateCell = ({ date, setDate, currentDate }) => {
     const renderClass = () => {
         const grey =
             date.getMonth() === currentDate.getMonth()
@@ -11,11 +12,16 @@ const DateCell = ({ date, currentDate }) => {
             date.getMonth() === currentDate.getMonth()
                 ? "bg-primary rounded rounded-3 text-white"
                 : "";
-        return `p-1 ${grey} ${badge}`;
+        return `date-cell p-1 ${grey} ${badge}`;
     };
     return (
         <>
-            <span className={renderClass()}>
+            <span
+                className={renderClass()}
+                onClick={() => {
+                    setDate(date);
+                }}
+            >
                 <p className="mb-0">{`${date.getDate()}`.padStart(2, "0")}</p>
             </span>
         </>

@@ -5,7 +5,7 @@ import { useContext } from "react";
 import MonthCalendarHead from "./monthcalendar/MonthCalendarHead";
 
 const MonthCalendar = () => {
-    const { date } = useContext(TimeContext);
+    const { viewDate: date, setViewDate: setDate } = useContext(TimeContext);
     const currentMonth = date.getMonth();
     const getMonthDates = () => {
         const newDate = new Date(date);
@@ -30,6 +30,7 @@ const MonthCalendar = () => {
                     <DateCell
                         key={dateIndex}
                         date={singleDate}
+                        setDate={setDate}
                         currentDate={date}
                     />
                 ))}

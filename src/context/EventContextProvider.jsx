@@ -22,7 +22,7 @@ import { MapContext } from "./MapContextProvider";
 export const EventContext = createContext();
 
 export default function EventContextProvider({ children }) {
-    const { date } = useContext(TimeContext);
+    const { date, viewDate } = useContext(TimeContext);
     const { getLocationName } = useContext(MapContext);
     const time = date.getTime();
     const { isLogin, loginAccount } = useContext(LoginContext);
@@ -211,8 +211,8 @@ export default function EventContextProvider({ children }) {
 
     /** Called when clicking the cell */
     const setCellEvent = (row, col) => {
-        const startTime = new Date(date);
-        startTime.setDate(date.getDate() - date.getDay() + row);
+        const startTime = new Date(viewDate);
+        startTime.setDate(viewDate.getDate() - viewDate.getDay() + row);
         startTime.setHours(col);
         const endTime = new Date(startTime);
         endTime.setHours(col + 1);

@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect } from "react";
 export const TimeContext = createContext();
 export default function TimeContextProvider({ children }) {
     const [date, setDate] = useState(new Date());
+    const [viewDate, setViewDate] = useState(date);
     // pause or not
     const [tick, setTick] = useState(true);
     // sync with real time or not
@@ -67,6 +68,9 @@ export default function TimeContextProvider({ children }) {
                 toggleSync,
                 timeInterval,
                 setTimeInterval: changeInterval,
+                // viewDate
+                viewDate,
+                setViewDate,
             }}
         >
             {children}

@@ -26,11 +26,38 @@ function createHeaderCells(date) {
 }
 
 function CalendarHead() {
-    const { date } = useContext(TimeContext);
+    const { viewDate: date, setViewDate: setDate } = useContext(TimeContext);
     return (
         <>
             <div className="row border">
-                <div className="col-1"></div>
+                <div className="col-1 d-flex flex-column justify-content-evenly align-items-center">
+                    <button
+                        className="btn btn-outline-secondary rounded-circle py-1"
+                        onClick={() => {
+                            const newDate = new Date(date);
+                            newDate.setDate(newDate.getDate() - 7);
+                            setDate(newDate);
+                        }}
+                    >
+                        <i
+                            className="fa fa-arrow-up m-0"
+                            aria-hidden="true"
+                        ></i>
+                    </button>
+                    <button
+                        className="btn btn-outline-secondary rounded-circle py-1"
+                        onClick={() => {
+                            const newDate = new Date(date);
+                            newDate.setDate(newDate.getDate() + 7);
+                            setDate(newDate);
+                        }}
+                    >
+                        <i
+                            className="fa fa-arrow-down m-0"
+                            aria-hidden="true"
+                        ></i>
+                    </button>
+                </div>
                 {createHeaderCells(date)}
             </div>
         </>
