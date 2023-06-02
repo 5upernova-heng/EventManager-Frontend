@@ -75,7 +75,7 @@ const ModelGroup = () => {
                             onClick={() => {
                                 const newEvent = dataToEvent(submitData);
                                 newEvent.id = choosedEvent.id;
-                                updateEvent(newEvent, submitData);
+                                updateEvent(newEvent, submitData, 0);
                             }}
                         >
                             提交修改

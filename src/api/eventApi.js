@@ -42,19 +42,21 @@ export async function deleteEventApi(uid, time, id) {
     return data;
 }
 
-export async function updateEventApi(uid, time, targetId, event) {
+export async function updateEventApi(uid, time, targetId, event, confirm) {
     console.log(
         "Sending request: updateEventApi |",
         uid,
         time,
         targetId,
-        event
+        event,
+        confirm
     );
     const { data } = await request.put(`${apiRoot}/events`, event, {
         params: {
             uid,
             time,
             targetId,
+            confirm,
         },
     });
     console.log("Response data of updateEventApi:", data);

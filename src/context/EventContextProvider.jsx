@@ -95,10 +95,16 @@ export default function EventContextProvider({ children }) {
         getEvents();
     };
 
-    const updateEvent = async (newEvent, data) => {
+    const updateEvent = async (newEvent, data, confirm) => {
         const { id } = newEvent;
         const { participants } = data;
-        const { response } = await updateEventApi(uid, time, id, newEvent);
+        const { response } = await updateEventApi(
+            uid,
+            time,
+            id,
+            newEvent,
+            confirm
+        );
         if (response === -2) {
             toast("修改失败：与已有事件发生冲突");
             return;
@@ -110,12 +116,12 @@ export default function EventContextProvider({ children }) {
         if (response === 2)
             toast(
                 <>
-                    <p>"[警告]发生高权限覆盖低权限事件"</p>
+                    <p>"[警告]本次修改发生了高权限覆盖低权限事件"</p>
                     <p>"是否继续修改？"</p>
                     <div className="d-flex justify-content-evenly">
                         <button
                             onClick={() => {
-                                coverEvent(id);
+                                coverUpdateEvent(newEvent, data);
                             }}
                         >
                             是
@@ -128,7 +134,6 @@ export default function EventContextProvider({ children }) {
                 }
             );
         await syncParticipants(participants, newEvent);
-        getEvents();
         getEvents();
     };
 
@@ -147,7 +152,7 @@ export default function EventContextProvider({ children }) {
     };
 
     /**Apply event cover */
-    const coverEvent = async (eventId) => {
+    const coverNewEvent = async (eventId) => {
         const { response } = await coverEventApi(uid, time, uid, eventId);
         if (response === -1) toast("覆盖失败");
         if (response === 1) toast("覆盖失败：权限不足");
@@ -156,6 +161,15 @@ export default function EventContextProvider({ children }) {
         return;
     };
 
+    const coverUpdateEvent = async (newEvent, data) => {
+        updateEvent(newEvent, data, 1);
+        const { response } = await coverEventApi(uid, time, uid, newEvent.id);
+        if (response === -1) toast("覆盖失败");
+        if (response === 1) toast("覆盖失败：权限不足");
+        toast("覆盖成功");
+        getEvents();
+        return;
+    };
     /** Called when clicking the cell */
     const setCellEvent = (row, col) => {
         const startTime = new Date(date);
@@ -236,7 +250,7 @@ export default function EventContextProvider({ children }) {
                     <div className="d-flex justify-content-evenly">
                         <button
                             onClick={() => {
-                                coverEvent(eventId);
+                                coverNewEvent(eventId);
                             }}
                         >
                             是
