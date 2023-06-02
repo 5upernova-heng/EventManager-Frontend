@@ -1,7 +1,6 @@
 import Calendar from "./pages/Calendar";
 import Alarms from "./pages/Alarms";
 import Map from "./pages/Map";
-import Logs from "./pages/Logs";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Groups from "./pages/Groups";
@@ -42,14 +41,6 @@ export default [
         path: "/groups",
         label: "班级管理",
         element: <Groups />,
-        showOnTab: true,
-        showBar: true,
-        authLevel: 2,
-    },
-    {
-        path: "/logs",
-        label: "查看日志",
-        element: <Logs />,
         showOnTab: true,
         showBar: true,
         authLevel: 2,
