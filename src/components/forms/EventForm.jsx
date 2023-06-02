@@ -12,7 +12,7 @@ import MemberSelector from "./MemberSelector";
 import Switch from "./Switch";
 
 const EventForm = ({ id }) => {
-    const { submitData, changeData } = useContext(EventContext);
+    const { submitData, changeData, eventToNav } = useContext(EventContext);
     const { getLocationName } = useContext(MapContext);
     const {
         title,
@@ -167,9 +167,9 @@ const EventForm = ({ id }) => {
                         <button
                             className="d-flex align-items-center btn btn-primary"
                             data-bs-dismiss="modal"
-                            // onClick={() => {
-                            //     viewNav()
-                            // }}
+                            onClick={() => {
+                                eventToNav(locationId);
+                            }}
                         >
                             <p className="mb-0 pe-2">查看导航</p>
                             <i

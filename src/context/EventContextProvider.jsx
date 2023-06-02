@@ -236,10 +236,10 @@ export default function EventContextProvider({ children }) {
      * 2. navigate to map page
      * 3. find the route and show it
      */
-    const eventToNav = (event) => {
+    const eventToNav = async (locationId) => {
         setSelected(1);
-        setNavPoint(event.locationId);
-        findRoute();
+        setNavPoint(locationId);
+        await findRoute();
         navigate("/map");
     };
 

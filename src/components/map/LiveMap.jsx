@@ -42,7 +42,12 @@ function LiveMap({}) {
             routes.map((route) => {
                 const { x: x1, y: y1 } = allNodes[route[0]];
                 const { x: x2, y: y2 } = allNodes[route[1]];
-                drawLine(context, x1, y1, x2, y2, 5);
+                if (route[0] === 0) {
+                    drawLine(context, x1, y1, x2, y2, 5, "black");
+                } else {
+                    console.log("Blue");
+                    drawLine(context, x1, y1, x2, y2, 5, "green");
+                }
             });
         }
     }, [showRoutes, routes]);
@@ -54,12 +59,13 @@ function LiveMap({}) {
         console.log("clear");
     };
 
-    const drawLine = (context, x1, y1, x2, y2, lineWidth) => {
+    const drawLine = (context, x1, y1, x2, y2, lineWidth, color) => {
         x1 = fixedX(x1);
         x2 = fixedX(x2);
         y1 = fixedY(y1);
         y2 = fixedY(y2);
         context.beginPath();
+        context.strokeStyle = color;
         context.moveTo(x1, y1);
         context.lineTo(x2, y2);
         context.lineWidth = lineWidth;
