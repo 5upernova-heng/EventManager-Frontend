@@ -1,11 +1,6 @@
 import React, { createContext, useContext } from "react";
 import { useEffect, useState } from "react";
-import {
-    findPathApi,
-    findRouteApi,
-    getNodesApi,
-    getRoutesApi,
-} from "../api/mapApi";
+import { findPathApi, findRouteApi, getNodesApi } from "../api/mapApi";
 import { maps } from "../map";
 import { LoginContext } from "./LoginContextProvider";
 import { TimeContext } from "./TimeContextProvider";
@@ -40,10 +35,7 @@ export default function MapContextProvider({ children }) {
         // mount node and route data
         if (isLogin) {
             fetchNodes();
-            // fetchRoutes();
             // init navPoints
-            setNavPoints(initNavpoints());
-            setNodes(distrubeNodes());
         }
     }, [isLogin]);
 
@@ -70,12 +62,11 @@ export default function MapContextProvider({ children }) {
     };
 
     const fetchNodes = async () => {
-        const { data } = await getNodesApi();
-        setAllNodes(data);
-    };
-    const fetchRoutes = async () => {
-        const { data } = await getRoutesApi();
-        setRoutes(data);
+        const { response } = await getNodesApi();
+        setAllNodes(response);
+        setNavPoints(initNavpoints());
+        setNodes(distrubeNodes());
+        console.log("nodes", nodes);
     };
 
     const addNavPoint = (id) => {
@@ -110,6 +101,7 @@ export default function MapContextProvider({ children }) {
     };
 
     const findPath = async () => {
+        setRoutes([]);
         const { data: path } = await findPathApi();
         console.log("found");
         setRoutes(path);
@@ -117,10 +109,14 @@ export default function MapContextProvider({ children }) {
         console.log(showRoutes);
     };
 
-    const fineRoute = async () => {
+    const findRoute = async () => {
         const passBy = [...navPoints];
-        const start = navPoints.splice(0, 1);
+        const start = passBy.splice(0, 1)[0];
         const { response } = await findRouteApi(uid, time, start, passBy, ride);
+        const resultRoutes = response.map((route) => {
+            return [route.start, route.end, route.bike];
+        });
+        setRoutes(resultRoutes);
     };
 
     const getLocationName = (id) => {
@@ -157,6 +153,7 @@ export default function MapContextProvider({ children }) {
                 deleteNavPoint,
                 clearNavPoints,
                 findPath,
+                findRoute,
                 // guide option
                 ride,
                 setRide,

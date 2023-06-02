@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { getDateString, getTimeString, stampToDay } from "../utils/calDate";
 import STYLE from "../style";
 import { MapContext } from "../context/MapContextProvider";
-import { TimeContext } from "../context/TimeContextProvider";
 
 function EventCard({ event }) {
     const [hover, setHover] = useState(false);

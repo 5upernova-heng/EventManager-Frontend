@@ -15,7 +15,7 @@ export default function NavSelector() {
                         className="d-flex flex-column align-items-center"
                     >
                         <LocationCard
-                            id={pid}
+                            id={Number(pid)}
                             deletable={navPoints.length > 2}
                             selected={selectedNav === index}
                             toggleSelected={() => {

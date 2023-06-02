@@ -15,6 +15,7 @@ function LiveMap({}) {
     } = useContext(MapContext);
     const { name, imgWidth, imgHeight, src, fixedX, fixedY, scaleRange } = map;
 
+    const [canvasKey, setKey] = useState(0);
     const [scale, setScale] = useState(1);
     const [startPoint, setStartPoint] = useState({ x: 0, y: 0 });
     const [translate, setTranslate] = useState({ x: 0, y: 0 });
@@ -31,9 +32,10 @@ function LiveMap({}) {
     }, []);
 
     useEffect(() => {
+        clear();
         console.log(showRoutes);
         if (showRoutes) {
-            console.log("T");
+            console.log(routes);
             const canvas = canvasRef.current;
             const context = canvas.getContext("2d");
             routes.map((route) => {
@@ -44,11 +46,19 @@ function LiveMap({}) {
         }
     }, [showRoutes, routes]);
 
+    const clear = () => {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext("2d");
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        console.log("clear");
+    };
+
     const drawLine = (context, x1, y1, x2, y2, lineWidth) => {
         x1 = fixedX(x1);
         x2 = fixedX(x2);
         y1 = fixedY(y1);
         y2 = fixedY(y2);
+        context.beginPath();
         context.moveTo(x1, y1);
         context.lineTo(x2, y2);
         context.lineWidth = lineWidth;
@@ -137,6 +147,7 @@ function LiveMap({}) {
                     alt="Map"
                 ></img>
                 <canvas
+                    key={canvasKey}
                     className="map-canvas shadow"
                     width={`${imgWidth}px`}
                     height={`${imgHeight}px`}

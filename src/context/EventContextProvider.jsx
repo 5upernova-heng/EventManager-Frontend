@@ -18,15 +18,23 @@ import {
 import { LoginContext } from "./LoginContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "./MapContextProvider";
+import { useNavigate } from "react-router-dom";
 
 export const EventContext = createContext();
 
 export default function EventContextProvider({ children }) {
     const { date, viewDate } = useContext(TimeContext);
-    const { getLocationName } = useContext(MapContext);
+    const {
+        findRoute,
+        setSelected,
+        setNavPoint,
+        addNavPoint,
+        getLocationName,
+    } = useContext(MapContext);
     const time = date.getTime();
     const { isLogin, loginAccount } = useContext(LoginContext);
     const { username, userId: uid } = loginAccount;
+    const navigate = useNavigate();
     const emptyEvent = {
         title: "",
         startTime: 0,
@@ -228,7 +236,25 @@ export default function EventContextProvider({ children }) {
      * 2. navigate to map page
      * 3. find the route and show it
      */
-    const eventToNav = (event) => {};
+    const eventToNav = (event) => {
+        setSelected(1);
+        setNavPoint(event.locationId);
+        findRoute();
+        navigate("/map");
+    };
+
+    const eventsToNav = (events) => {
+        events.map((event, index) => {
+            if (index === 0) {
+                setSelected(1);
+                setNavPoint(event.locationId);
+            } else {
+                addNavPoint(event.locationId);
+            }
+        });
+        findRoute();
+        navigate("/map");
+    };
 
     /**Temp event that wait for submit
      * It will update when choosedEvent changes.
@@ -395,6 +421,9 @@ export default function EventContextProvider({ children }) {
                 // view
                 view,
                 setView,
+                // guidence
+                eventToNav,
+                eventsToNav,
             }}
         >
             {children}

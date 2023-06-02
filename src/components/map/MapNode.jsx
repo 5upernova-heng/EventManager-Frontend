@@ -7,7 +7,6 @@ import { MapContext } from "../../context/MapContextProvider";
 function MapNode({ node, scale, selected, fixedX, fixedY }) {
     const { showAllTips, setNavPoint } = useContext(MapContext);
     const { id, x, y, name } = node;
-
     const [hover, setHover] = useState(false);
 
     const calStyle = () => {

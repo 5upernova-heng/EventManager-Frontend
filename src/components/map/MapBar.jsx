@@ -17,6 +17,7 @@ export default function MapBar() {
         setSelected,
         setShowRoutes,
         findPath,
+        findRoute,
     } = useContext(MapContext);
     const shouldHidden = () => {
         return navPoints.some((pid) => pid === -1);
@@ -63,7 +64,8 @@ export default function MapBar() {
                             hidden={shouldHidden()}
                             className="btn btn-lg btn-primary mx-2"
                             onClick={() => {
-                                findPath();
+                                // findPath();
+                                findRoute();
                                 setShowRoutes(true);
                             }}
                         >
