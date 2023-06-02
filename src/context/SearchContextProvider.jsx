@@ -1,10 +1,16 @@
-import React, { createContext, useState } from "react";
-import { searchEventsApi } from "../api/eventApi";
+import React, { createContext, useContext, useState } from "react";
+import { clearSearchApi, searchEventsApi } from "../api/eventApi";
 import { minutesToDate } from "../utils/calDate";
+import { LoginContext } from "./LoginContextProvider";
+import { TimeContext } from "./TimeContextProvider";
 
 export const SearchContext = createContext();
 
 export default function SearchContextProvider({ children }) {
+    const { loginAccount } = useContext(LoginContext);
+    const { userId: uid } = loginAccount;
+    const { date } = useContext(TimeContext);
+    const time = date.getTime();
     /**Search State */
     /**
      * Keywork List: a list of properties that should search
@@ -66,8 +72,26 @@ export default function SearchContextProvider({ children }) {
 
     /**TODO: Add params. This is just a mocking */
     const searchEvent = async (keyWordList) => {
-        const { data } = await searchEventsApi(keyWordList, searchLabels);
-        setSearchResult(data);
+        const searchLabel = [];
+        if (searchLabels[0]) searchLabel.push("title");
+        if (searchLabels[1]) searchLabel.push("locationName");
+        if (searchLabels[2]) searchLabel.push("participants");
+        const otherLabels = {};
+        if (filterLabels[0])
+            otherLabels.time = {
+                startTime,
+                endTime,
+            };
+        if (filterLabels[1]) otherLabels.category = category;
+        if (filterLabels[2]) otherLabels.doLoop = doLoop;
+        const { response } = await searchEventsApi(
+            uid,
+            time,
+            searchLabel,
+            otherLabels,
+            keyWordList
+        );
+        setSearchResult(response);
     };
 
     const toggleSearchLabels = (index) => {
@@ -82,8 +106,9 @@ export default function SearchContextProvider({ children }) {
         setFilterLabels(newLabels);
     };
 
-    const clearResult = () => {
+    const clearResult = async () => {
         setSearchResult([]);
+        await clearSearchApi(uid, time);
     };
 
     return (

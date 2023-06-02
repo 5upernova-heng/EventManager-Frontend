@@ -63,10 +63,46 @@ export async function updateEventApi(uid, time, targetId, event, confirm) {
     return data;
 }
 
-/**TODO: */
-export async function searchEventsApi() {
-    const response = await request.get(`${apiRoot}/events`);
-    return response;
+export async function searchEventsApi(
+    uid,
+    time,
+    stringLabels,
+    otherLabels,
+    keyWords
+) {
+    console.log(
+        "Sending request: searchEventsApi |",
+        uid,
+        time,
+        stringLabels,
+        otherLabels,
+        keyWords
+    );
+    const { data } = await request.post(
+        `${apiRoot}/search`,
+        {
+            stringLabels,
+            otherLabels,
+            keyWords,
+        },
+        {
+            params: {
+                uid,
+                time,
+            },
+        }
+    );
+    console.log("Response data of searchEventApi:", data);
+    return data;
+}
+
+export async function clearSearchApi(uid, time) {
+    console.log("Sending request: clearSearchApi |", uid, time);
+    const { data } = await request.delete(`${apiRoot}/search`, {
+        params: { uid, time },
+    });
+    console.log("Result of clearSearchApi", data);
+    return data;
 }
 
 export async function impartMatterApi(uid, targetId, time, eventId) {

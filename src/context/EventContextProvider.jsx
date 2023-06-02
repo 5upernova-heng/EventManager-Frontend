@@ -4,7 +4,6 @@ import {
     addEventApi,
     deleteEventApi,
     updateEventApi,
-    searchEventsApi,
     impartMatterApi,
     coverEventApi,
     quitMatterApi,
@@ -270,12 +269,6 @@ export default function EventContextProvider({ children }) {
         if (response === -1) toast("用户不存在或已经参加");
         if (response === 1) toast("权限不足");
         return response;
-    };
-
-    const addParticipants = async (userIdList, event) => {
-        return Promise.all(
-            userIdList.map((userId) => addOneParticipant(userId, event.id))
-        );
     };
 
     const syncParticipants = async (newParticipants, event) => {

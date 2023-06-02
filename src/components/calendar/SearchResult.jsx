@@ -47,10 +47,6 @@ export default function SearchResult() {
                             />
                         </div>
                         <div>
-                            <p className="mb-1 fw-bold">搜索模式</p>
-                            <SearchModeButtonGroup />
-                        </div>
-                        <div>
                             <p className="mb-1 fw-bold">筛选标签（多选）</p>
                             <CheckLabelButtonGroup
                                 searchLabels={filterLabels}
