@@ -1,11 +1,6 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import {
-    getDayString,
-    getTimeString,
-    hourDiff,
-    stampToDay,
-} from "../utils/calDate";
+import { getDayString, getTimeString, stampToDay } from "../utils/calDate";
 import STYLE from "../style";
 import { MapContext } from "../context/MapContextProvider";
 import { TimeContext } from "../context/TimeContextProvider";
@@ -55,12 +50,6 @@ function EventCard({ event }) {
                         STYLE.timeLabel[doLoop]
                     } ${dayStr} | ${getLocationName(location)}`}</p>
                 </div>
-            </div>
-            <div className="d-flex align-items-center">
-                <p className="fs-4">{`约 ${-hourDiff(
-                    startTime,
-                    date
-                )} 小时后`}</p>
             </div>
         </div>
     );

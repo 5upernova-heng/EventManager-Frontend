@@ -131,14 +131,6 @@ export const minutesToString = (minutes) => {
     return getTimeString(hour, min);
 };
 
-/**Hour diff */
-export const hourDiff = (timeStamp, nowDate) => {
-    const nowTime = nowDate.getTime();
-    const timeDiff = nowTime - timeStamp;
-    const hourDiff = Math.round(timeDiff / 60 / 60 / 1000);
-    return hourDiff;
-};
-
 /**Start from now, cal the date of the end of the next day
  * Used in coming date fetching.
  */
