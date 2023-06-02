@@ -1,25 +1,11 @@
 import DateCell from "./monthcalendar/DateCell";
 import { TimeContext } from "../../context/TimeContextProvider";
-import { getWeekDates } from "../../utils/calDate";
+import { monthList, getWeekDates } from "../../utils/calDate";
 import { useContext } from "react";
 import MonthCalendarHead from "./monthcalendar/MonthCalendarHead";
 
 const MonthCalendar = () => {
     const { date } = useContext(TimeContext);
-    const monthList = [
-        "一月",
-        "二月",
-        "三月",
-        "四月",
-        "五月",
-        "六月",
-        "七月",
-        "八月",
-        "九月",
-        "十月",
-        "十一月",
-        "十二月",
-    ];
     const currentMonth = date.getMonth();
     const getMonthDates = () => {
         const newDate = new Date(date);

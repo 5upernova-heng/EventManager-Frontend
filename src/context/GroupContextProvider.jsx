@@ -127,11 +127,13 @@ export default function GroupContextProvider({ children }) {
             toast("创建失败：存在已有组织的用户");
             return;
         }
+        fetchUsers();
         fetchGroup();
     };
 
     const updateGroup = async (newGroup) => {
         const { response } = await updateGroupApi(newGroup.id, newGroup);
+        fetchUsers();
         fetchGroup();
     };
 

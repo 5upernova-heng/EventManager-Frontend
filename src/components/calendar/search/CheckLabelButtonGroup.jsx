@@ -1,11 +1,14 @@
 import React, { useContext } from "react";
+import PropTypes from "prop-types";
 import STYLE from "../../../style";
-import { SearchContext } from "../../../context/SearchContextProvider";
 
-export default function SearchLabelButtonGroup() {
-    const { searchLabels, toggleSearchLabels } = useContext(SearchContext);
+export default function CheckLabelButtonGroup({
+    searchLabels,
+    toggleSearchLabels,
+    styleLabel,
+}) {
     const renderButtons = () => {
-        return STYLE.keywordLabel.map((label, index) => {
+        return styleLabel.map((label, index) => {
             return (
                 <button
                     key={index}
@@ -26,3 +29,9 @@ export default function SearchLabelButtonGroup() {
         </div>
     );
 }
+
+CheckLabelButtonGroup.propTypes = {
+    searchLabels: PropTypes.arrayOf(PropTypes.bool).isRequired,
+    toggleSearchLabels: PropTypes.func.isRequired,
+    styleLabel: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

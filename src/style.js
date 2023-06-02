@@ -10,6 +10,7 @@ const viewLabel = ["非临时事件", "临时事件", "搜索"];
 const authLabel = ["学生", "教师", "管理员"];
 const mapModeLabel = ["单点寻路", "多点寻路"];
 const keywordLabel = ["标题", "地点", "参与者"];
+const filterLabel = ["时间", "事件类型", "事件周期"];
 const messageCategoryLabel = ["闹钟提醒", "新增事件", "事件更改", "明日事件"];
 const searchModeLabel = ["搜索结果取交集", "搜索结果取并集"];
 const modePrompt = ["请选择起始地和目的地", "请添加途径节点（无序）"];
@@ -75,6 +76,7 @@ export default {
     mapModeLabel,
     authLabel,
     keywordLabel,
+    filterLabel,
     searchModeLabel,
     modePrompt,
     getCategoryLabel,

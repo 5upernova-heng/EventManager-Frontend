@@ -18,7 +18,7 @@ export async function getGroupApi(uid, time, classId) {
 }
 
 export async function addGroupApi(uid, time, classId, members) {
-    console.log("Send request: addGroupApi");
+    console.log("Send request: addGroupApi |", uid, time, classId, members);
     const { data } = await request.post(`${apiRoot}/class`, members, {
         params: {
             uid,

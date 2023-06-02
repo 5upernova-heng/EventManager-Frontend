@@ -1,4 +1,26 @@
-const dayString = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+export const monthList = [
+    "一月",
+    "二月",
+    "三月",
+    "四月",
+    "五月",
+    "六月",
+    "七月",
+    "八月",
+    "九月",
+    "十月",
+    "十一月",
+    "十二月",
+];
+export const dayString = [
+    "周日",
+    "周一",
+    "周二",
+    "周三",
+    "周四",
+    "周五",
+    "周六",
+];
 export function getWeekDates(date) {
     // get the date of this week, returns an array of date
     // to avoid affect the param, we need to create a new object.
@@ -72,6 +94,16 @@ export const stampTo5Minutes = (timestamp) => {
     const hour = date.getHours();
     const minute = date.getMinutes();
     return Math.floor(hour * 12 + minute / 5);
+};
+
+export const stampToString = (timestamp) => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const d = date.getDate();
+    const hour = date.getHours();
+    const minute = date.getMinutes();
+    return `${getDateString(year, month, d)} ${getTimeString(hour, minute)}`;
 };
 
 export const minutesToDate = (minutes) => {
