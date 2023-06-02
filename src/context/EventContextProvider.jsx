@@ -198,7 +198,7 @@ export default function EventContextProvider({ children }) {
         const duration = endTime - startTime;
         const { response } = await getAvailableTimeApi(
             uid,
-            time,
+            startTime,
             duration,
             doLoop
         );

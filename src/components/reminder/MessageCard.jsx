@@ -4,6 +4,10 @@ import STYLE from "../../style";
 
 function MessageCard({ message, deleteHandler }) {
     const { title, type: category, info } = message;
+    const renderEventLabel = () => {
+        if (info.length === 0) return "无相关事件";
+        else return `${info.length} 个相关事件：`;
+    };
     const renderRelatedEvent = () => {
         return info.map((event) => (
             <p className="fs-6 mb-0">
@@ -22,7 +26,7 @@ function MessageCard({ message, deleteHandler }) {
                 ></div>
                 <div className="d-flex flex-column justify-content-between pe-1">
                     <p className="fw-bold fs-5 mb-1">{`[${messageLabel}] ${title}`}</p>
-                    <p className="fs-6 fw-bold mb-0">相关事件：</p>
+                    <p className="fs-6 fw-bold mb-0">{renderEventLabel()}</p>
                     {renderRelatedEvent()}
                 </div>
             </div>

@@ -7,7 +7,7 @@ import { getAllRemindsApi } from "../../api/remindApi";
 export default function ReminderBar() {
     const [messages, setMessages] = useState([]);
     const { date } = useContext(TimeContext);
-    const tick = Math.floor(date.getMinutes() / 15);
+    const tick = Math.floor(date.getMinutes() / 10);
     const { isLogin, loginAccount } = useContext(LoginContext);
 
     const time = date.getTime();
@@ -15,14 +15,15 @@ export default function ReminderBar() {
 
     const fetchMessage = async () => {
         const { response } = await getAllRemindsApi(userId, time);
-        const newMessages = messages.concat(response);
-        console.log(newMessages);
-        setMessages(newMessages);
+        if (response.length > 0) {
+            const newMessages = messages.concat(response);
+            setMessages(newMessages);
+        }
     };
 
     useEffect(() => {
         if (isLogin) {
-            // fetchMessage();
+            fetchMessage();
         }
     }, [isLogin, tick]);
 

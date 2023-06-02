@@ -36,13 +36,14 @@ yarn dev
 
 Essiencial
 
-1. Remind
-   1. = 0 时不显示
+1. Calendar：
+   1. 单次时间不应该显示在每周的日历上
+   2. 切换视图
 
-2. With backend:
-   1. 活动时间的上下限
-   1. 课外/临时活动最多一个小时
-   1. 只有课外活动才需要提醒可用时间
+2. Remind
+   1. 消息提醒应该为全局，而不是组件级别
+
+3. With backend:
    1. Call route searching after remind
 
 More:
