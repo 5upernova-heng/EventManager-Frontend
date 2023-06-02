@@ -7,6 +7,7 @@ import {
     searchEventsApi,
     impartMatterApi,
     coverEventApi,
+    quitMatterApi,
 } from "../api/eventApi";
 import { TimeContext } from "./TimeContextProvider";
 import { minutesToStamp, stampTo5Minutes } from "../utils/calDate";
@@ -73,20 +74,24 @@ export default function EventContextProvider({ children }) {
         else setEvents(response);
     };
 
-    const addEvent = async (event) => {
+    const addEvent = async (event, data) => {
         // add event
         const { response } = await addEventApi(event, uid, time);
+        const { participants, owner } = data;
         // impart owner
         if (response.state !== 0) toast("添加失败");
         else {
-            addOneParticipant(uid, response.id).then(() => {
-                getEvents();
-            });
+            // impart participants
+            event.id = response.id;
+            if (!participants.includes(owner)) participants.push(owner);
+            await syncParticipants(participants, event);
+            getEvents();
         }
     };
 
-    const updateEvent = async (newEvent) => {
+    const updateEvent = async (newEvent, data) => {
         const { id } = newEvent;
+        const { participants } = data;
         const { response } = await updateEventApi(uid, time, id, newEvent);
         if (response === -2) {
             toast("修改失败：与已有事件发生冲突");
@@ -116,6 +121,8 @@ export default function EventContextProvider({ children }) {
                     autoClose: false,
                 }
             );
+        await syncParticipants(participants, newEvent);
+        getEvents();
         getEvents();
     };
 
@@ -181,7 +188,9 @@ export default function EventContextProvider({ children }) {
             participants,
             locationId,
         } = data;
+        console.log("data:", participants);
         const event = structuredClone(data);
+        event.participants = choosedEvent.participants;
         // time
         const startDate = new Date(minutesToStamp(startMinute));
         const endDate = new Date(minutesToStamp(endMinute));
@@ -195,8 +204,9 @@ export default function EventContextProvider({ children }) {
         // location
         event.locationName = getLocationName(locationId);
         // participants
+        return event;
         const newParticipants = participants.filter(
-            (participant) => !event.participants.includes(participant)
+            (participant) => !choosedEvent.participants.includes(participant)
         );
         console.log("new", newParticipants);
         if (newParticipants.length !== 0) {
@@ -217,18 +227,45 @@ export default function EventContextProvider({ children }) {
         if (response === 1) toast("权限不足");
         if (response === 2)
             toast(
-                "该事件与该用户的已有事件存在冲突，本事件优先级更高，可以覆盖"
+                `事件与用户 ${userId} 的已有事件存在冲突，本事件优先级更高，可以覆盖`
             );
         return response;
     };
 
+    const deleteOneParticipant = async (userId, eventId) => {
+        const { response } = await quitMatterApi(uid, time, userId, eventId);
+        if (response === -1) toast("用户不存在或已经参加");
+        if (response === 1) toast("权限不足");
+        return response;
+    };
+
     const addParticipants = async (userIdList, event) => {
-        userIdList.map((userId) => {
-            const result = addOneParticipant(userId, event.id);
-            if (result === 0 || result === 2) {
-                event.participants.push(userId);
-            }
-        });
+        return Promise.all(
+            userIdList.map((userId) => addOneParticipant(userId, event.id))
+        );
+    };
+
+    const syncParticipants = async (newParticipants, event) => {
+        const { participants: oldParticipants } = event;
+        console.log(newParticipants, oldParticipants);
+        return Promise.all([
+            Promise.all(
+                oldParticipants.map((participant) => {
+                    if (!newParticipants.includes(participant)) {
+                        console.log("DELETE");
+                        return deleteOneParticipant(participant, event.id);
+                    }
+                })
+            ),
+            Promise.all(
+                newParticipants.map((participant) => {
+                    if (!oldParticipants.includes(participant)) {
+                        console.log("ADD");
+                        return addOneParticipant(participant, event.id);
+                    }
+                })
+            ),
+        ]);
     };
 
     const emptyData = eventToData(emptyEvent);

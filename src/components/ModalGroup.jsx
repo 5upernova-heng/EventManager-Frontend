@@ -36,7 +36,7 @@ const ModelGroup = () => {
                             data-bs-dismiss="modal"
                             onClick={() => {
                                 const submitEvent = dataToEvent(submitData);
-                                addEvent(submitEvent);
+                                addEvent(submitEvent, submitData);
                             }}
                         >
                             添加
@@ -75,7 +75,7 @@ const ModelGroup = () => {
                             onClick={() => {
                                 const newEvent = dataToEvent(submitData);
                                 newEvent.id = choosedEvent.id;
-                                updateEvent(newEvent);
+                                updateEvent(newEvent, submitData);
                             }}
                         >
                             提交修改

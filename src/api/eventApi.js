@@ -67,13 +67,20 @@ export async function searchEventsApi() {
     return response;
 }
 
-export async function impartMatterApi(userId, targetId, time, eventId) {
+export async function impartMatterApi(uid, targetId, time, eventId) {
+    console.log(
+        "Sending request: impartMatterApi |",
+        uid,
+        targetId,
+        time,
+        eventId
+    );
     const { data } = await request.post(
         `${apiRoot}/user/matter`,
         {},
         {
             params: {
-                uid: userId,
+                uid: uid,
                 time,
                 targetId,
                 matterId: eventId,
@@ -81,6 +88,20 @@ export async function impartMatterApi(userId, targetId, time, eventId) {
         }
     );
     console.log("Response data of impartMatterApi:", data);
+    return data;
+}
+
+export async function quitMatterApi(uid, time, targetId, eventId) {
+    console.log("Sending request: quitMatterApi", uid, time, targetId, eventId);
+    const { data } = await request.delete(`${apiRoot}/user/matter`, {
+        params: {
+            uid,
+            time,
+            targetId,
+            matterId: eventId,
+        },
+    });
+    console.log("Response data of quitMatterApi:", data);
     return data;
 }
 
