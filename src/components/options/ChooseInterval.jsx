@@ -6,10 +6,12 @@ const ChooseInterval = () => {
     const intervalList = [1, 60 * 5, 60 * 60, 60 * 60 * 24, 60 * 60 * 24 * 7];
     return (
         <div className="col d-flex justify-content-between align-item-center my-3">
-            <label className="text-center mb-0">时间跨度</label>
+            <label className="text-center mb-0" htmlFor="intervalSelect">
+                时间跨度
+            </label>
             <select
                 className="form-select-sm"
-                aria-label="Default select example"
+                id="intervalSelect"
                 value={intervalList.indexOf(timeInterval)}
                 onChange={(e) => {
                     setTimeInterval(
