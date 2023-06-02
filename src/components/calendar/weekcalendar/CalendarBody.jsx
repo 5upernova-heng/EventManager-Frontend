@@ -24,7 +24,7 @@ const CalendarBody = ({ events }) => {
             <>
                 {STYLE.categoryLabel.map((label, index) => {
                     return (
-                        index < 4 && (
+                        index > 0 && (
                             <div
                                 key={index}
                                 className="fs-5 d-flex justify-content-center align-items-center"

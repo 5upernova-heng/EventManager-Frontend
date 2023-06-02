@@ -104,7 +104,7 @@ const EventForm = ({ id }) => {
         changeData({ doRemind: !prev });
     };
     const isGroupEvent = () => {
-        return [0, 1, 3].includes(category);
+        return category > 1;
     };
 
     /**Render according to the auth level */
