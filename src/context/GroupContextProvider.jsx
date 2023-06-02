@@ -96,6 +96,7 @@ export default function GroupContextProvider({ children }) {
 
     // api
     const addUser = async (user) => {
+        user.matters = [];
         user.class = null;
         user.id = user.userName;
         const { response } = await addUserApi(uid, time, user);
