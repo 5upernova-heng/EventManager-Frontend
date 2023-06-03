@@ -1,35 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { TimeContext } from "../../context/TimeContextProvider";
-import { LoginContext } from "../../context/LoginContextProvider";
 import MessageCard from "./MessageCard";
-import { getAllRemindsApi } from "../../api/remindApi";
+import { EventContext } from "../../context/EventContextProvider";
 
 export default function ReminderBar() {
-    const [messages, setMessages] = useState([]);
-    const { date } = useContext(TimeContext);
-    const tick = Math.floor(date.getMinutes() / 10);
-    const { isLogin, loginAccount } = useContext(LoginContext);
-
-    const time = date.getTime();
-    const { userId } = loginAccount;
-
-    const fetchMessage = async () => {
-        const { response } = await getAllRemindsApi(userId, time);
-        if (response.length > 0) {
-            console.log("Receive reminder:", time, response);
-            response.map((message) => {
-                message.time = time;
-            });
-            const newMessages = messages.concat(response);
-            setMessages(newMessages);
-        }
-    };
-
-    useEffect(() => {
-        if (isLogin) {
-            fetchMessage();
-        }
-    }, [isLogin, tick]);
+    const { messages, setMessages } = useContext(EventContext);
 
     const deleteMessage = (index) => {
         const newMessages = [...messages];
@@ -39,13 +13,15 @@ export default function ReminderBar() {
 
     const renderMessage = () => {
         if (messages.length > 0) {
-            return messages.map((message, index) => (
-                <MessageCard
-                    key={index}
-                    message={message}
-                    deleteHandler={(index) => deleteMessage(index)}
-                />
-            ));
+            return messages.map((message, index) => {
+                return (
+                    <MessageCard
+                        key={index}
+                        message={message}
+                        deleteHandler={(index) => deleteMessage(index)}
+                    />
+                );
+            });
         } else {
             return <h5 className="text-center">暂无新的消息</h5>;
         }

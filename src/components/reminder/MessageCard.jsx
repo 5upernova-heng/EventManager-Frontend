@@ -11,7 +11,7 @@ function MessageCard({ message, deleteHandler }) {
         else return `${info.length} 个相关事件：`;
     };
     const renderRelatedEvent = () => {
-        return info
+        return info.map !== undefined
             ? info.map((event, index) => (
                   <p key={index} className="fs-6 mb-0">
                       {`[${STYLE.getCategoryLabel(event.category)}] ${

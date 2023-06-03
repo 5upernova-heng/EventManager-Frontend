@@ -19,6 +19,7 @@ import { LoginContext } from "./LoginContextProvider";
 import { toast } from "react-toastify";
 import { MapContext } from "./MapContextProvider";
 import { useNavigate } from "react-router-dom";
+import { getAllRemindsApi } from "../api/remindApi";
 
 export const EventContext = createContext();
 
@@ -34,6 +35,29 @@ export default function EventContextProvider({ children }) {
     const time = date.getTime();
     const { isLogin, loginAccount } = useContext(LoginContext);
     const { username, userId: uid } = loginAccount;
+    // remind
+    const remindInterval = Math.floor(date.getMinutes() / 10);
+    const [messages, setMessages] = useState([]);
+
+    const fetchMessage = async () => {
+        const { response } = await getAllRemindsApi(uid, time);
+        if (response.length > 0) {
+            console.log("Receive reminder:", time, response);
+            response.map((message) => {
+                if (message.type === 2) getEvents();
+                message.time = time;
+            });
+            const newMessages = messages.concat(response);
+            setMessages(newMessages);
+        }
+    };
+
+    useEffect(() => {
+        if (isLogin) {
+            fetchMessage();
+        }
+    }, [isLogin, remindInterval]);
+
     const navigate = useNavigate();
     const emptyEvent = {
         title: "",
@@ -424,6 +448,9 @@ export default function EventContextProvider({ children }) {
                 // guidence
                 eventToNav,
                 eventsToNav,
+                // messages
+                messages,
+                setMessages,
             }}
         >
             {children}

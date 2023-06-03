@@ -1,6 +1,6 @@
 import React, { createContext, useContext } from "react";
 import { useEffect, useState } from "react";
-import { findPathApi, findRouteApi, getNodesApi } from "../api/mapApi";
+import { findRouteApi, getNodesApi } from "../api/mapApi";
 import { maps } from "../map";
 import { LoginContext } from "./LoginContextProvider";
 import { TimeContext } from "./TimeContextProvider";

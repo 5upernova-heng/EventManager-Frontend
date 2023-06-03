@@ -136,7 +136,9 @@ export default function SearchResult() {
         <div>
             <div>{renderOptions()}</div>
             <hr></hr>
-            <div>{renderEvents()}</div>
+            <div className="overflow-auto" style={{ maxHeight: "600px" }}>
+                {renderEvents()}
+            </div>
             <Modal
                 id="modifyFilterTime"
                 size=""

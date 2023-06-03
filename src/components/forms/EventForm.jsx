@@ -10,6 +10,7 @@ import LocationSelector from "./LocationSelector";
 import STYLE from "../../style";
 import MemberSelector from "./MemberSelector";
 import Switch from "./Switch";
+import { toast } from "react-toastify";
 
 const EventForm = ({ id }) => {
     const { submitData, changeData, eventToNav } = useContext(EventContext);
@@ -168,7 +169,9 @@ const EventForm = ({ id }) => {
                             className="d-flex align-items-center btn btn-primary"
                             data-bs-dismiss="modal"
                             onClick={() => {
-                                eventToNav(locationId);
+                                if (locationId === -1)
+                                    toast("您还没有选择地点");
+                                else eventToNav(locationId);
                             }}
                         >
                             <p className="mb-0 pe-2">查看导航</p>
