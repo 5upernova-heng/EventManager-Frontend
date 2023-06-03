@@ -1,6 +1,5 @@
 import request from "./request";
-// import { apiRoot } from "../config.json";
-const apiRoot = "http://localhost:5000";
+import { apiRoot } from "../config.json";
 
 export async function getEventsApi(uid, time, targetId, ltime, rtime) {
     console.log("Sending request: getEventsApi |", uid);

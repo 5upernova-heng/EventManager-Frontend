@@ -1,6 +1,5 @@
 import request from "./request";
-// import { apiRoot } from "/src/config.json";
-const apiRoot = "http://localhost:5000";
+import { apiRoot } from "/src/config.json";
 
 export async function login(account, time) {
     const { username, password } = account;

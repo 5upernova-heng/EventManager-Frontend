@@ -40,7 +40,8 @@ Essiencial
    1. 消息提醒应该为全局，而不是组件级别
 
 2. With backend:
-   1. Call route searching after remind
+   1. remind 下一天事件时输出路径
+   1. 从事件查看页面跳转到导航
 
 More:
 - Sort location selector by alphabet

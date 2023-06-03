@@ -1,6 +1,5 @@
 import request from "./request";
-// import { apiRoot } from "/src/config.json";
-const apiRoot = "http://localhost:5000";
+import { apiRoot } from "/src/config.json";
 
 export async function getOneUserApi(uid, time, targetId) {
     console.log("Send request: getOneUserApi |", uid, time, targetId);
