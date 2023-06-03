@@ -34,7 +34,6 @@ function LiveMap({}) {
 
     useEffect(() => {
         clear();
-        console.log(showRoutes);
         if (showRoutes) {
             console.log(routes);
             const canvas = canvasRef.current;
@@ -45,7 +44,6 @@ function LiveMap({}) {
                 if (route[0] === 0) {
                     drawLine(context, x1, y1, x2, y2, 5, "black");
                 } else {
-                    console.log("Blue");
                     drawLine(context, x1, y1, x2, y2, 5, "green");
                 }
             });
@@ -56,7 +54,6 @@ function LiveMap({}) {
         const canvas = canvasRef.current;
         const context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.width, canvas.height);
-        console.log("clear");
     };
 
     const drawLine = (context, x1, y1, x2, y2, lineWidth, color) => {

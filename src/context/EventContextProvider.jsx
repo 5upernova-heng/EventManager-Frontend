@@ -26,6 +26,8 @@ export const EventContext = createContext();
 export default function EventContextProvider({ children }) {
     const { date, viewDate } = useContext(TimeContext);
     const {
+        navPoints,
+        selectedNav,
         findRoute,
         setSelected,
         setNavPoint,
@@ -80,7 +82,7 @@ export default function EventContextProvider({ children }) {
     /** mount data */
     useEffect(() => {
         if (isLogin) getEvents();
-    }, [isLogin]);
+    }, [isLogin, date.getHours()]);
 
     /**  Distrube events to a 2D array*/
     const distrube = () => {
@@ -263,6 +265,7 @@ export default function EventContextProvider({ children }) {
     const eventToNav = async (locationId) => {
         setSelected(1);
         setNavPoint(locationId);
+        console.log(navPoints);
         await findRoute();
         navigate("/map");
     };

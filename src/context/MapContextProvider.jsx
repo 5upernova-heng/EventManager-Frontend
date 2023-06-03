@@ -86,9 +86,9 @@ export default function MapContextProvider({ children }) {
     };
 
     const setNavPoint = (location) => {
-        const newNav = [...navPoints];
-        newNav[selectedNav] = location;
-        setNavPoints(newNav);
+        navPoints[selectedNav] = location;
+        setNavPoints(navPoints);
+        console.log(navPoints);
     };
 
     const deleteNavPoint = (id) => {
@@ -119,6 +119,7 @@ export default function MapContextProvider({ children }) {
 
     const findRoute = async () => {
         const passBy = [...navPoints];
+        console.log(passBy);
         const start = passBy.splice(0, 1)[0];
         const { response } = await findRouteApi(uid, time, start, passBy, ride);
         const resultRoutes = response.map((route) => {

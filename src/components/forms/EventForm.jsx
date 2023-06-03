@@ -168,10 +168,13 @@ const EventForm = ({ id }) => {
                         <button
                             className="d-flex align-items-center btn btn-primary"
                             data-bs-dismiss="modal"
-                            onClick={() => {
+                            onClick={async () => {
+                                console.log(locationId);
                                 if (locationId === -1)
                                     toast("您还没有选择地点");
-                                else eventToNav(locationId);
+                                else {
+                                    await eventToNav(locationId);
+                                }
                             }}
                         >
                             <p className="mb-0 pe-2">查看导航</p>
