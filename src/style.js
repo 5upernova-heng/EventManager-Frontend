@@ -13,7 +13,7 @@ const keywordLabel = ["标题", "地点", "创建者"];
 const filterLabel = ["时间", "事件类型", "事件周期"];
 const messageCategoryLabel = ["闹钟提醒", "新增事件", "事件更改", "明日事件"];
 const searchModeLabel = ["搜索结果取交集", "搜索结果取并集"];
-const modePrompt = ["请选择起始地和目的地", "请添加途径节点（无序）"];
+const modePrompt = ["请选择起始地和目的地", "请添加途径节点"];
 
 const getCategoryLabel = (category) => {
     return categoryLabel[category];
