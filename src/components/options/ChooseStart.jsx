@@ -4,7 +4,8 @@ import LocationSelector from "../forms/LocationSelector";
 import { Link, useNavigate } from "react-router-dom";
 
 function ChooseStart() {
-    const { navPoints, setNavPoint, getLocationName } = useContext(MapContext);
+    const { navPoints, setNavPoint, setSelected, getLocationName } =
+        useContext(MapContext);
     return (
         <>
             <div className="d-flex align-items-center justify-content-between">
@@ -31,7 +32,8 @@ function ChooseStart() {
                     <LocationSelector
                         selected={navPoints[0]}
                         changeLocation={(location) => {
-                            setNavPoint(0, location);
+                            setSelected(0);
+                            setNavPoint(location);
                         }}
                     />
                 </div>

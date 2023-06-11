@@ -123,7 +123,7 @@ const EventForm = ({ id }) => {
     const renderCategoryButton = () => {
         return STYLE.categoryStyle
             .filter((_, index) => {
-                return !(auth === 0 && index < 2) && id !== "modify";
+                return !(auth === 0 && index > 2) && id !== "modify";
             })
             .map((category) => {
                 return category;

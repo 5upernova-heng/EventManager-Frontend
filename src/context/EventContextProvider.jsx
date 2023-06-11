@@ -21,13 +21,12 @@ import { MapContext } from "./MapContextProvider";
 import { useNavigate } from "react-router-dom";
 import { getAllRemindsApi } from "../api/remindApi";
 
-export const EventContext = createContext();
+export const EventContext = createContext(null);
 
 export default function EventContextProvider({ children }) {
     const { date, viewDate } = useContext(TimeContext);
     const {
         navPoints,
-        selectedNav,
         findRoute,
         setSelected,
         setNavPoint,
@@ -90,8 +89,8 @@ export default function EventContextProvider({ children }) {
         const tempEvents = [];
         events.map((event) => {
             const date = new Date(event.startTime);
-            if (event.category != 0) {
-                if (event.doLoop == 1) {
+            if (event.category !== 0) {
+                if (event.doLoop === 1) {
                     for (let day = 0; day < 7; day++) {
                         normalEvents[day].push(event);
                     }
@@ -212,7 +211,7 @@ export default function EventContextProvider({ children }) {
         if (response === 1) toast("覆盖失败：权限不足");
         toast("覆盖成功");
         getEvents();
-        return;
+
     };
 
     const coverUpdateEvent = async (newEvent, data) => {
@@ -222,7 +221,7 @@ export default function EventContextProvider({ children }) {
         if (response === 1) toast("覆盖失败：权限不足");
         toast("覆盖成功");
         getEvents();
-        return;
+
     };
 
     /**Return three available time */

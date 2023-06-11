@@ -41,10 +41,10 @@ function LiveMap({}) {
             routes.map((route) => {
                 const { x: x1, y: y1 } = allNodes[route[0]];
                 const { x: x2, y: y2 } = allNodes[route[1]];
-                if (route[0] === 0) {
+                if (route[2] === "0") {
                     drawLine(context, x1, y1, x2, y2, 5, "black");
                 } else {
-                    drawLine(context, x1, y1, x2, y2, 5, "green");
+                    drawLine(context, x1, y1, x2, y2, 5, "blue");
                 }
             });
         }
